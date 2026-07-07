@@ -1,0 +1,2863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Knowledge Base - AI Chatbot</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #f8f9fc;
+      color: #1e293b;
+      display: flex !important;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ============ SIDEBAR ============ */
+    .sidebar {
+      width: 280px;
+      background: #1e1b4b;
+      color: #e2e8f0;
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      z-index: 100;
+      box-shadow: 4px 0 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .sidebar-header {
+      padding: 24px 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-icon {
+      width: 42px;
+      height: 42px;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+    }
+
+    .brand-text h2 {
+      font-size: 16px;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 2px;
+    }
+
+    .brand-text span {
+      font-size: 11px;
+      color: #94a3b8;
+    }
+
+    .sidebar-nav {
+      flex: 1;
+      padding: 20px 0;
+      overflow-y: auto;
+    }
+
+    .nav-section {
+      padding: 8px 20px;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #64748b;
+      font-weight: 600;
+      margin-top: 16px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 20px;
+      cursor: pointer;
+      font-size: 14px;
+      color: #cbd5e1;
+      transition: all 0.2s;
+      border-left: 3px solid transparent;
+      text-decoration: none;
+    }
+
+    .nav-item:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: white;
+    }
+
+    .nav-item.active {
+      background: rgba(99, 102, 241, 0.15);
+      color: white;
+      border-left-color: #6366f1;
+      font-weight: 500;
+    }
+
+    .nav-item .icon {
+      font-size: 18px;
+      width: 24px;
+      text-align: center;
+    }
+
+    /* ============ MAIN CONTENT ============ */
+    .main-content {
+      flex: 1;
+      margin-left: 280px;
+      min-height: 100vh;
+      display: flex !important;
+      flex-direction: column !important;
+      width: auto !important;
+      background: #f8f9fc !important;
+    }
+
+    /* Responsive: Mobile/Tablet */
+    @media (max-width: 768px) {
+      .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s;
+      }
+      
+      .sidebar.mobile-open {
+        transform: translateX(0);
+      }
+      
+      .main-content {
+        margin-left: 0;
+        width: 100%;
+      }
+    }
+
+    /* Top Bar */
+    .topbar {
+      background: white;
+      padding: 16px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #e2e8f0;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .mobile-menu-btn {
+      display: none;
+      width: 40px;
+      height: 40px;
+      background: #f1f5f9;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 20px;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    @media (max-width: 768px) {
+      .mobile-menu-btn {
+        display: flex;
+      }
+    }
+
+    .topbar-left .page-label {
+      font-size: 13px;
+      color: #64748b;
+      font-weight: 500;
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .domain-selector {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 16px;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+      transition: all 0.2s;
+      font-size: 15px;
+      font-weight: 600;
+      position: relative;
+    }
+
+    .domain-selector:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+    }
+
+    .domain-selector .icon {
+      font-size: 20px;
+    }
+
+    /* Dropdown Menu */
+    .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      margin-top: 8px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+      overflow: hidden;
+      display: none;
+      z-index: 1000;
+      animation: slideDown 0.2s ease;
+      min-width: 220px;
+    }
+
+    .dropdown-menu.show {
+      display: block;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .dropdown-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 20px;
+      color: #1e293b;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .dropdown-item:last-child {
+      border-bottom: none;
+    }
+
+    .dropdown-item:hover {
+      background: #f8fafc;
+    }
+
+    .dropdown-item.active {
+      background: #ede9fe;
+      color: #6366f1;
+      font-weight: 600;
+    }
+
+    .dropdown-item .item-icon {
+      font-size: 18px;
+    }
+
+    .dropdown-item .check {
+      margin-left: auto;
+      color: #6366f1;
+      font-size: 16px;
+    }
+
+    .working-bot-label {
+      font-size: 13px;
+      color: #64748b;
+      font-weight: 500;
+    }
+
+    .status-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: #d1fae5;
+      color: #065f46;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      background: #10b981;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    .btn-logout {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #fef2f2;
+      border: 1px solid #fca5a5;
+      color: #dc2626;
+      border-radius: 9999px;
+      padding: 6px 20px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-logout:hover {
+      background-color: #fee2e2;
+      border-color: #f87171;
+      color: #b91c1c;
+    }
+
+    .super-admin-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background-color: #fffbeb;
+      border: 1px solid #fde68a;
+      color: #ea580c;
+      border-radius: 9999px;
+      padding: 6px 16px;
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .super-admin-badge span {
+      display: inline-block;
+    }
+
+    .theme-toggle-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 2px solid #000000;
+      background-color: #eff6ff; /* light blue */
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      padding: 0;
+      outline: none;
+    }
+    .theme-toggle-btn:hover {
+      transform: scale(1.05);
+      background-color: #e2e8f0;
+    }
+
+    .btn-refresh {
+      padding: 8px 16px;
+      background: #6366f1;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-refresh:hover {
+      background: #4f46e5;
+    }
+
+    /* Content Area */
+    .content {
+      padding: 32px;
+    }
+
+    .page-header {
+      background: #f8f9fc;
+      padding: 24px 32px;
+      margin: -32px -32px 32px -32px;
+      border-bottom: 1px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .page-header-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .page-header-icon {
+      width: 56px;
+      height: 56px;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+    }
+
+    .page-header-text h1 {
+      font-size: 22px;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 4px;
+    }
+
+    .page-header-text p {
+      font-size: 13px;
+      color: #64748b;
+    }
+
+    .page-header-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    
+    .btn-save-all {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .btn-save-all::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+    
+    .btn-save-all:hover::before {
+      left: 100%;
+    }
+    
+    .btn-save-all:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+    }
+    
+    .btn-save-all:active {
+      transform: translateY(0);
+    }
+    
+    .btn-save-all:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+    
+    .btn-save-all .spinner {
+      width: 14px;
+      height: 14px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: white;
+    }
+
+    .ai-features-label {
+      font-size: 13px;
+      color: #64748b;
+      font-weight: 500;
+    }
+
+    .toggle-switch {
+      position: relative;
+      width: 52px;
+      height: 28px;
+      background: #6366f1;
+      border-radius: 14px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .toggle-switch.off {
+      background: #cbd5e1;
+    }
+
+    .toggle-switch::after {
+      content: '';
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 22px;
+      height: 22px;
+      background: white;
+      border-radius: 50%;
+      transition: all 0.3s;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .toggle-switch.on::after {
+      left: 27px;
+    }
+
+    /* Knowledge Cards */
+    .knowledge-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .knowledge-card {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+      border: 1px solid #e2e8f0;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.2s;
+    }
+
+    .knowledge-card:hover {
+      box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+      transform: translateY(-2px);
+    }
+
+    .knowledge-card.full-width {
+      grid-column: span 2;
+    }
+
+    .knowledge-card-header {
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .knowledge-card-header.purple { background: linear-gradient(135deg, #6366f1, #4f46e5); }
+    .knowledge-card-header.blue { background: linear-gradient(135deg, #3b82f6, #0ea5e9); }
+    .knowledge-card-header.green { background: linear-gradient(135deg, #10b981, #059669); }
+    .knowledge-card-header.orange { background: linear-gradient(135deg, #f97316, #fb923c); }
+    .knowledge-card-header.dark { background: linear-gradient(135deg, #1e1b4b, #111827); }
+
+    .header-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      color: white;
+    }
+
+    .header-text {
+      flex: 1;
+    }
+
+    .header-text h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 2px;
+    }
+
+    .header-text p {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.9);
+      font-weight: 500;
+    }
+
+    .knowledge-card-body {
+      padding: 24px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-desc-text {
+      font-size: 13px;
+      color: #64748b;
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: #374151;
+      margin-bottom: 8px;
+    }
+
+    .form-input,
+    .form-textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 10px;
+      font-size: 14px;
+      font-family: inherit;
+      background: #f8fafc;
+      transition: all 0.2s;
+    }
+
+    .form-input:focus,
+    .form-textarea:focus {
+      outline: none;
+      border-color: #6366f1;
+      background: white;
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    }
+
+    .form-textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .form-hint {
+      font-size: 12px;
+      color: #94a3b8;
+      margin-top: 6px;
+    }
+
+    .btn-submit {
+      padding: 12px 24px;
+      background: #6366f1;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+      width: fit-content;
+    }
+
+    .btn-submit.btn-outline {
+      background: white;
+      border: 1.5px solid #6366f1;
+      color: #6366f1;
+    }
+
+    .btn-submit.btn-outline:hover {
+      background: #f5f3ff;
+    }
+
+    .btn-submit:hover:not(.btn-outline) {
+      background: #4f46e5;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+    }
+
+    .btn-submit:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .status-message {
+      margin-top: 16px;
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      display: none;
+    }
+
+    .status-message.success {
+      background: #d1fae5;
+      color: #065f46;
+      border: 1px solid #10b981;
+      display: block;
+    }
+
+    .status-message.error {
+      background: #fee2e2;
+      color: #991b1b;
+      border: 1px solid #ef4444;
+      display: block;
+    }
+
+    .status-message.loading {
+      background: #dbeafe;
+      color: #1e40af;
+      border: 1px solid #3b82f6;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .spinner {
+      width: 16px;
+      height: 16px;
+      border: 2px solid #93c5fd;
+      border-top-color: #1e40af;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .upload-section {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 16px;
+      width: 100%;
+    }
+
+    .upload-drop-zone {
+      border: 2px dashed #cbd5e1;
+      border-radius: 12px;
+      padding: 32px 20px;
+      text-align: center;
+      background: #fafbff;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .upload-drop-zone:hover {
+      border-color: #6366f1;
+      background: #f5f7ff;
+    }
+
+    .upload-drop-zone .zone-icon {
+      font-size: 32px;
+    }
+
+    .upload-drop-zone p {
+      font-size: 14px;
+      color: #334155;
+      font-weight: 600;
+    }
+
+    .upload-drop-zone small {
+      font-size: 12px;
+      color: #94a3b8;
+    }
+
+    .super-admin-badge {
+      padding: 6px 18px;
+      background: linear-gradient(135deg, #f59e0b, #f97316);
+      color: white;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 2px 8px rgba(245, 158, 11, 0.2);
+    }
+
+    /* Chunks list styles */
+    .chunk-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 8px;
+      max-height: 360px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .chunk-item {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .chunk-item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px dashed #e2e8f0;
+      padding-bottom: 8px;
+    }
+
+    .chunk-source {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .chunk-source.url { color: #6366f1; }
+    .chunk-source.pdf { color: #0284c7; }
+    .chunk-source.manual_text { color: #059669; }
+    .chunk-source.document { color: #ea580c; }
+
+    .chunk-date {
+      font-size: 11px;
+      color: #94a3b8;
+    }
+
+    .chunk-content {
+      font-size: 13px;
+      color: #334155;
+      line-height: 1.6;
+      word-break: break-word;
+      white-space: pre-wrap;
+    }
+
+    .btn-delete-chunk {
+      background: none;
+      border: none;
+      color: #ef4444;
+      cursor: pointer;
+      font-size: 14px;
+      padding: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+
+    .btn-delete-chunk:hover {
+      background: #fef2f2;
+      transform: scale(1.1);
+    }
+
+    .empty-chunks-state {
+      padding: 40px 20px;
+      text-align: center;
+      color: #94a3b8;
+      font-size: 13.5px;
+    }
+
+    .toggle-switch {
+      width: 44px;
+      height: 24px;
+      border-radius: 12px;
+      background: #cbd5e1;
+      position: relative;
+      cursor: pointer;
+      transition: background 0.2s;
+      flex-shrink: 0;
+    }
+
+    .toggle-switch.on {
+      background: #6366f1;
+    }
+
+    .toggle-switch::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: white;
+      top: 2px;
+      left: 2px;
+      transition: left 0.2s;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+
+    .toggle-switch.on::after {
+      left: 22px;
+    }
+    
+    /* Super Admin layout overrides */
+    body.superadmin-view,
+    body.superadmin-view .main-content,
+    body.superadmin-view .page-header {
+      background: #ffffff !important;
+      background-color: #ffffff !important;
+    }
+
+    /* Dark Theme styling rules */
+    body.dark-theme,
+    body.dark-theme .main-content,
+    body.dark-theme .page-header {
+      background: #0f172a !important;
+      background-color: #0f172a !important;
+      color: #f1f5f9 !important;
+    }
+    body.dark-theme h1,
+    body.dark-theme h2,
+    body.dark-theme h3,
+    body.dark-theme h4,
+    body.dark-theme .brand-text h2 {
+      color: #ffffff !important;
+    }
+    body.dark-theme p,
+    body.dark-theme .page-header-text p {
+      color: #94a3b8 !important;
+    }
+    body.dark-theme .topbar {
+      background: #0f172a !important;
+      border-bottom-color: #1e293b !important;
+    }
+    body.dark-theme .card,
+    body.dark-theme .stat-card,
+    body.dark-theme .data-table,
+    body.dark-theme .sessions-pane,
+    body.dark-theme .sessions-header,
+    body.dark-theme .sessions-list,
+    body.dark-theme .thread-pane,
+    body.dark-theme .thread-header,
+    body.dark-theme .thread-messages,
+    body.dark-theme .tab-content,
+    body.dark-theme .modal-content {
+      background: #1e293b !important;
+      background-color: #1e293b !important;
+      border-color: #334155 !important;
+      color: #f1f5f9 !important;
+    }
+    body.dark-theme .session-item {
+      background: #1e293b !important;
+      border-color: #334155 !important;
+    }
+    body.dark-theme .session-item:hover {
+      background: #334155 !important;
+    }
+    body.dark-theme .session-item.active {
+      background: #312e81 !important;
+      border-color: #4f46e5 !important;
+    }
+    body.dark-theme .session-title {
+      color: #f1f5f9 !important;
+    }
+    body.dark-theme .session-msg-count {
+      color: #cbd5e1 !important;
+    }
+    body.dark-theme .message-wrapper.assistant .message-bubble {
+      background: #334155 !important;
+      color: #f1f5f9 !important;
+    }
+    body.dark-theme .empty-thread-state h3 {
+      color: #f1f5f9 !important;
+    }
+    body.dark-theme .empty-thread-state p {
+      color: #94a3b8 !important;
+    }
+    body.dark-theme table {
+      color: #f1f5f9 !important;
+    }
+    body.dark-theme th {
+      background-color: #334155 !important;
+      color: #f1f5f9 !important;
+      border-bottom-color: #475569 !important;
+    }
+    body.dark-theme td {
+      border-bottom-color: #334155 !important;
+      color: #e2e8f0 !important;
+    }
+    body.dark-theme input[type="text"],
+    body.dark-theme input[type="email"],
+    body.dark-theme input[type="number"],
+    body.dark-theme input[type="password"],
+    body.dark-theme select,
+    body.dark-theme textarea {
+      background-color: #0f172a !important;
+      border-color: #334155 !important;
+      color: #f1f5f9 !important;
+    }
+    body.dark-theme input::placeholder,
+    body.dark-theme textarea::placeholder {
+      color: #475569 !important;
+    }
+    body.dark-theme .theme-toggle-btn {
+      background-color: #1e293b !important;
+      border-color: #ffffff !important;
+      color: #ffffff !important;
+    }
+    body.dark-theme .btn-refresh-chats {
+      background-color: #0f172a !important;
+      border-color: #334155 !important;
+      color: #cbd5e1 !important;
+    }
+    body.dark-theme .btn-refresh-chats:hover {
+      background-color: #1e293b !important;
+    }
+    body.dark-theme .modal-header,
+    body.dark-theme .modal-footer {
+      border-color: #334155 !important;
+    }
+    body.dark-theme .btn-delete-session-icon {
+      color: #ef4444 !important;
+    }
+
+    /* ============ NEW TABBED LAYOUT STYLES ============ */
+    .training-tabs-container {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 24px;
+      border-bottom: 1px solid #e2e8f0;
+      padding-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .training-tab-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: 9999px;
+      border: 1px solid #e2e8f0;
+      background: #f8fafc;
+      color: #64748b;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .training-tab-btn:hover {
+      background: #ede9fe;
+      color: #6366f1;
+      border-color: #c7d2fe;
+    }
+
+    .training-tab-btn.active {
+      background: #6366f1;
+      color: white;
+      border-color: #6366f1;
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+    }
+
+    .training-tab-content {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .training-tab-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .training-content-box {
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      margin-bottom: 32px;
+      transition: all 0.2s;
+    }
+
+    .knowledge-tabs-container {
+      display: flex;
+      gap: 24px;
+      border-bottom: 1.5px solid #e2e8f0;
+      margin-bottom: 20px;
+      padding-bottom: 0;
+      flex-wrap: wrap;
+    }
+
+    .knowledge-tab-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 4px;
+      border: none;
+      background: none;
+      color: #64748b;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.2s ease;
+    }
+
+    .knowledge-tab-btn:hover {
+      color: #6366f1;
+    }
+
+    .knowledge-tab-btn.active {
+      color: #6366f1;
+      font-weight: 700;
+    }
+
+    .knowledge-tab-btn.active::after {
+      content: '';
+      position: absolute;
+      bottom: -1.5px;
+      left: 0;
+      right: 0;
+      height: 2.5px;
+      background: #6366f1;
+      border-radius: 9999px;
+    }
+
+    .knowledge-tab-btn .tab-count {
+      background: #f1f5f9;
+      color: #64748b;
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 9999px;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+
+    .knowledge-tab-btn.active .tab-count {
+      background: #ede9fe;
+      color: #6366f1;
+    }
+
+    /* Dark Theme Overrides */
+    body.dark-theme .training-tab-btn {
+      background: #1e293b;
+      border-color: #334155;
+      color: #94a3b8;
+    }
+
+    body.dark-theme .training-tab-btn:hover {
+      background: #334155;
+      color: #ffffff;
+    }
+
+    body.dark-theme .training-tab-btn.active {
+      background: #6366f1;
+      color: white;
+      border-color: #6366f1;
+    }
+
+    body.dark-theme .training-content-box {
+      background: #1e293b;
+      border-color: #334155;
+    }
+
+    body.dark-theme .knowledge-tabs-container {
+      border-bottom-color: #334155;
+    }
+
+    body.dark-theme .knowledge-tab-btn {
+      color: #94a3b8;
+    }
+
+    body.dark-theme .knowledge-tab-btn:hover {
+      color: #818cf8;
+    }
+
+    body.dark-theme .knowledge-tab-btn.active {
+      color: #818cf8;
+    }
+
+    body.dark-theme .knowledge-tab-btn.active::after {
+      background: #818cf8;
+    }
+
+    body.dark-theme .knowledge-tab-btn .tab-count {
+      background: #334155;
+      color: #94a3b8;
+    }
+
+    body.dark-theme .knowledge-tab-btn.active .tab-count {
+      background: #312e81;
+      color: #818cf8;
+    }
+  
+    /* Sidebar Toggles styles */
+    .sidebar-toggle-container {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2px;
+      cursor: pointer;
+    }
+    .sidebar-switch {
+      position: relative;
+      width: 38px;
+      height: 20px;
+      background: #475569;
+      border-radius: 10px;
+      transition: all 0.3s;
+    }
+    .sidebar-switch.active {
+      background: #6366f1;
+    }
+    .sidebar-switch::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 16px;
+      height: 16px;
+      background: white;
+      border-radius: 50%;
+      transition: all 0.3s;
+    }
+    .sidebar-switch.active::after {
+      left: 20px;
+    }
+
+    /* Modals */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(15, 23, 42, 0.4);
+      backdrop-filter: blur(4px);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal.show {
+      display: flex;
+    }
+
+    .modal-content {
+      background: white;
+      border-radius: 16px;
+      width: 100%;
+      max-width: 500px;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      overflow: hidden;
+      border: 1px solid #e2e8f0;
+      animation: modalSlideUp 0.3s ease-out;
+    }
+
+    @keyframes modalSlideUp {
+      from {
+        transform: translateY(20px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .modal-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .modal-header h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .modal-close {
+      font-size: 20px;
+      cursor: pointer;
+      color: #94a3b8;
+      transition: color 0.2s;
+      display: inline-block;
+      line-height: 1;
+    }
+
+    .modal-close:hover {
+      color: #475569;
+    }
+
+    .modal-body {
+      padding: 24px;
+    }
+
+    .modal-footer {
+      padding: 16px 24px;
+      border-top: 1px solid #e2e8f0;
+      background: #f8fafc;
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+    }
+
+    /* ============ BOT CREATION REVEAL ANIMATION ============ */
+    @keyframes revealSlideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-16px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .reveal-animate {
+      animation: revealSlideDown 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    /* Modal button loading state */
+    .btn-submit:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+      transform: none !important;
+      box-shadow: none !important;
+    }
+  </style>
+</head>
+<body>
+  <!-- Sidebar (will be rendered dynamically) -->
+  <div class="sidebar"></div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <!-- Top Bar (will be rendered dynamically) -->
+    <div class="topbar"></div>
+
+    <!-- Hidden elements for JS selector hooks -->
+    <div style="display: none;">
+      <div id="domainSelector">
+        <span id="selectedDomain">All Domains</span>
+      </div>
+      <div id="dropdownMenu">
+        <div class="dropdown-item active" data-domain="all">
+          <span>🌐</span>
+          <span>All Domains</span>
+          <span class="check">✓</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+      <!-- Page Header -->
+      <div class="page-header" style="background: white; border-bottom: 1px solid #e2e8f0; padding: 24px 0; margin-bottom: 32px; display: flex; align-items: center; justify-content: space-between; margin-top: -12px;">
+        <div class="page-header-left" style="display: flex; align-items: center; gap: 16px;">
+          <div class="page-header-icon" style="font-size: 32px;">🧠</div>
+          <div class="page-header-text">
+            <h1 style="font-size: 24px; font-weight: 800; color: #4f46e5; margin-bottom: 4px;">AI Chatbot Knowledge Base</h1>
+            <p style="font-size: 14px; color: #64748b;">Train your landing page chatbot on your custom domain, texts, and PDF documents.</p>
+          </div>
+        </div>
+        <div class="page-header-right" style="display: flex; align-items: center; gap: 16px;">
+          <button class="btn-submit" onclick="openCreateBotModal()" style="padding: 10px 24px; font-weight: 700; font-size: 13px; background: #6366f1; color: white; border: none; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.2s;">
+            <span>+</span> Create Bot
+          </button>
+          <button class="btn-save-all" onclick="saveAllKnowledge()" style="display:none;">
+            <span>💾</span>
+            <span>Save All Knowledge</span>
+          </button>
+          <div style="display: flex; align-items: center; gap: 10px; background: #f8fafc; border: 1px solid #e2e8f0; padding: 8px 16px; border-radius: 12px;">
+            <span class="ai-features-label" style="font-size: 13px; font-weight: 600; color: #475569;">AI Responses</span>
+            <div class="toggle-switch on" id="aiToggle" onclick="toggleAI()"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Create Bot Placeholder -->
+      <div id="createBotPlaceholder" style="background: white; border: 2px dashed #cbd5e1; border-radius: 16px; padding: 48px 32px; text-align: center; margin-bottom: 32px;">
+        <span style="font-size: 48px; display: block; margin-bottom: 16px;">🤖</span>
+        <h3 style="font-size: 20px; font-weight: 700; color: #1e293b; margin-bottom: 8px;">No AI Chatbot Selected</h3>
+        <p style="font-size: 14px; color: #64748b; max-width: 450px; margin: 0 auto 24px auto;">
+          Please select an AI Chatbot from the dropdown in the top bar or click the "+ Create Bot" button to create a new one and start training your AI.
+        </p>
+        <button class="btn-submit" onclick="openCreateBotModal()" style="margin: 0 auto;">
+          <span>+</span> Create Bot
+        </button>
+      </div>
+
+      <!-- Training Section Wrapper (Hidden until bot is created/selected) -->
+      <div id="aiTrainingSection" style="display: none;">
+        <!-- Training Tabs Navigation -->
+        <div class="training-tabs-container">
+          <button class="training-tab-btn active" onclick="switchTrainingTab('website-scraper')">
+            <span>🌐</span> Website URL
+          </button>
+          <button class="training-tab-btn" onclick="switchTrainingTab('pdf-document')">
+            <span>📄</span> PDF Upload
+          </button>
+          <button class="training-tab-btn" onclick="switchTrainingTab('raw-text')">
+            <span>📝</span> Custom Text / Instructions
+          </button>
+        </div>
+
+        <!-- Training Content Box -->
+        <div class="training-content-box">
+          <!-- Website Scraper Panel -->
+          <div id="panel-website-scraper" class="training-tab-content active">
+            <p class="card-desc-text">Train the demo chatbot by scraping a public web page's text contents.</p>
+            <div class="form-group">
+              <label class="form-label" for="websiteUrl">Website URL</label>
+              <input 
+                type="url" 
+                id="websiteUrl" 
+                class="form-input" 
+                placeholder="https://example.com/about"
+              >
+            </div>
+            <button class="btn-submit" onclick="trainFromUrl()">
+              <span>🚀</span>
+              <span>Train AI</span>
+            </button>
+            <div id="urlStatus" class="status-message"></div>
+          </div>
+
+          <!-- PDF Document Panel -->
+          <div id="panel-pdf-document" class="training-tab-content">
+            <p class="card-desc-text">Upload a PDF file (max 10MB) to teach the bot details and facts.</p>
+            <div class="upload-section">
+              <label for="pdfFile" class="upload-drop-zone">
+                <span class="zone-icon">📁</span>
+                <p id="pdfFileNameDisplay">Click to choose PDF</p>
+                <small>PDF files up to 10MB</small>
+              </label>
+              <input type="file" id="pdfFile" accept=".pdf" onchange="handlePdfSelect(event)" style="display: none;">
+            </div>
+            <div id="pdfStatus" class="status-message"></div>
+            <button class="btn-submit" id="trainPdfBtn" onclick="trainFromPdf()" style="margin-top: 16px; display: none;">
+              <span>🚀</span>
+              <span>Train AI</span>
+            </button>
+          </div>
+
+          <!-- Raw Text Panel -->
+          <div id="panel-raw-text" class="training-tab-content">
+            <p class="card-desc-text">Enter any raw text context, instructions, or FAQs you want the AI to remember.</p>
+            <div class="form-group">
+              <textarea 
+                id="textContent" 
+                class="form-textarea" 
+                placeholder="Paste details, policies, FAQs, or support information here..."
+              ></textarea>
+            </div>
+            <button class="btn-submit" onclick="trainFromText()">
+              <span>🚀</span>
+              <span>Train AI</span>
+            </button>
+            <div id="textStatus" class="status-message"></div>
+          </div>
+
+          <!-- File Upload Panel -->
+          <div id="panel-file-upload" class="training-tab-content">
+            <p class="card-desc-text">Upload DOCX or TXT files to extract and train from their content.</p>
+            <div class="upload-section">
+              <label for="docFile" class="upload-drop-zone">
+                <span class="zone-icon">📁</span>
+                <p>Click to choose file</p>
+                <small>DOCX, TXT files up to 10MB</small>
+              </label>
+              <input type="file" id="docFile" accept=".docx,.txt,.doc" onchange="trainFromDoc(event)" style="display: none;">
+            </div>
+            <div id="docStatus" class="status-message"></div>
+          </div>
+        </div>
+
+        <!-- Generate Script Section (Hidden by default) -->
+        <div id="generateScriptSection" style="display: none; background: #ecfdf5; border: 1px solid #10b981; border-radius: 12px; padding: 20px; margin-bottom: 24px; align-items: center; justify-content: space-between; gap: 16px;">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <span style="font-size: 24px;">⚡</span>
+            <div>
+              <h4 style="font-size: 15px; font-weight: 700; color: #065f46; margin-bottom: 4px;">AI Training Completed Successfully!</h4>
+              <p style="font-size: 13px; color: #047857; margin: 0;">You can now generate and embed the chatbot script on your website.</p>
+            </div>
+          </div>
+          <button class="btn-submit" onclick="showEmbedScriptModal()" style="background: #10b981; color: white; border: none; font-weight: 700; padding: 10px 20px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.2s; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);">
+            <span>⚡</span> Generate Script
+          </button>
+        </div>
+
+        <!-- Trained Knowledge Base Chunks -->
+        <div class="knowledge-card full-width" id="card-trained-chunks" style="width: 100%;">
+          <div class="knowledge-card-header dark" style="justify-content: space-between;">
+            <div style="display: flex; align-items: center; gap: 16px; flex: 1;">
+              <div class="header-icon">📚</div>
+              <div class="header-text">
+                <h3>Trained Knowledge Base Chunks</h3>
+                <p id="chunks-count">0 chunk(s) trained</p>
+              </div>
+            </div>
+            <button class="btn-submit" onclick="clearAllChunks()" style="background: #ef4444; padding: 8px 16px; font-size: 12px; border-radius: 8px; box-shadow: none; display: flex; align-items: center; gap: 6px; border: none; color: white;">
+              <span>🗑️</span>
+              <span>Clear All</span>
+            </button>
+          </div>
+          <div class="knowledge-card-body">
+            <!-- Bottom Sub-Tabs Navigation -->
+            <div class="knowledge-tabs-container">
+              <button class="knowledge-tab-btn active" onclick="switchKnowledgeTab('url')">
+                <span>🌐</span> Website URLs <span class="tab-count" id="count-url">0</span>
+              </button>
+              <button class="knowledge-tab-btn" onclick="switchKnowledgeTab('pdf')">
+                <span>📄</span> PDF Uploads <span class="tab-count" id="count-pdf">0</span>
+              </button>
+              <button class="knowledge-tab-btn" onclick="switchKnowledgeTab('manual_text')">
+                <span>📝</span> Paste Text Content <span class="tab-count" id="count-text">0</span>
+              </button>
+              <button class="knowledge-tab-btn" id="tab-knowledge-doc" onclick="switchKnowledgeTab('document')">
+                <span>📎</span> Document Uploads <span class="tab-count" id="count-doc">0</span>
+              </button>
+            </div>
+
+            <div id="chunksContainer">
+              <div class="empty-chunks-state">
+                No trained knowledge base chunks found. Add some text, a URL or PDF to get started!
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+    </div>
+  </div>
+
+  <!-- Create Bot Modal -->
+  <div class="modal" id="createBotModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>🤖 Create New AI Chatbot</h3>
+        <span class="modal-close" onclick="closeCreateBotModal()">&times;</span>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Bot Name</label>
+          <input type="text" id="modal-bot-name" class="form-input" placeholder="e.g., Customer Support Bot">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Domain Name</label>
+          <input type="text" id="modal-bot-domain" class="form-input" placeholder="e.g., example.com">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-submit btn-outline" onclick="closeCreateBotModal()">Cancel</button>
+        <button id="createBotSubmitBtn" class="btn-submit" onclick="submitCreateBot()">Create Bot</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Embed Script Modal -->
+  <div class="modal" id="embedScriptModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>📜 Embed Script Code</h3>
+        <span class="modal-close" onclick="closeEmbedScriptModal()">&times;</span>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: 13px; color: #64748b; margin-bottom: 16px;">
+          Copy this script and paste it into your website's HTML, just before the closing &lt;/body&gt; tag:
+        </p>
+        <textarea id="scriptCodeTextarea" class="form-textarea" rows="8" readonly style="font-family: 'Courier New', monospace; font-size: 13px; background: #1e293b; color: #e2e8f0; border: 1px solid #334155;"></textarea>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-submit btn-outline" onclick="closeEmbedScriptModal()">Close</button>
+        <button class="btn-submit" onclick="copyScriptToClipboard()">
+          <span>📋</span> Copy Code
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Session authentication check
+    if (sessionStorage.getItem('isLoggedIn') !== 'true') {
+      window.location.href = '/admin/login.html';
+    }
+
+    const API_BASE = window.location.origin;
+
+    // Mobile menu toggle
+    function toggleMobileMenu() {
+      const sidebar = document.querySelector('.sidebar');
+      sidebar.classList.toggle('mobile-open');
+    }
+
+    // Logout function
+    function handleLogout() {
+      sessionStorage.clear();
+      window.location.href = '/admin/login.html';
+    }
+
+    // Theme toggle
+    function toggleDarkMode() {
+      const isDark = document.body.classList.toggle('dark-theme');
+      localStorage.setItem('adminTheme', isDark ? 'dark' : 'light');
+      const btn = document.getElementById('themeToggleBtn');
+      if (btn) btn.innerHTML = isDark ? '☀️' : '🌙';
+      showToast(isDark ? 'Dark theme enabled' : 'Light theme enabled');
+    }
+
+    // Render sidebar and topbar based on role
+        async function renderSidebarAndTopbar() {
+      const userRole = sessionStorage.getItem('userRole') || 'client';
+      const sidebarEl = document.querySelector('.sidebar');
+      const topbarEl = document.querySelector('.topbar');
+      
+      let config = { enableAI: false, primaryMode: 'ai_chatbot' };
+      if (userRole === 'admin') {
+        try {
+          const res = await fetch('/api/config/full');
+          if (res.ok) {
+            config = await res.json();
+          }
+        } catch (err) {
+          console.error('Failed to fetch config for sidebar:', err);
+        }
+      }
+      
+      if (userRole === 'admin') {
+        // Apply white background for admin
+        document.body.classList.add('superadmin-view');
+        
+        const isAIActive = config.enableAI !== false;
+        const isFlowActive = config.primaryMode === 'flow_builder';
+        
+        if (sidebarEl) {
+          sidebarEl.innerHTML = `
+            <div class="sidebar-header">
+              <div class="brand">
+                <div class="brand-icon">🤖</div>
+                <div class="brand-text">
+                  <h2>GA Digital</h2>
+                  <span style="font-size: 11px; color: #10b981; font-weight: 600; display: flex; align-items: center; gap: 4px; margin-top: 2px;">
+                    <span style="display: inline-block; width: 6px; height: 6px; background-color: #10b981; border-radius: 50%;"></span>
+                    Super Admin
+                  </span>
+                </div>
+              </div>
+            </div>
+            <nav class="sidebar-nav">
+              <div class="nav-section">SAAS PLATFORM</div>
+              <a href="/admin/superadmin.html" class="nav-item ${window.location.pathname.includes('superadmin') ? 'active' : ''}">
+                <span class="icon">📊</span>
+                <span>Platform Stats</span>
+              </a>
+              <a href="/admin/superadmin.html?tab=plans" class="nav-item">
+                <span class="icon">💎</span>
+                <span>Plan Packages</span>
+              </a>
+              <div class="nav-section">DEMO CHATBOT SETUP</div>
+              <a href="/admin/settings.html" class="nav-item ${window.location.pathname.includes('settings') ? 'active' : ''}">
+                <span class="icon">⚙️</span>
+                <span>Bot Settings</span>
+              </a>
+              <a href="/admin/knowledge.html" class="nav-item ${window.location.pathname.includes('knowledge') ? 'active' : ''}">
+                <span class="icon">🤖</span>
+                <span>AI Chatbot</span>
+                <div class="sidebar-toggle-container" onclick="handleSidebarToggle(event, 'ai')">
+                  <div class="sidebar-switch ${isAIActive ? 'active' : ''}" id="sidebarToggleAI"></div>
+                </div>
+              </a>
+              <a href="/admin/flowbuilder.html" class="nav-item ${window.location.pathname.includes('flowbuilder') ? 'active' : ''}">
+                <span class="icon">🔄</span>
+                <span>Flow Builder</span>
+                <div class="sidebar-toggle-container" onclick="handleSidebarToggle(event, 'flow')">
+                  <div class="sidebar-switch ${isFlowActive ? 'active' : ''}" id="sidebarToggleFlow"></div>
+                </div>
+              </a>
+              <a href="/admin/dashboard.html" class="nav-item ${window.location.pathname.includes('dashboard') ? 'active' : ''}">
+                <span class="icon">💬</span>
+                <span>Chat History</span>
+              </a>
+            </nav>
+            <div class="sidebar-footer">
+              Powered by AI Chatbot Widget
+            </div>
+          `;
+        }
+        if (topbarEl) {
+          topbarEl.innerHTML = `
+            <div class="topbar-left">
+              <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+              <h1 id="page-title">${document.getElementById('page-title') ? document.getElementById('page-title').textContent : 'Admin Panel'}</h1>
+            </div>
+            <div class="topbar-right">
+              <button id="themeToggleBtn" onclick="toggleDarkMode()" class="theme-toggle-btn" title="Toggle Theme">🌙</button>
+              <div class="super-admin-badge">
+                <span>👑</span>
+                <span>SUPER ADMIN</span>
+              </div>
+              <button class="btn-logout" onclick="handleLogout()">Logout</button>
+            </div>
+          `;
+        }
+      } else {
+        // Apply default background for client
+        document.body.classList.remove('superadmin-view');
+        document.body.style.backgroundColor = '#f8f9fc';
+        const mainContent = document.querySelector('.main-content');
+        if (mainContent) {
+          mainContent.style.backgroundColor = '#f8f9fc';
+          mainContent.style.setProperty('background', '#f8f9fc', 'important');
+        }
+        
+        if (sidebarEl) {
+          sidebarEl.innerHTML = `
+            <div class="sidebar-header">
+              <div class="brand">
+                <div class="brand-icon">🤖</div>
+                <div class="brand-text">
+                  <h2>AI Chatbot</h2>
+                  <span style="font-size: 11px; color: #94a3b8; font-weight: 500;">Admin Panel v3.0</span>
+                </div>
+              </div>
+            </div>
+            <nav class="sidebar-nav">
+              <div class="nav-section">MAIN</div>
+              <a href="/admin/dashboard.html?page=dashboard" class="nav-item">
+                <span class="icon">📊</span>
+                <span>Dashboard</span>
+              </a>
+              <a href="/admin/dashboard.html?page=users" class="nav-item">
+                <span class="icon">👥</span>
+                <span>Users</span>
+              </a>
+              <a href="/admin/dashboard.html?page=chats" class="nav-item">
+                <span class="icon">💬</span>
+                <span>Chats</span>
+              </a>
+              <a href="/admin/dashboard.html?page=leads" class="nav-item">
+                <span class="icon">📝</span>
+                <span>Leads</span>
+              </a>
+              <a href="/admin/dashboard.html?page=analytics" class="nav-item">
+                <span class="icon">📈</span>
+                <span>Analytics</span>
+              </a>
+              <a href="/admin/dashboard.html?page=bots" class="nav-item">
+                <span class="icon">🤖</span>
+                <span>Bots</span>
+              </a>
+              <div class="nav-section">BOT SETUP</div>
+              <a href="/admin/knowledge.html" class="nav-item">
+                <span class="icon">🧠</span>
+                <span>1. AI Chatbot</span>
+              </a>
+              <a href="/admin/flowbuilder.html" class="nav-item active">
+                <span class="icon">🔄</span>
+                <span>2. Flow Builder</span>
+              </a>
+              <div class="nav-section">CONFIGURATION</div>
+              <a href="/admin/dashboard.html?page=settings" class="nav-item">
+                <span class="icon">⚙️</span>
+                <span>Settings</span>
+              </a>
+              <a href="/admin/dashboard.html?page=embed" class="nav-item">
+                <span class="icon">📋</span>
+                <span>Embed Code</span>
+              </a>
+            </nav>
+            <div class="sidebar-footer">
+              Powered by AI Chatbot Widget
+            </div>
+          `;
+        }
+        if (topbarEl) {
+          topbarEl.innerHTML = `
+            <div class="topbar-left">
+              <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+              <h1 id="page-title">2. Flow Builder</h1>
+            </div>
+            <div class="topbar-right">
+              <button id="themeToggleBtn" onclick="toggleDarkMode()" style="background:none; border:none; font-size:20px; cursor:pointer; margin-right:8px;" title="Toggle Light/Dark Theme">☀️</button>
+              <div class="status-badge" style="display: flex; align-items: center; gap: 6px; padding: 6px 12px; background: #d1fae5; color: #065f46; border-radius: 6px; font-size: 12px; font-weight: 600;">
+                <span class="status-dot" style="width: 8px; height: 8px; background: #10b981; border-radius: 50%;"></span>
+                <span>Server Online</span>
+              </div>
+              <button class="btn-logout" onclick="handleLogout()" style="background:#fee2e2; color:#991b1b; border:none; border-radius:8px; padding:8px 16px; font-size:13px; font-weight:600; cursor:pointer;">Logout</button>
+            </div>
+          `;
+        }
+      }
+    }
+
+    async function handleSidebarToggle(event, type) {
+      if (event) {
+        event.stopPropagation();
+        event.preventDefault();
+      }
+      
+      const switchEl = document.getElementById(type === 'ai' ? 'sidebarToggleAI' : 'sidebarToggleFlow');
+      if (!switchEl) return;
+      
+      // Determine intent from current state (do NOT pre-toggle)
+      const isActive = !switchEl.classList.contains('active');
+      
+      try {
+        let payload = {};
+        if (type === 'ai') {
+          payload = { enableAI: isActive };
+          showToast(isActive ? '✅ AI Chatbot enabled — Flow Builder disabled' : '⚠️ AI Chatbot disabled', 'success');
+        } else {
+          payload = { primaryMode: isActive ? 'flow_builder' : 'ai_chatbot' };
+          showToast(isActive ? '✅ Flow Builder Mode active — AI Chatbot disabled' : '✅ AI Chatbot Mode active', 'success');
+        }
+        
+        const res = await fetch('/api/config', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        
+        if (res.ok) {
+          const resData = await res.json();
+          const updatedConfig = resData.config;
+          
+          // Sync BOTH switches from the authoritative server response
+          const aiSwitch = document.getElementById('sidebarToggleAI');
+          const flowSwitch = document.getElementById('sidebarToggleFlow');
+          if (aiSwitch) aiSwitch.classList.toggle('active', updatedConfig.enableAI !== false);
+          if (flowSwitch) flowSwitch.classList.toggle('active', updatedConfig.primaryMode === 'flow_builder');
+        }
+        
+        if (typeof loadConfigData === 'function') {
+          loadConfigData();
+        }
+      } catch (err) {
+        console.error('Failed to toggle config:', err);
+      }
+    }
+
+function toggleMobileMenu() {
+      const sidebar = document.querySelector('.sidebar');
+      sidebar.classList.toggle('mobile-open');
+    }
+
+    // Logout function
+    function handleLogout() {
+      sessionStorage.clear();
+      window.location.href = '/admin/login.html';
+    }
+
+    // Theme toggle
+    function toggleDarkMode() {
+      const isDark = document.body.classList.toggle('dark-theme');
+      localStorage.setItem('adminTheme', isDark ? 'dark' : 'light');
+      const btn = document.getElementById('themeToggleBtn');
+      if (btn) btn.innerHTML = isDark ? '☀️' : '🌙';
+      showToast(isDark ? 'Dark theme enabled' : 'Light theme enabled');
+    }
+
+    // Render sidebar and topbar based on role
+    function renderSidebarAndTopbar() {
+      const userRole = sessionStorage.getItem('userRole') || 'client';
+      const sidebarEl = document.querySelector('.sidebar');
+      const topbarEl = document.querySelector('.topbar');
+      
+      if (userRole === 'admin') {
+        // Apply white background for admin
+        document.body.classList.add('superadmin-view');
+        
+        // Hide File Upload tab and bottom sub-tab for Super Admin
+        const fileUploadTab = document.getElementById('tab-file-upload');
+        if (fileUploadTab) fileUploadTab.style.display = 'none';
+        const docKnowledgeTab = document.getElementById('tab-knowledge-doc');
+        if (docKnowledgeTab) docKnowledgeTab.style.display = 'none';
+        
+        if (sidebarEl) {
+          sidebarEl.innerHTML = `
+            <div class="sidebar-header">
+              <div class="brand">
+                <div class="brand-icon">🤖</div>
+                <div class="brand-text">
+                  <h2>GA Digital</h2>
+                  <span style="font-size: 11px; color: #10b981; font-weight: 600; display: flex; align-items: center; gap: 4px; margin-top: 2px;">
+                    <span style="display: inline-block; width: 6px; height: 6px; background-color: #10b981; border-radius: 50%;"></span>
+                    Super Admin
+                  </span>
+                </div>
+              </div>
+            </div>
+            <nav class="sidebar-nav">
+              <div class="nav-section">SAAS PLATFORM</div>
+              <a href="/admin/superadmin.html" class="nav-item">
+                <span class="icon">📊</span>
+                <span>Platform Stats</span>
+              </a>
+              <a href="/admin/superadmin.html?tab=plans" class="nav-item">
+                <span class="icon">💎</span>
+                <span>Plan Packages</span>
+              </a>
+              <div class="nav-section">DEMO CHATBOT SETUP</div>
+              <a href="/admin/settings.html" class="nav-item">
+                <span class="icon">⚙️</span>
+                <span>Bot Settings</span>
+              </a>
+              <a href="/admin/knowledge.html" class="nav-item active">
+                <span class="icon">🤖</span>
+                <span>AI Chatbot</span>
+              </a>
+              <a href="/admin/flowbuilder.html" class="nav-item">
+                <span class="icon">🔄</span>
+                <span>Flow Builder</span>
+              </a>
+              <a href="/admin/dashboard.html" class="nav-item">
+                <span class="icon">💬</span>
+                <span>Chat History</span>
+              </a>
+            </nav>
+            <div class="sidebar-footer">
+              Powered by AI Chatbot Widget
+            </div>
+          `;
+        }
+        if (topbarEl) {
+          topbarEl.innerHTML = `
+            <div class="topbar-left">
+              <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+              <h1 id="page-title">AI Chatbot</h1>
+            </div>
+            <div class="topbar-right" style="display: flex; align-items: center; gap: 16px;">
+              <div class="domain-selector" id="domainSelector" style="padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 8px; cursor: pointer; position: relative; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white;">
+                <span class="icon">🤖</span>
+                <span id="selectedDomain">Select Chatbot</span>
+                <span class="arrow">▼</span>
+                <div class="dropdown-menu" id="dropdownMenu" style="top: 100%; margin-top: 8px; min-width: 220px;"></div>
+              </div>
+              <button id="themeToggleBtn" onclick="toggleDarkMode()" class="theme-toggle-btn" title="Toggle Theme">🌙</button>
+              <div class="super-admin-badge">
+                <span>👑</span>
+                <span>SUPER ADMIN</span>
+              </div>
+              <button class="btn-logout" onclick="handleLogout()">Logout</button>
+            </div>
+          `;
+        }
+      } else {
+        // Apply default background for client
+        document.body.classList.remove('superadmin-view');
+        document.body.style.backgroundColor = '#f8f9fc';
+        const mainContent = document.querySelector('.main-content');
+        if (mainContent) {
+          mainContent.style.backgroundColor = '#f8f9fc';
+          mainContent.style.setProperty('background', '#f8f9fc', 'important');
+        }
+        
+        // Show File Upload tab and bottom sub-tab for Client
+        const fileUploadTab = document.getElementById('tab-file-upload');
+        if (fileUploadTab) fileUploadTab.style.display = 'flex';
+        const docKnowledgeTab = document.getElementById('tab-knowledge-doc');
+        if (docKnowledgeTab) docKnowledgeTab.style.display = 'flex';
+        
+        if (sidebarEl) {
+          sidebarEl.innerHTML = `
+            <div class="sidebar-header">
+              <div class="brand">
+                <div class="brand-icon">🤖</div>
+                <div class="brand-text">
+                  <h2>AI Chatbot</h2>
+                  <span style="font-size: 11px; color: #94a3b8; font-weight: 500;">Admin Panel v3.0</span>
+                </div>
+              </div>
+            </div>
+            <nav class="sidebar-nav">
+              <div class="nav-section">MAIN</div>
+              <a href="/admin/dashboard.html?page=dashboard" class="nav-item">
+                <span class="icon">📊</span>
+                <span>Dashboard</span>
+              </a>
+              <a href="/admin/dashboard.html?page=users" class="nav-item">
+                <span class="icon">👥</span>
+                <span>Users</span>
+              </a>
+              <a href="/admin/dashboard.html?page=chats" class="nav-item">
+                <span class="icon">💬</span>
+                <span>Chats</span>
+              </a>
+              <a href="/admin/dashboard.html?page=leads" class="nav-item">
+                <span class="icon">📝</span>
+                <span>Leads</span>
+              </a>
+              <a href="/admin/dashboard.html?page=analytics" class="nav-item">
+                <span class="icon">📈</span>
+                <span>Analytics</span>
+              </a>
+              <a href="/admin/dashboard.html?page=bots" class="nav-item">
+                <span class="icon">🤖</span>
+                <span>Bots</span>
+              </a>
+              <div class="nav-section">BOT SETUP</div>
+              <a href="/admin/knowledge.html" class="nav-item active">
+                <span class="icon">🧠</span>
+                <span>1. AI Chatbot</span>
+              </a>
+              <a href="/admin/flowbuilder.html" class="nav-item">
+                <span class="icon">🔄</span>
+                <span>2. Flow Builder</span>
+              </a>
+              <div class="nav-section">CONFIGURATION</div>
+              <a href="/admin/dashboard.html?page=settings" class="nav-item">
+                <span class="icon">⚙️</span>
+                <span>Settings</span>
+              </a>
+              <a href="/admin/dashboard.html?page=embed" class="nav-item">
+                <span class="icon">📋</span>
+                <span>Embed Code</span>
+              </a>
+            </nav>
+            <div class="sidebar-footer">
+              Powered by AI Chatbot Widget
+            </div>
+          `;
+        }
+        if (topbarEl) {
+          topbarEl.innerHTML = `
+            <div class="topbar-left">
+              <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+              <h1 id="page-title">1. AI Chatbot</h1>
+            </div>
+            <div class="topbar-right" style="display: flex; align-items: center; gap: 16px;">
+              <div class="domain-selector" id="domainSelector" style="padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 8px; cursor: pointer; position: relative; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white;">
+                <span class="icon">🤖</span>
+                <span id="selectedDomain">Select Chatbot</span>
+                <span class="arrow">▼</span>
+                <div class="dropdown-menu" id="dropdownMenu" style="top: 100%; margin-top: 8px; min-width: 220px;"></div>
+              </div>
+              <button id="themeToggleBtn" onclick="toggleDarkMode()" style="background:none; border:none; font-size:20px; cursor:pointer; margin-right:8px;" title="Toggle Light/Dark Theme">☀️</button>
+              <div class="status-badge" style="display: flex; align-items: center; gap: 6px; padding: 6px 12px; background: #d1fae5; color: #065f46; border-radius: 6px; font-size: 12px; font-weight: 600;">
+                <span class="status-dot" style="width: 8px; height: 8px; background: #10b981; border-radius: 50%;"></span>
+                <span>Server Online</span>
+              </div>
+              <button class="btn-logout" onclick="handleLogout()" style="background:#fee2e2; color:#991b1b; border:none; border-radius:8px; padding:8px 16px; font-size:13px; font-weight:600; cursor:pointer;">Logout</button>
+            </div>
+          `;
+        }
+      }
+    }
+
+    // Toggle AI Features
+    function toggleAI() {
+      const toggle = document.getElementById('aiToggle');
+      toggle.classList.toggle('on');
+      
+      const isOn = toggle.classList.contains('on');
+      if (isOn) {
+        showToast('✅ AI Features Enabled', 'success');
+      } else {
+        showToast('⚠️ AI Features Disabled', 'warning');
+      }
+    }
+
+    // Show toast notification
+    function showToast(message, type = 'info') {
+      const colors = {
+        success: '#10b981',
+        warning: '#f59e0b',
+        error:   '#ef4444',
+        info:    '#6366f1'
+      };
+      const bg = colors[type] || colors.info;
+      const toast = document.createElement('div');
+      toast.style.cssText = `
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        background: ${bg};
+        color: white;
+        padding: 14px 22px;
+        border-radius: 12px;
+        font-size: 14px;
+        font-weight: 600;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        z-index: 10000;
+        max-width: 380px;
+        line-height: 1.4;
+        animation: toastIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      `;
+      toast.textContent = message;
+      document.body.appendChild(toast);
+      setTimeout(() => {
+        toast.style.transition = 'opacity 0.3s ease';
+        toast.style.opacity = '0';
+        setTimeout(() => toast.remove(), 300);
+      }, 3200);
+    }
+
+    let allChunks = [];
+    let activeKnowledgeTab = 'url';
+    let currentBotId = 'default';
+    let currentBotApiKey = '';
+    let currentBotName = '';
+    let defaultApiKey = '';
+
+    function switchTrainingTab(tabId) {
+      // Hide all panels
+      const panels = document.querySelectorAll('.training-tab-content');
+      panels.forEach(panel => {
+        panel.classList.remove('active');
+      });
+      
+      // Deactivate all buttons
+      const buttons = document.querySelectorAll('.training-tab-btn');
+      buttons.forEach(btn => {
+        btn.classList.remove('active');
+      });
+      
+      // Show target panel
+      const targetPanel = document.getElementById(`panel-${tabId}`);
+      if (targetPanel) {
+        targetPanel.classList.add('active');
+      }
+      
+      // Activate clicked button
+      const clickedBtn = Array.from(buttons).find(btn => btn.getAttribute('onclick').includes(`'${tabId}'`));
+      if (clickedBtn) {
+        clickedBtn.classList.add('active');
+      }
+    }
+
+    function switchKnowledgeTab(tabId) {
+      activeKnowledgeTab = tabId;
+      
+      // Update active class on knowledge buttons
+      const buttons = document.querySelectorAll('.knowledge-tab-btn');
+      buttons.forEach(btn => {
+        if (btn.getAttribute('onclick').includes(`'${tabId}'`)) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+      
+      renderChunks();
+    }
+
+    // Load knowledge chunks from API
+    async function loadChunks() {
+      try {
+        const currentBotId = localStorage.getItem('selectedAiBotId') || 'default';
+        const response = await fetch(`/api/knowledge?botId=${encodeURIComponent(currentBotId)}`);
+        allChunks = await response.json();
+        
+        updateTabCounts();
+        renderChunks();
+
+        // Dynamically show/hide Generate Script option based on trained chunks presence
+        const scriptSection = document.getElementById('generateScriptSection');
+        if (scriptSection) {
+          if (allChunks.length > 0) {
+            scriptSection.style.display = 'flex';
+          } else {
+            scriptSection.style.display = 'none';
+          }
+        }
+      } catch (err) {
+        console.error('Failed to load knowledge chunks:', err);
+        const container = document.getElementById('chunksContainer');
+        if (container) {
+          container.innerHTML = `
+            <div class="empty-chunks-state" style="color: #ef4444;">
+              Failed to load knowledge chunks. Please check console.
+            </div>
+          `;
+        }
+      }
+    }
+
+    function updateTabCounts() {
+      const counts = {
+        url: 0,
+        pdf: 0,
+        manual_text: 0,
+        document: 0
+      };
+
+      allChunks.forEach(chunk => {
+        const type = chunk.source_type || 'manual_text';
+        if (counts[type] !== undefined) {
+          counts[type]++;
+        } else {
+          counts.manual_text++;
+        }
+      });
+
+      document.getElementById('count-url').textContent = counts.url;
+      document.getElementById('count-pdf').textContent = counts.pdf;
+      document.getElementById('count-text').textContent = counts.manual_text;
+      
+      const countDocEl = document.getElementById('count-doc');
+      if (countDocEl) {
+        countDocEl.textContent = counts.document;
+      }
+      
+      const totalCountEl = document.getElementById('chunks-count');
+      if (totalCountEl) {
+        totalCountEl.textContent = `${allChunks.length} chunk(s) trained`;
+      }
+    }
+
+    function renderChunks() {
+      const container = document.getElementById('chunksContainer');
+      if (!container) return;
+
+      const filteredChunks = allChunks.filter(chunk => {
+        const type = chunk.source_type || 'manual_text';
+        return type === activeKnowledgeTab;
+      });
+
+      if (filteredChunks.length === 0) {
+        let emptyMessage = 'No trained website URLs found.';
+        if (activeKnowledgeTab === 'pdf') emptyMessage = 'No trained PDF uploads found.';
+        if (activeKnowledgeTab === 'manual_text') emptyMessage = 'No trained text content found.';
+        if (activeKnowledgeTab === 'document') emptyMessage = 'No trained document uploads found.';
+        
+        container.innerHTML = `
+          <div class="empty-chunks-state">
+            ${emptyMessage} Add some knowledge to get started!
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = `
+        <div class="chunk-list">
+          ${filteredChunks.map(chunk => {
+            const dateStr = chunk.created_at ? new Date(chunk.created_at).toLocaleString() : 'N/A';
+            const sourceClass = chunk.source_type || 'manual_text';
+            const displaySource = chunk.source_type === 'url' ? '🌐 URL: ' : chunk.source_type === 'pdf' ? '📄 PDF: ' : chunk.source_type === 'document' ? '📎 Doc: ' : '📝 Text: ';
+            return `
+              <div class="chunk-item">
+                <div class="chunk-item-header">
+                  <span class="chunk-source ${sourceClass}">
+                    ${displaySource} ${chunk.source_reference || 'Manual Input'}
+                  </span>
+                  <div style="display: flex; align-items: center; gap: 10px;">
+                    <span class="chunk-date">${dateStr}</span>
+                    <button class="btn-delete-chunk" onclick="deleteChunk(${chunk.id})" title="Delete chunk">🗑️</button>
+                  </div>
+                </div>
+                <div class="chunk-content">${escapeHTML(chunk.content)}</div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+      `;
+    }
+
+    function escapeHTML(str) {
+      return str
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    // Delete single chunk
+    async function deleteChunk(id) {
+      if (!confirm('Are you sure you want to delete this knowledge chunk?')) return;
+      
+      try {
+        const response = await fetch(`/api/knowledge/${id}`, {
+          method: 'DELETE'
+        });
+        const data = await response.json();
+        if (data.success) {
+          showToast('✅ Chunk deleted successfully', 'success');
+          loadChunks();
+        } else {
+          showToast('❌ Failed to delete chunk', 'error');
+        }
+      } catch (err) {
+        showToast(`❌ Error: ${err.message}`, 'error');
+      }
+    }
+
+    // Clear all chunks
+    async function clearAllChunks() {
+      if (!confirm('⚠️ WARNING: This will permanently delete ALL trained knowledge chunks! Are you sure?')) return;
+      
+      try {
+        const botId = localStorage.getItem('selectedAiBotId') || 'default';
+        const response = await fetch(`/api/knowledge?botId=${encodeURIComponent(botId)}`, {
+          method: 'DELETE'
+        });
+        const data = await response.json();
+        if (data.success) {
+          showToast('🗑️ All knowledge base chunks cleared!', 'success');
+          loadChunks();
+        } else {
+          showToast('❌ Failed to clear knowledge base', 'error');
+        }
+      } catch (err) {
+        showToast(`❌ Error: ${err.message}`, 'error');
+      }
+    }
+
+    // Train from Website URL
+    async function trainFromUrl() {
+      const url = document.getElementById('websiteUrl').value.trim();
+      const statusEl = document.getElementById('urlStatus');
+
+      if (!url) {
+        statusEl.className = 'status-message error';
+        statusEl.textContent = '❌ Please enter a valid URL';
+        return;
+      }
+
+      statusEl.className = 'status-message loading';
+      statusEl.innerHTML = '<div class="spinner"></div> Scraping website and training AI...';
+
+      try {
+        const botId = localStorage.getItem('selectedAiBotId') || 'default';
+        const response = await fetch(`${API_BASE}/api/knowledge/url`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ url, botId, timestamp: new Date().toISOString(), domain: 'All Domains' })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          statusEl.className = 'status-message success';
+          statusEl.textContent = `✅ Success! Trained from ${data.totalChars} characters. AI is now smarter!`;
+          document.getElementById('websiteUrl').value = '';
+          switchKnowledgeTab('url');
+          loadChunks();
+          showGenerateScriptOption();
+        } else {
+          statusEl.className = 'status-message error';
+          statusEl.textContent = `❌ ${data.error || 'Failed to train from URL'}`;
+        }
+      } catch (error) {
+        statusEl.className = 'status-message error';
+        statusEl.textContent = `❌ Error: ${error.message}`;
+      }
+    }
+
+    let selectedPdfFile = null;
+
+    function handlePdfSelect(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      selectedPdfFile = file;
+      document.getElementById('pdfFileNameDisplay').textContent = `Selected: ${file.name}`;
+      document.getElementById('trainPdfBtn').style.display = 'inline-flex';
+      document.getElementById('pdfStatus').className = 'status-message';
+      document.getElementById('pdfStatus').textContent = '';
+    }
+
+    // Train from PDF
+    async function trainFromPdf() {
+      const file = selectedPdfFile;
+      const statusEl = document.getElementById('pdfStatus');
+      const trainBtn = document.getElementById('trainPdfBtn');
+
+      if (!file) {
+        statusEl.className = 'status-message error';
+        statusEl.textContent = '❌ Please select a PDF file first';
+        return;
+      }
+
+      statusEl.className = 'status-message loading';
+      statusEl.innerHTML = '<div class="spinner"></div> Extracting text from PDF and training AI...';
+      if (trainBtn) trainBtn.disabled = true;
+
+      try {
+        const reader = new FileReader();
+        reader.onload = async (e) => {
+          const botId = localStorage.getItem('selectedAiBotId') || 'default';
+          const response = await fetch(`${API_BASE}/api/knowledge/pdf`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              fileName: file.name,
+              fileData: e.target.result,
+              botId,
+              timestamp: new Date().toISOString(),
+              domain: 'All Domains'
+            })
+          });
+
+          const data = await response.json();
+
+          if (data.success) {
+            statusEl.className = 'status-message success';
+            statusEl.textContent = `✅ Success! Extracted ${data.pages} pages. AI trained successfully!`;
+            document.getElementById('pdfFile').value = '';
+            document.getElementById('pdfFileNameDisplay').textContent = 'Click to choose PDF';
+            if (trainBtn) {
+              trainBtn.style.display = 'none';
+              trainBtn.disabled = false;
+            }
+            selectedPdfFile = null;
+            switchKnowledgeTab('pdf');
+            loadChunks();
+            showGenerateScriptOption();
+          } else {
+            statusEl.className = 'status-message error';
+            statusEl.textContent = `❌ ${data.error || 'Failed to process PDF'}`;
+            if (trainBtn) trainBtn.disabled = false;
+          }
+        };
+        reader.readAsDataURL(file);
+      } catch (error) {
+        statusEl.className = 'status-message error';
+        statusEl.textContent = `❌ Error: ${error.message}`;
+        if (trainBtn) trainBtn.disabled = false;
+      }
+    }
+
+    // Train from Text Content
+    async function trainFromText() {
+      const content = document.getElementById('textContent').value.trim();
+      const statusEl = document.getElementById('textStatus');
+
+      if (!content) {
+        statusEl.className = 'status-message error';
+        statusEl.textContent = '❌ Please enter some text content';
+        return;
+      }
+
+      statusEl.className = 'status-message loading';
+      statusEl.innerHTML = '<div class="spinner"></div> Training AI from your text...';
+
+      try {
+        const botId = localStorage.getItem('selectedAiBotId') || 'default';
+        const response = await fetch(`${API_BASE}/api/knowledge/text`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ content, botId, timestamp: new Date().toISOString(), domain: 'All Domains' })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          statusEl.className = 'status-message success';
+          statusEl.textContent = `✅ Success! AI trained from ${content.length} characters!`;
+          document.getElementById('textContent').value = '';
+          switchKnowledgeTab('manual_text');
+          loadChunks();
+          showGenerateScriptOption();
+        } else {
+          statusEl.className = 'status-message error';
+          statusEl.textContent = `❌ ${data.error || 'Failed to train from text'}`;
+        }
+      } catch (error) {
+        statusEl.className = 'status-message error';
+        statusEl.textContent = `❌ Error: ${error.message}`;
+      }
+    }
+
+    // Train from Document (DOCX/TXT)
+    async function trainFromDoc(event) {
+      const file = event.target.files[0];
+      const statusEl = document.getElementById('docStatus');
+
+      if (!file) return;
+
+      statusEl.className = 'status-message loading';
+      statusEl.innerHTML = '<div class="spinner"></div> Extracting text from document and training AI...';
+
+      try {
+        const reader = new FileReader();
+        reader.onload = async (e) => {
+          const botId = localStorage.getItem('selectedAiBotId') || 'default';
+          const response = await fetch(`${API_BASE}/api/knowledge/document`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              fileName: file.name,
+              fileData: e.target.result,
+              botId,
+              timestamp: new Date().toISOString(),
+              domain: 'All Domains'
+            })
+          });
+
+          const data = await response.json();
+
+          if (data.success) {
+            statusEl.className = 'status-message success';
+            statusEl.textContent = `✅ Success! Extracted and trained from ${file.name}!`;
+            document.getElementById('docFile').value = '';
+            switchKnowledgeTab('document');
+            loadChunks();
+            showGenerateScriptOption();
+          } else {
+            statusEl.className = 'status-message error';
+            statusEl.textContent = `❌ ${data.error || 'Failed to process document'}`;
+          }
+        };
+        reader.readAsDataURL(file);
+      } catch (error) {
+        statusEl.className = 'status-message error';
+        statusEl.textContent = `❌ Error: ${error.message}`;
+      }
+    }
+
+    // Create Bot modal controls
+    function openCreateBotModal() {
+      document.getElementById('modal-bot-name').value = '';
+      document.getElementById('modal-bot-domain').value = '';
+      // Reset button state
+      const createBtn = document.getElementById('createBotSubmitBtn');
+      if (createBtn) { createBtn.disabled = false; createBtn.textContent = 'Create Bot'; }
+      document.getElementById('createBotModal').classList.add('show');
+    }
+
+    function closeCreateBotModal() {
+      document.getElementById('createBotModal').classList.remove('show');
+    }
+
+    async function submitCreateBot() {
+      const name   = document.getElementById('modal-bot-name').value.trim();
+      const domain = document.getElementById('modal-bot-domain').value.trim();
+
+      // Both fields are required
+      if (!name) {
+        showToast('⚠️ Please enter a Bot Name', 'warning');
+        document.getElementById('modal-bot-name').focus();
+        return;
+      }
+      if (!domain) {
+        showToast('⚠️ Please enter a Domain Name', 'warning');
+        document.getElementById('modal-bot-domain').focus();
+        return;
+      }
+
+      const clientId = sessionStorage.getItem('clientId') || 'default';
+      const userRole = sessionStorage.getItem('userRole') || 'client';
+
+      // Plan limit check
+      if (userRole === 'client' && clientId !== 'default') {
+        try {
+          const profileRes = await fetch(`/api/client/profile?clientId=${encodeURIComponent(clientId)}`);
+          const profile = await profileRes.json();
+          if (profile.success) {
+            const limit       = profile.planLimit === 'Unlimited' ? Infinity : parseInt(profile.planLimit);
+            const activeCount = parseInt(profile.activeBotsCount);
+            if (activeCount >= limit) {
+              showToast('⚠️ Bot limit reached for your plan. Please upgrade to create more bots.', 'warning');
+              return;
+            }
+          }
+        } catch (e) {
+          console.error('Plan checking failed:', e);
+        }
+      }
+
+      // Show loading state on the submit button
+      const createBtn = document.getElementById('createBotSubmitBtn');
+      if (createBtn) {
+        createBtn.disabled    = true;
+        createBtn.textContent = 'Creating...';
+      }
+
+      try {
+        const res  = await fetch('/api/bots', {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body:    JSON.stringify({ name, domain, clientId, type: 'ai' })
+        });
+        const data = await res.json();
+
+        if (res.ok && data.success) {
+          // ── Success: no page reload ──────────────────────────────
+          closeCreateBotModal();
+
+          // Persist & update runtime state
+          localStorage.setItem('selectedAiBotId', data.bot_id);
+          currentBotId      = data.bot_id;
+          currentBotApiKey  = data.api_key || '';
+          currentBotName    = name;
+
+          // Update bot selector label in topbar
+          const selectedDomainEl = document.getElementById('selectedDomain');
+          if (selectedDomainEl) selectedDomainEl.textContent = name;
+
+          // Refresh the dropdown list (non-blocking)
+          initializeDomainSelector();
+
+          // Hide placeholder, reveal training section
+          const placeholder      = document.getElementById('createBotPlaceholder');
+          const trainingSection  = document.getElementById('aiTrainingSection');
+          if (placeholder)     placeholder.style.display = 'none';
+          if (trainingSection) {
+            trainingSection.style.display = 'block';
+            // Trigger reflow so animation fires
+            trainingSection.classList.remove('reveal-animate');
+            void trainingSection.offsetWidth;
+            trainingSection.classList.add('reveal-animate');
+          }
+
+          // Load any existing knowledge chunks for this new bot
+          loadChunks();
+
+          showToast("Bot created successfully", "success");
+
+        } else {
+          showToast('❌ ' + (data.message || data.error || 'Failed to create bot'), 'error');
+        }
+      } catch (e) {
+        console.error('Error creating bot:', e);
+        showToast('❌ Network error — could not create bot. Please try again.', 'error');
+      } finally {
+        // Always restore button state
+        if (createBtn) {
+          createBtn.disabled    = false;
+          createBtn.textContent = 'Create Bot';
+        }
+      }
+    }
+
+    // Initialize Bot Selector Dropdown
+    async function initializeDomainSelector() {
+      try {
+        const clientId = sessionStorage.getItem('clientId') || 'default';
+        const userRole = sessionStorage.getItem('userRole') || 'client';
+        const url = (userRole === 'client' && clientId !== 'default') 
+          ? `/api/bots?clientId=${encodeURIComponent(clientId)}` 
+          : '/api/bots';
+        
+        const res = await fetch(url);
+        const bots = await res.json();
+        
+        // Filter AI bots
+        const aiBots = bots.filter(b => !b.type || b.type === 'ai');
+        
+        currentBotId = localStorage.getItem('selectedAiBotId') || 'default';
+        let currentBotName = 'Select Chatbot';
+        
+        // Find current bot
+        const activeBot = aiBots.find(b => b.bot_id === currentBotId);
+        if (activeBot) {
+          currentBotApiKey = activeBot.api_key;
+          currentBotName = activeBot.name;
+        } else if (currentBotId === 'default') {
+          if (aiBots.length > 0) {
+            currentBotId = aiBots[0].bot_id;
+            localStorage.setItem('selectedAiBotId', currentBotId);
+            currentBotApiKey = aiBots[0].api_key;
+            currentBotName = aiBots[0].name;
+          } else {
+            currentBotName = 'Select Chatbot';
+          }
+        } else {
+          if (aiBots.length > 0) {
+            currentBotId = aiBots[0].bot_id;
+            localStorage.setItem('selectedAiBotId', currentBotId);
+            currentBotApiKey = aiBots[0].api_key;
+            currentBotName = aiBots[0].name;
+          } else {
+            localStorage.setItem('selectedAiBotId', 'default');
+            currentBotId = 'default';
+            currentBotName = 'Select Chatbot';
+          }
+        }
+        
+        const selectedDomainEl = document.getElementById('selectedDomain');
+        if (selectedDomainEl) {
+          selectedDomainEl.textContent = currentBotName;
+        }
+        
+        const dropdownMenu = document.getElementById('dropdownMenu');
+        if (dropdownMenu) {
+          let html = '';
+          
+          if (aiBots.length === 0) {
+            html = `
+              <div class="dropdown-item disabled" style="color: #94a3b8; cursor: not-allowed; padding: 12px 16px;">
+                No AI Chatbots created
+              </div>
+            `;
+          } else {
+            aiBots.forEach(bot => {
+              const isSelected = bot.bot_id === currentBotId;
+              let botDomain = '';
+              try {
+                const cfg = JSON.parse(bot.config || '{}');
+                botDomain = cfg.domain ? ` (${cfg.domain})` : '';
+              } catch(e) {}
+              
+              html += `
+                <div class="dropdown-item ${isSelected ? 'active' : ''}" data-bot-id="${bot.bot_id}" data-name="${bot.name}">
+                  <span class="icon">🤖</span>
+                  <span>${bot.name}${botDomain}</span>
+                  ${isSelected ? '<span class="check">✓</span>' : ''}
+                </div>
+              `;
+            });
+          }
+          
+          dropdownMenu.innerHTML = html;
+          
+          // Add click events to dropdown items
+          dropdownMenu.querySelectorAll('.dropdown-item').forEach(item => {
+            if (item.classList.contains('disabled')) return;
+            item.addEventListener('click', function(e) {
+              e.stopPropagation();
+              const botId = this.getAttribute('data-bot-id');
+              localStorage.setItem('selectedAiBotId', botId);
+              window.location.reload();
+            });
+          });
+        }
+      } catch (err) {
+        console.error('Failed to initialize domain selector:', err);
+      }
+    }
+
+    // Load Default API Key
+    async function loadDefaultApiKey() {
+      try {
+        const configRes = await fetch('/api/config/full');
+        if (configRes.ok) {
+          const config = await configRes.json();
+          defaultApiKey = config.apiKey || '';
+        }
+      } catch (e) {
+        console.error('Failed to load default API key:', e);
+      }
+    }
+
+    // Show dynamic successful training alert card
+    function showGenerateScriptOption() {
+      const el = document.getElementById('generateScriptSection');
+      if (el) {
+        el.style.display = 'flex';
+      }
+    }
+
+    // Embed Script Modal controls
+    function showEmbedScriptModal() {
+      const botId = localStorage.getItem('selectedAiBotId') || 'default';
+      const apiKey = botId === 'default' ? defaultApiKey : currentBotApiKey;
+      const serverUrl = window.location.origin;
+      
+      const snippet = `<script src="${serverUrl}/widget/chatbot.js" data-server="${serverUrl}" data-bot-id="${botId}" data-api-key="${apiKey}" async></` + 'script>';
+      
+      const textarea = document.getElementById('scriptCodeTextarea');
+      if (textarea) {
+        textarea.value = snippet;
+      }
+      
+      const modal = document.getElementById('embedScriptModal');
+      if (modal) {
+        modal.classList.add('show');
+      }
+    }
+
+    function closeEmbedScriptModal() {
+      const modal = document.getElementById('embedScriptModal');
+      if (modal) {
+        modal.classList.remove('show');
+      }
+    }
+
+    function copyScriptToClipboard() {
+      const textarea = document.getElementById('scriptCodeTextarea');
+      if (!textarea) return;
+      
+      textarea.select();
+      document.execCommand('copy');
+      showToast('📋 Script copied to clipboard!', 'success');
+    }
+
+    // Page Initialization
+    window.addEventListener('DOMContentLoaded', async () => {
+      await renderSidebarAndTopbar();
+      
+      // Initialize theme from localStorage
+      const savedTheme = localStorage.getItem('adminTheme');
+      if (savedTheme === 'dark') {
+        document.body.classList.add('dark-theme');
+        const btn = document.getElementById('themeToggleBtn');
+        if (btn) btn.innerHTML = '☀️';
+      }
+
+      // Load keys & dropdown
+      await loadDefaultApiKey();
+      await initializeDomainSelector();
+
+      // Setup dropdown toggle click listener
+      document.addEventListener('click', function(e) {
+        const selector = document.getElementById('domainSelector');
+        const menu = document.getElementById('dropdownMenu');
+        if (!selector || !menu) return;
+        
+        if (selector.contains(e.target)) {
+          menu.classList.toggle('show');
+        } else {
+          menu.classList.remove('show');
+        }
+      });
+
+      // Show/hide training panels depending on bot selection
+      const currentBotId = localStorage.getItem('selectedAiBotId') || 'default';
+      const trainingSection = document.getElementById('aiTrainingSection');
+      const placeholder = document.getElementById('createBotPlaceholder');
+
+      if (currentBotId === 'default' || !currentBotId) {
+        if (trainingSection) trainingSection.style.display = 'none';
+        if (placeholder) placeholder.style.display = 'block';
+      } else {
+        if (trainingSection) trainingSection.style.display = 'block';
+        if (placeholder) placeholder.style.display = 'none';
+        loadChunks();
+      }
+
+
+
+
+      
+      await loadIntegrationBots();
+    });
+    
+    // Stub function for integration bots (can be expanded later)
+    async function loadIntegrationBots() {
+      // This function can be used to load additional integration data if needed
+      return;
+    }
+  </script>
+</body>
+</html>

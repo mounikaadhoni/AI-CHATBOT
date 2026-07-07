@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="GAdigital Solution - AI-Powered Chatbot SaaS Platform with Google Gemini AI">
+  <title>GAdigital Solution - AI Chatbot SaaS Platform</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ============================================================
+       CSS VARIABLES & RESET
+       ============================================================ */
+    :root {
+      --bg-primary: #0F172A;
+      --bg-secondary: #1E293B;
+      --brand-primary: #4F46E5;
+      --brand-secondary: #8B5CF6;
+      --accent-pink: #EC4899;
+      --text-primary: #F8FAFC;
+      --text-secondary: #94A3B8;
+      --glass-bg: rgba(255, 255, 255, 0.05);
+      --glass-border: rgba(255, 255, 255, 0.1);
+      --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.5);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      outline: none;
+    }
+
+    /* ============================================================
+       BACKGROUND ORBS
+       ============================================================ */
+    .background-orbs {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.3;
+      animation: pulse 8s ease-in-out infinite;
+    }
+
+    .orb-1 {
+      width: 500px;
+      height: 500px;
+      background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
+      top: -10%;
+      right: -10%;
+      animation-delay: 0s;
+    }
+
+    .orb-2 {
+      width: 400px;
+      height: 400px;
+      background: linear-gradient(135deg, var(--accent-pink), var(--brand-secondary));
+      bottom: -10%;
+      left: -10%;
+      animation-delay: 2s;
+    }
+
+    .orb-3 {
+      width: 350px;
+      height: 350px;
+      background: linear-gradient(135deg, var(--brand-primary), var(--accent-pink));
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation-delay: 4s;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1) translate(0, 0);
+        opacity: 0.3;
+      }
+      50% {
+        transform: scale(1.2) translate(20px, 20px);
+        opacity: 0.5;
+      }
+    }
+
+    /* ============================================================
+       NAVBAR
+       ============================================================ */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--glass-border);
+      padding: 1rem 0;
+    }
+
+    .navbar-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .navbar-logo {
+      font-size: 1.5rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--brand-primary), var(--accent-pink));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .navbar-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .navbar-links a {
+      color: var(--text-secondary);
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .navbar-links a:hover {
+      color: var(--text-primary);
+    }
+
+    .navbar-actions {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .btn {
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: all 0.3s;
+      font-size: 0.95rem;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
+      color: white;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(79, 70, 229, 0.4);
+    }

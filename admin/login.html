@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Chatbot - Admin Login</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4c1d95 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .login-container {
+      background: rgba(55, 48, 107, 0.6);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(139, 92, 246, 0.3);
+      border-radius: 24px;
+      padding: 48px 40px;
+      width: 100%;
+      max-width: 420px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    }
+
+    .logo-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 32px;
+    }
+
+    .logo-icon {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      margin-bottom: 16px;
+      box-shadow: 0 8px 24px rgba(99, 102, 241, 0.4);
+    }
+
+    .logo-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 4px;
+    }
+
+    .logo-subtitle {
+      font-size: 14px;
+      color: #a5b4fc;
+      font-weight: 400;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 11px;
+      font-weight: 600;
+      color: #c7d2fe;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+
+    .input-wrapper {
+      position: relative;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 14px 16px;
+      background: rgba(30, 27, 75, 0.5);
+      border: 1px solid rgba(139, 92, 246, 0.3);
+      border-radius: 12px;
+      font-size: 14px;
+      color: white;
+      font-family: inherit;
+      transition: all 0.3s;
+    }
+
+    .form-input::placeholder {
+      color: #6b7280;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: #8b5cf6;
+      background: rgba(30, 27, 75, 0.7);
+      box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+    }
+
+    .password-toggle {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: #9ca3af;
+      cursor: pointer;
+      font-size: 18px;
+      padding: 4px;
+      transition: all 0.2s;
+    }
+
+    .password-toggle:hover {
+      color: #c7d2fe;
+    }
+
+    .btn-signin {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-top: 8px;
+      box-shadow: 0 4px 16px rgba(99, 102, 241, 0.4);
+    }
+
+    .btn-signin:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(99, 102, 241, 0.5);
+    }
+
+    .btn-signin:active {
+      transform: translateY(0);
+    }
+
+    .error-message {
+      background: rgba(239, 68, 68, 0.2);
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      color: #fca5a5;
+      padding: 12px 16px;
+      border-radius: 10px;
+      font-size: 13px;
+      margin-bottom: 20px;
+      display: none;
+    }
+
+    .error-message.show {
+      display: block;
+    }
+
+    .forgot-password {
+      text-align: center;
+      margin-top: 16px;
+    }
+
+    .forgot-password a {
+      color: #a5b4fc;
+      font-size: 13px;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .forgot-password a:hover {
+      color: #c7d2fe;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <div class="logo-container">
+      <div class="logo-icon">🤖</div>
+      <div class="logo-title">AI Chatbot</div>
+      <div class="logo-subtitle">Sign in to your Dashboard</div>
+    </div>
+
+    <div id="errorMessage" class="error-message">
+      Invalid email or password. Please try again.
+    </div>
+
+    <form id="loginForm" onsubmit="handleLogin(event)">
+      <div class="form-group">
+        <label class="form-label">Email Address</label>
+        <input 
+          type="email" 
+          id="email" 
+          class="form-input" 
+          placeholder="you@company.com"
+          required
+        >
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <div class="input-wrapper">
+          <input 
+            type="password" 
+            id="password" 
+            class="form-input" 
+            placeholder="••••••••"
+            required
+          >
+          <button type="button" class="password-toggle" onclick="togglePassword(this)">
+            👁️
+          </button>
+        </div>
+      </div>
+
+      <button type="submit" class="btn-signin">
+        Sign in →
+      </button>
+    </form>
+
+    <div class="forgot-password">
+      <a href="#">Forgot password?</a>
+    </div>
+  </div>
+
+  <script>
+    // Toggle password visibility
+    function togglePassword(toggleBtn) {
+      const passwordInput = document.getElementById('password');
+      if (!toggleBtn) toggleBtn = document.querySelector('.password-toggle');
+      
+      if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        toggleBtn.textContent = '🙈';
+      } else {
+        passwordInput.type = 'password';
+        toggleBtn.textContent = '👁️';
+      }
+    }
+
+    // Handle login
+    async function handleLogin(event) {
+      event.preventDefault();
+      
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const errorMessage = document.getElementById('errorMessage');
+
+      // Default admin credentials
+      if (email === 'admin@chatbot.com' && password === 'admin123') {
+        // Store login session
+        sessionStorage.setItem('isLoggedIn', 'true');
+        sessionStorage.setItem('userEmail', email);
+        sessionStorage.setItem('userRole', 'admin');
+        
+        // Redirect to super admin page
+        window.location.href = '/admin/superadmin.html';
+        return;
+      }
+
+      // Try to authenticate with registered client credentials
+      try {
+        const response = await fetch('/api/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ email, password })
+        });
+
+        const data = await response.json();
+
+        if (response.ok && data.success) {
+          // Store login session
+          sessionStorage.setItem('isLoggedIn', 'true');
+          sessionStorage.setItem('userEmail', email);
+          sessionStorage.setItem('clientId', data.clientId);
+          sessionStorage.setItem('userRole', 'client');
+          
+          // Redirect to dashboard
+          window.location.href = '/admin/dashboard.html';
+        } else {
+          // Show error message
+          errorMessage.textContent = data.error || 'Invalid email or password. Please try again.';
+          errorMessage.classList.add('show');
+          
+          // Hide error after 3 seconds
+          setTimeout(() => {
+            errorMessage.classList.remove('show');
+          }, 3000);
+        }
+      } catch (error) {
+        // Show error message
+        errorMessage.textContent = 'Login failed. Please try again.';
+        errorMessage.classList.add('show');
+        
+        setTimeout(() => {
+          errorMessage.classList.remove('show');
+        }, 3000);
+      }
+    }
+
+    // Check if already logged in
+    window.addEventListener('DOMContentLoaded', () => {
+      if (sessionStorage.getItem('isLoggedIn') === 'true') {
+        window.location.href = '/admin/superadmin.html';
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Platform Stats - AI Chatbot SaaS</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #f5f7fa;
+      color: #1e293b;
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* ============ SIDEBAR ============ */
+    .sidebar {
+      width: 260px;
+      background: #2d2a5e;
+      color: #e2e8f0;
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      z-index: 100;
+    }
+
+    .sidebar-header {
+      padding: 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-icon {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    .brand-text h2 {
+      font-size: 15px;
+      font-weight: 700;
+      color: white;
+    }
+
+    .brand-text span {
+      font-size: 11px;
+      color: #94a3b8;
+    }
+
+    .sidebar-nav {
+      flex: 1;
+      padding: 20px 0;
+      overflow-y: auto;
+    }
+
+    .nav-section {
+      padding: 8px 16px;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #64748b;
+      font-weight: 600;
+      margin-top: 16px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 16px;
+      cursor: pointer;
+      font-size: 13px;
+      color: #cbd5e1;
+      transition: all 0.2s;
+      text-decoration: none;
+      margin: 2px 8px;
+      border-radius: 8px;
+    }
+
+    .nav-item:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: white;
+    }
+
+    .nav-item.active {
+      background: rgba(99, 102, 241, 0.2);
+      color: white;
+      font-weight: 500;
+    }
+
+    .nav-item .icon {
+      font-size: 16px;
+      width: 20px;
+      text-align: center;
+    }
+
+    .nav-item .badge {
+      margin-left: auto;
+      background: #6366f1;
+      color: white;
+      font-size: 10px;
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-weight: 600;
+    }
+
+    .sidebar-footer {
+      padding: 16px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 10px;
+      color: #64748b;
+      text-align: center;
+    }
+
+    /* ============ MAIN CONTENT ============ */
+    .main-content {
+      flex: 1;
+      margin-left: 260px;
+      min-height: 100vh;
+      background: #f5f7fa;
+    }
+
+    /* Top Bar */
+    .topbar {
+      background: white;
+      padding: 16px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #e2e8f0;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .topbar-left h1 {
+      font-size: 20px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-create {
+      padding: 10px 20px;
+      background: linear-gradient(135deg, #f59e0b, #f97316);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-create:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+    }
+
+    .btn-logout {
+      padding: 10px 20px;
+      background: white;
+      color: #ef4444;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-logout:hover {
+      background: #fef2f2;
+      border-color: #fecaca;
+    }
+
+    .btn-refresh {
+      padding: 10px 20px;
+      background: #6366f1;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-refresh:hover {
+      background: #4f46e5;
+    }
+
+    /* Content Area */
+    .content {
+      padding: 32px;
+    }
+
+    /* Stats Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-bottom: 32px;
+    }
+
+    .stat-card {
+      background: white;
+      padding: 24px;
+      border-radius: 12px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+      border: 1px solid #e2e8f0;
+      transition: all 0.2s;
+    }
+
+    .stat-card:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      transform: translateY(-2px);
+    }
+
+    .stat-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .stat-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+
+    .stat-icon.blue { background: #dbeafe; color: #2563eb; }
+    .stat-icon.green { background: #d1fae5; color: #059669; }
+    .stat-icon.orange { background: #fed7aa; color: #ea580c; }
+
+    .stat-label {
+      font-size: 13px;
+      color: #64748b;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .stat-value {
+      font-size: 32px;
+      font-weight: 800;
+      color: #0f172a;
+    }
+
+    /* Section */
+    .section {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+      border: 1px solid #e2e8f0;
+      margin-bottom: 24px;
+      overflow: hidden;
+    }
+
+    .section-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-title .icon {
+      font-size: 20px;
+    }
+
+    .section-title h2 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .section-body {
+      padding: 24px;
+    }
+
+    /* Table */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .data-table thead {
+      background: #f8f9fc;
+    }
+
+    .data-table th {
+      padding: 12px 16px;
+      text-align: left;
+      font-size: 11px;
+      font-weight: 700;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .data-table td {
+      padding: 16px;
+      border-top: 1px solid #f1f5f9;
+      font-size: 13px;
+      color: #334155;
+    }
+
+    .data-table tbody tr:hover {
+      background: #f8f9fc;
+    }
+
+    /* Badge */
+    .badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .badge.active {
+      background: #d1fae5;
+      color: #065f46;
+    }
+
+    .badge.pending {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .badge.inactive {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    /* Buttons */
+    .btn-sm {
+      padding: 6px 12px;
+      border: none;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-edit {
+      background: #dbeafe;
+      color: #1e40af;
+    }
+
+    .btn-edit:hover {
+      background: #bfdbfe;
+    }
+
+    .btn-view {
+      background: #e0e7ff;
+      color: #4338ca;
+    }
+
+    .btn-view:hover {
+      background: #c7d2fe;
+    }
+
+    .btn-delete {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .btn-delete:hover {
+      background: #fecaca;
+    }
+
+    /* Form */
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: #374151;
+      margin-bottom: 8px;
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 14px;
+      font-family: inherit;
+      transition: all 0.2s;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: #6366f1;
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    }
+
+    .btn-primary {
+      padding: 12px 24px;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      width: 100%;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+    }
+
+    /* Action Buttons */
+    .action-btns {
+      display: flex;
+      gap: 8px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <div class="brand">
+        <div class="brand-icon">🤖</div>
+        <div class="brand-text">
+          <h2>AI Chatbot SaaS</h2>
+          <span>Super Admin v3.0</span>
+        </div>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section">SUPER DASHBOARD</div>
+      <a href="#" class="nav-item active">
+        <span class="icon">📊</span>
+        <span>Platform Stats</span>
+      </a>
+      <a href="#" class="nav-item">
+        <span class="icon">📦</span>
+        <span>Plan Packages</span>
+      </a>
+
+      <div class="nav-section">CLIENT PORTAL</div>
+      <a href="#" class="nav-item">
+        <span class="icon">🤖</span>
+        <span>AI Chatbot</span>
+      </a>
+      <a href="/admin/flowbuilder.html" class="nav-item">
+        <span class="icon">🔄</span>
+        <span>Flow Builder</span>
+      </a>
+      <a href="#" class="nav-item">
+        <span class="icon">💬</span>
+        <span>Chat History</span>
+      </a>
+
+      <div class="nav-section">BOT SETTINGS</div>
+      <a href="#" class="nav-item">
+        <span class="icon">⚙️</span>
+        <span>Bot Settings</span>
+      </a>
+      <a href="/admin/embed.html" class="nav-item">
+        <span class="icon">📋</span>
+        <span>Embed Code</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      Powered by AI Chatbot Widget
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <!-- Top Bar -->
+    <div class="topbar">
+      <div class="topbar-left">
+        <h1>Platform Stats</h1>
+      </div>
+      <div class="topbar-right">
+        <button class="btn-create" onclick="showOnboardForm()">+ Create a Client</button>
+        <button class="btn-logout" onclick="handleLogout()">🚪 Logout</button>
+        <button class="btn-refresh" onclick="refreshData()">🔄 Refresh</button>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+      <!-- Stats Grid -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-header">
+            <div class="stat-icon blue">👥</div>
+            <div class="stat-label">Total Clients</div>
+          </div>
+          <div class="stat-value" id="totalClients">6</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-header">
+            <div class="stat-icon green">✅</div>
+            <div class="stat-label">Active Clients</div>
+          </div>
+          <div class="stat-value" id="activeClients">5</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-header">
+            <div class="stat-icon orange">💰</div>
+            <div class="stat-label">Total Revenue</div>
+          </div>
+          <div class="stat-value" id="totalRevenue">₹10,000</div>
+        </div>
+      </div>
+
+      <!-- Subscription Plans -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-title">
+            <span class="icon">📋</span>
+            <h2>Subscription Plans</h2>
+          </div>
+        </div>
+        <div class="section-body">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>PLAN NAME</th>
+                <th>PRICE (₹/MO)</th>
+                <th>MAX CLIENTS</th>
+                <th>ACTIONS</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Basic</strong></td>
+                <td>₹749</td>
+                <td>1 Bot</td>
+                <td>
+                  <div class="action-btns">
+                    <button class="btn-sm btn-edit">Edit</button>
+                    <button class="btn-sm btn-delete">Delete</button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Standard</strong></td>
+                <td>₹2749</td>
+                <td>3 Bots</td>
+                <td>
+                  <div class="action-btns">
+                    <button class="btn-sm btn-edit">Edit</button>
+                    <button class="btn-sm btn-delete">Delete</button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Premium</strong></td>
+                <td>₹4999</td>
+                <td>5 Bots</td>
+                <td>
+                  <div class="action-btns">
+                    <button class="btn-sm btn-edit">Edit</button>
+                    <button class="btn-sm btn-delete">Delete</button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Placement (3 Months)</strong></td>
+                <td>₹9999</td>
+                <td>10 Bots</td>
+                <td>
+                  <div class="action-btns">
+                    <button class="btn-sm btn-edit">Edit</button>
+                    <button class="btn-sm btn-delete">Delete</button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Onboard New Client -->
+      <div class="section" id="onboardSection" style="display: none;">
+        <div class="section-header">
+          <div class="section-title">
+            <span class="icon">➕</span>
+            <h2>Onboard New Client</h2>
+          </div>
+        </div>
+        <div class="section-body">
+          <form id="onboardForm">
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Company Name</label>
+                <input type="text" id="companyName" placeholder="e.g. Acme Corp" required>
+              </div>
+              <div class="form-group">
+                <label>Client Email</label>
+                <input type="email" id="clientEmail" placeholder="client@example.com" required>
+              </div>
+            </div>
+
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Organization URL</label>
+                <input type="url" id="orgUrl" placeholder="https://example.com">
+              </div>
+              <div class="form-group">
+                <label>Plan</label>
+                <select id="planSelect" required>
+                  <option value="">Select a Plan</option>
+                  <option value="basic">Basic - ₹749/mo</option>
+                  <option value="standard">Standard - ₹2749/mo</option>
+                  <option value="premium">Premium - ₹4999/mo</option>
+                  <option value="placement">Placement - ₹9999/3mo</option>
+                </select>
+              </div>
+            </div>
+
+            <button type="submit" class="btn-primary">🚀 Onboard Client & Send Email</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Active Clients -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-title">
+            <span class="icon">👥</span>
+            <h2>Active Clients</h2>
+          </div>
+          <button class="btn-refresh" onclick="refreshClients()">Refresh</button>
+        </div>
+        <div class="section-body">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>COMPANY</th>
+                <th>EMAIL</th>
+                <th>PLAN</th>
+                <th>REGISTERED</th>
+                <th>STATUS</th>
+                <th>ACTIONS</th>
+              </tr>
+            </thead>
+            <tbody id="clientsTableBody">
+              <tr>
+                <td><strong>Example Corp</strong></td>
+                <td>john@example.com</td>
+                <td><span class="badge active">PREMIUM</span></td>
+                <td>1/1/2025</td>
+                <td><span class="badge active">ACTIVE</span></td>
+                <td>
+                  <div class="action-btns">
+                    <button class="btn-sm btn-edit">Edit</button>
+                    <button class="btn-sm btn-view">View</button>
+                    <button class="btn-sm btn-delete">Delete</button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>HCL</strong></td>
+                <td>noc@hcl.com</td>
+                <td><span class="badge active">PREMIUM</span></td>
+                <td>5/19/2025</td>
+                <td><span class="badge active">ACTIVE</span></td>
+                <td>
+                  <div class="action-btns">
+                    <button class="btn-sm btn-edit">Edit</button>
+                    <button class="btn-sm btn-view">View</button>
+                    <button class="btn-sm btn-delete">Delete</button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Galgotias Univ</strong></td>
+                <td>demo@galgotias.com</td>
+                <td><span class="badge pending">Basic</span></td>
+                <td>5/22/2025</td>
+                <td><span class="badge active">ACTIVE</span></td>
+                <td>
+                  <div class="action-btns">
+                    <button class="btn-sm btn-edit">Edit</button>
+                    <button class="btn-sm btn-view">View</button>
+                    <button class="btn-sm btn-delete">Delete</button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function showOnboardForm() {
+      const section = document.getElementById('onboardSection');
+      section.style.display = section.style.display === 'none' ? 'block' : 'none';
+    }
+
+    function handleLogout() {
+      if (confirm('Are you sure you want to logout?')) {
+        sessionStorage.removeItem('isLoggedIn');
+        window.location.href = '/admin/login.html';
+      }
+    }
+
+    function refreshData() {
+      location.reload();
+    }
+
+    function refreshClients() {
+      alert('Refreshing client data...');
+      // Add API call here
+    }
+
+    // Handle form submission
+    document.getElementById('onboardForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const formData = {
+        companyName: document.getElementById('companyName').value,
+        email: document.getElementById('clientEmail').value,
+        orgUrl: document.getElementById('orgUrl').value,
+        plan: document.getElementById('planSelect').value
+      };
+
+      try {
+        const response = await fetch('/api/clients/onboard', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          alert('✅ Client onboarded successfully!');
+          document.getElementById('onboardForm').reset();
+          showOnboardForm();
+          refreshClients();
+        } else {
+          alert('❌ Error: ' + (data.error || 'Failed to onboard client'));
+        }
+      } catch (error) {
+        alert('❌ Error: ' + error.message);
+      }
+    });
+
+    // Check authentication
+    if (sessionStorage.getItem('isLoggedIn') !== 'true') {
+      window.location.href = '/admin/login.html';
+    }
+  </script>
+</body>
+</html>

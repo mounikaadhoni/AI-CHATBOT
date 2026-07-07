@@ -1,0 +1,66 @@
+/* ============================================================
+   GAdigital Solution - Landing Page Styles
+   Production-Ready SaaS Landing Page
+   ============================================================ */
+
+/* CSS VARIABLES & RESET */
+:root {
+  --bg-primary: #0F172A;
+  --bg-secondary: #1E293B;
+  --brand-primary: #4F46E5;
+  --brand-secondary: #8B5CF6;
+  --accent-pink: #EC4899;
+  --text-primary: #F8FAFC;
+  --text-secondary: #94A3B8;
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+/* BACKGROUND ORBS */
+.background-orbs {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.orb {
+  position: absolute;
+  border-radius: 50%;

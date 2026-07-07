@@ -1,0 +1,1225 @@
+{
+  "botName": "superadmin",
+  "companyName": "Smart Ai Bot",
+  "welcomeMessage": "Hi 👋 Welcome! How can I help you today?",
+  "themeColor": "#cc3bce",
+  "position": "bottom-right",
+  "language": "en",
+  "placeholder": "Type your message...",
+  "showBranding": true,
+  "maxHistory": 50,
+  "enableAI": true,
+  "aiModel": "gpt-4-turbo",
+  "systemPrompt": "You are a helpful customer support assistant. Be concise, friendly, and professional. Answer questions accurately.",
+  "suggestedQuestions": [
+    "How can I contact support?",
+    "What are your pricing plans?",
+    "Tell me about your company"
+  ],
+  "faqs": [
+    {
+      "question": "What are your business hours?",
+      "answer": "We are open Monday to Friday, 9 AM to 6 PM."
+    },
+    {
+      "question": "How do I contact support?",
+      "answer": "You can email us at support@mycompany.com or call +1-234-567-890."
+    },
+    {
+      "question": "Where are you located?",
+      "answer": "We are headquartered in New York, USA."
+    },
+    {
+      "question": "Hi",
+      "answer": "welcome to AI Chat Bot"
+    },
+    {
+      "question": "services you offer?",
+      "answer": "We offer a wide range of products based on your needs. You can explore them in the products section."
+    },
+    {
+      "question": "What is your return policy?",
+      "answer": "We offer a return policy within 7 days of delivery, subject to terms and conditions."
+    },
+    {
+      "question": "What payment methods are accepted?",
+      "answer": "We accept credit cards, debit cards, UPI, and net banking."
+    },
+    {
+      "question": "How long does delivery take?",
+      "answer": "Delivery usually takes 3–7 business days depending on your location."
+    },
+    {
+      "question": "Can I track my order?",
+      "answer": "Yes, you will receive a tracking link after your order is shipped."
+    },
+    {
+      "question": "[From example.com] Section 1",
+      "answer": "Example Domain Example Domain This domain is for use in documentation examples without needing permission. Avoid use in operations. Learn more"
+    },
+    {
+      "question": "[From Ai Chatbots for Websites - Product Design and Developement.pdf] Topic 1",
+      "answer": "AI Chatbot for Websites — Final Product \nDocumentation"
+    },
+    {
+      "question": "[From Ai Chatbots for Websites - Product Design and Developement.pdf] Topic 2",
+      "answer": " 1. Target Users \n● Business websites \n● Digital agencies \n● E-commerce stores \n● Service providers (real estate, education, clinics)"
+    },
+    {
+      "question": "[From Ai Chatbots for Websites - Product Design and Developement.pdf] Topic 3",
+      "answer": " 2. Frontend Widget (User Experience) \nUI Behavior \n● Floating button (bottom-right corner) \n● Opens chat window on click \n● Default welcome message:"
+    },
+    {
+      "question": "[From Ai Chatbots for Websites - Product Design and Developement.pdf] Topic 4",
+      "answer": "“Hi  How can I help you today?”"
+    },
+    {
+      "question": "[From Ai Chatbots for Websites - Product Design and Developement.pdf] Topic 5",
+      "answer": "Features \n● Typing animation \n● Quick reply buttons \n● File upload (optional – Phase 2) \n● Lead capture form"
+    },
+    {
+      "question": "[From Ai Chatbots for Websites - Product Design and Developement.pdf] Topic 6",
+      "answer": " 3. Website Chatbot Flow (User \nJourney) \n1. User visits website \n2. Chat widget appears \n3. User asks:"
+    },
+    {
+      "question": "[From Ai Chatbots for Websites - Product Design and Developement.pdf] Topic 7",
+      "answer": "“What are your services?”"
+    },
+    {
+      "question": "[From Ai Chatbots for Websites - Product Design and Developement.pdf] Topic 8",
+      "answer": "4. Bot: \n○ Checks knowledge base \n○ Responds instantly \n5. Bot follow-up:"
+    },
+    {
+      "question": "[From Ai Chatbots for Websites - Product Design and Developement.pdf] Topic 9",
+      "answer": "“Would you like a call?”"
+    },
+    {
+      "question": "[From Ai Chatbots for Websites - Product Design and Developement.pdf] Topic 10",
+      "answer": "6. User submits: \n○ Name \n○ Phone \n○ Email \n7. Lead is stored → sent to admin"
+    },
+    {
+      "question": "[From Ai Chatbots for Websites - Product Design and Developement.pdf] Topic 11",
+      "answer": "⚙ 4. Technical Flow \nScript Integration \n<script src=\"https://yourchatbot.com/widget.js\" data-bot-id=\"123\"></script> \nFlow \n1. Website loads script \n2. Widget initializes \n3. User sends message \n4. API call → backend \n5. Backend:"
+    },
+    {
+      "question": "[From Ai Chatbots for Websites - Product Design and Developement.pdf] Topic 12",
+      "answer": "○ Searches knowledge base \n○ OR calls AI \n6. Response returned \n7. Displayed in chat"
+    },
+    {
+      "question": "[From Ai Chatbots for Websites - Product Design and Developement.pdf] Topic 13",
+      "answer": " 5. Architecture \n Frontend (Widget) \n● Pure JavaScript (recommended for compatibility) \n● Injected via script tag \n Backend \n● Node.js OR Laravel (best for you ) \n AI Layer \n● OpenAI API (GPT models) \n Database \n● MySQL → chats, users, leads \n● Vector DB → knowledge search (Phase 2)"
+    },
+    {
+      "question": "[From Ai Chatbots for Websites - Product Design and Developement.pdf] Topic 14",
+      "answer": "易 6. Smart Features (Core) \n1. Knowledge-Based Answers \n● Input sources: \n○ Website URLs \n○ PDFs \n○ FAQs"
+    },
+    {
+      "question": "[From Ai Chatbots for Websites - Product Design and Developement.pdf] Topic 15",
+      "answer": " Auto-training capability (scraping + indexing)"
+    },
+    {
+      "question": "[From Ai Chatbots for Websites - Product Design and Developement.pdf] Topic 16",
+      "answer": "2. Lead Capture System \n● Trigger after 2–3 interactions \n● Store in DB \n● Email notification to admin"
+    },
+    {
+      "question": "[From Ai Chatbots for Websites - Product Design and Developement.pdf] Topic 17",
+      "answer": "3. Customization \n● Widget color \n● Logo \n● Bot name \n● Position"
+    },
+    {
+      "question": "[From Ai Chatbots for Websites - Product Design and Developement.pdf] Topic 18",
+      "answer": "4. Human Handoff \n● “Talk to agent” option \n● Redirect to: \n○ WhatsApp \n○ Call \n○ Live chat"
+    },
+    {
+      "question": "[From Ai Chatbots for Websites - Product Design and Developement.pdf] Topic 19",
+      "answer": " 7. Admin Dashboard \nFeatures \n● Add/manage websites \n● Upload knowledge base \n● View conversations \n● Download leads"
+    },
+    {
+      "question": "[From Ai Chatbots for Websites - Product Design and Developement.pdf] Topic 20",
+      "answer": "● Analytics: \n○ Total chats \n○ Conversion rate \n○ Response success rate (NEW – important)"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 1",
+      "answer": "Open Game - Wikipedia Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Contents move to sidebar hide (Top) 1 Analysis 2 2.Nf3 Nc6 3 Other second moves for Black 4 Other second moves for White 5 Examples Toggle Examples"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 2",
+      "answer": "subsection 5.1 Diagrams 6 See also 7 Notes Toggle Notes subsection 7.1 References 8 Further reading Toggle the table of contents Open Game 36 languages العربية Bosanski Català Čeština Deutsch Ελληνικά Esperanto Español Euskara فارسی Suomi Français עברית Magyar Հայերեն Bahasa Indonesia Íslenska Italiano Қазақша 한국어 Lëtzebuergesch Lietuvių Latviešu Nederlands Português Русский Slovenčina Slovenščina Српски / srpski Svenska தமிழ் Türkçe Українська Tiếng Việt 粵語 中文 Edit links Article Talk English"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 3",
+      "answer": "Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Print/export Download as PDF Printable version In other projects Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia (Redirected from Open Games ) This article is about the chess opening; not to be confused with open gaming or Open (sport) . Chess opening Open"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 4",
+      "answer": "Game a b c d e f g h 8 8 7 7 6 6 5 5 4 4 3 3 2 2 1 1 a b c d e f g h Moves 1.e4 e5 ECO C20–C99 Parent King's Pawn Game Synonyms Double King's Pawn Opening Double King's Pawn Game An Open Game (or Double King's Pawn Opening ) is a generic term for a family of chess openings beginning with the moves: 1. e4 e5 Black controls the d4-square in the center and maintains symmetry. 1.e4 e5 gives rise to many of the oldest and most deeply analyzed openings in the game. Play most commonly continues 2.Nf3"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 5",
+      "answer": "Nc6, leading to the Ruy Lopez (3.Bb5), Italian Game (3.Bc4), Scotch Game (3.d4), and others. Black's most important alternative to 2...Nc6 is 2...Nf6, Petrov's Defense . Other Open Games include the King's Gambit (2.f4) and Vienna Game (2.Nc3). After having been the most common pair of opening moves until the 20th century, 1...e5 remains the second most popular response to White's first move 1.e4 ( 1...c5 is slightly more popular among tournament players). &#91; 1 &#93; Other responses to 1.e4"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 6",
+      "answer": "are termed Semi-Open Games or Single King's Pawn Games. When written in lowercase, the term \"open game\" refers to a chess position where ranks , files and diagonals are open, and tending to more tactical gameplay. It is possible that an Open Game may lead to a closed game . &#91; 2 &#93; This article uses algebraic notation to describe chess moves. Analysis [ edit ] White opens by playing 1.e4, which is the most popular opening move and has several strengths – it immediately stakes a claim in"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 7",
+      "answer": "the center , and frees two pieces (the queen and king's bishop ) for action. The oldest openings in chess follow 1.e4. Bobby Fischer wrote that 1.e4 is \"Best by test.\" &#91; 3 &#93; On the negative side, 1.e4 places a pawn on an undefended square and weakens the squares d4 and f4. If Black keeps the symmetry by replying 1...e5, the result is an Open Game. &#91; 2 &#93; &#91; 4 &#93; 2.Nf3 Nc6 [ edit ] a b c d e f g h 8 8 7 7 6 6 5 5 4 4 3 3 2 2 1 1 a b c d e f g h King's Knight Opening, main"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 8",
+      "answer": "line: 2.Nf3 Nc6 The most popular second move for White is 2.Nf3 (the King's Knight Opening), attacking Black's king pawn , preparing to castle kingside , and preparing for d2–d4 in many lines. Black's usual reply to 2.Nf3 is 2...Nc6 , defending the king's pawn without restricting the movement of the king's bishop. From here several named openings can arise. The Ruy Lopez or Spanish Game (3.Bb5) is one of the most popular openings at all levels of chess, and one of the most extensively analyzed."
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 9",
+      "answer": "Black's most common response is 3...a6, forcing White to make a decision between exchanging the bishop for the knight with 4.Bxc6 or retreating with 4.Ba4. Also common is 3...Nf6, the Berlin Defense . Black has several alternatives, the sharpest of which is the Jaenisch Gambit or Schliemann Defense, 3...f5. The Italian Game (3.Bc4) is White's second most popular move, usually leading to either the Giuoco Piano (3...Bc5) or the Two Knights Defense (3...Nf6). The name \"Italian Game\" is also used"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 10",
+      "answer": "as a synonym for the Giuoco Piano by many writers. A sharp continuation to the Giuoco Piano is the Evans Gambit (4.b4), offering a pawn for a lead in development and attacking chances. The Scotch Game (3.d4) was popular in the 19th century and is still the third most common move. After the usual 3...exd4, White may either recapture with 4.Nxd4 with an approximately equal game, or play the Scotch Gambit (4.Bc4), a risky but dangerous tactical line against an unprepared opponent. The Four Knights"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 11",
+      "answer": "Game (3.Nc3 Nf6) was also quite popular in the 19th century. It frequently leads to positional games and is generally considered less challenging for Black to defend against than the three lines above. Less commonly after 3.Nc3, 3....g6 or 3...Bb4 (the Three Knights Game ) are possible. The Ponziani Opening (3.c3) has never achieved widespread popularity but is occasionally used as a surprise weapon. Other third moves for White such as the Konstantinopolsky Opening (3.g3) &#91; 5 &#93; &#91; 6"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 12",
+      "answer": "&#93; and Inverted Hungarian Opening (3.Be2) are rarely played and offer White no advantage. Other second moves for Black [ edit ] Black's most important alternative to 2...Nc6 is 2...Nf6, known as Petrov's Defense or Russian Defense. It is a common opening in high level play, where it has a reputation as a drawing weapon. White can avoid the extensive theory of the Petrov by playing 3.Nc3, which could transpose into a Four Knights Game after 3...Nc6. Another possibility is 3... Bb4. The"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 13",
+      "answer": "Philidor Defense (2...d6) defends the pawn on e5 but has the disadvantage of restricting the mobility of Black's king's bishop , and typically leads to solid but passive positions for Black. For this reason, it largely fell out of favor by the early 20th century as Black players sought more dynamic options, but it has a dependable reputation and is still occasionally seen at grandmaster level. The Elephant Gambit (2...d5) and the Latvian Gambit (2...f5) are considered very risky for Black. The"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 14",
+      "answer": "Gunderam Defense (2...Qe7) is an offbeat choice which blocks the development of the king's bishop and has never achieved widespread popularity. The Damiano Defense (2...f6) may be met by either 3.Nxe5 or 3.Bc4 with advantage and is almost never seen. The Busch–Gass Gambit (2...Bc5), which was something of an online fad in the early 2020s, is well met by 3.Nxe5 Nc6 4.Nf3. Other second moves for White [ edit ] The most popular alternatives to 2.Nf3 are 2.f4 (the King's Gambit ), 2.Nc3 (the Vienna"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 15",
+      "answer": "Game ), and 2.Bc4 (the Bishop's Opening ). The King's Gambit was popular before the 20th century with master and amateur alike. White offers a pawn to undermine Black's center and achieve quick development. The Vienna Game also frequently features such attacks on the Black center by means of f2–f4. Some of its lines, as well some in the Bishop's Opening, can transpose to variations of the King's Gambit. In the Center Game (2.d4), White immediately opens the center, though if the pawn is to be"
+    },
+    {
+      "question": "[From Ai Chatbots for Websites - Product Design and Developement.pdf] Topic 1",
+      "answer": "AI Chatbot for Websites — Final Product \nDocumentation"
+    },
+    {
+      "question": "[From Ai Chatbots for Websites - Product Design and Developement.pdf] Topic 2",
+      "answer": " 1. Target Users \n● Business websites \n● Digital agencies \n● E-commerce stores \n● Service providers (real estate, education, clinics)"
+    },
+    {
+      "question": "[From Ai Chatbots for Websites - Product Design and Developement.pdf] Topic 3",
+      "answer": " 2. Frontend Widget (User Experience) \nUI Behavior \n● Floating button (bottom-right corner) \n● Opens chat window on click \n● Default welcome message:"
+    },
+    {
+      "question": "[From Ai Chatbots for Websites - Product Design and Developement.pdf] Topic 4",
+      "answer": "“Hi  How can I help you today?”"
+    },
+    {
+      "question": "[From Ai Chatbots for Websites - Product Design and Developement.pdf] Topic 5",
+      "answer": "Features \n● Typing animation \n● Quick reply buttons \n● File upload (optional – Phase 2) \n● Lead capture form"
+    },
+    {
+      "question": "[From Ai Chatbots for Websites - Product Design and Developement.pdf] Topic 6",
+      "answer": " 3. Website Chatbot Flow (User \nJourney) \n1. User visits website \n2. Chat widget appears \n3. User asks:"
+    },
+    {
+      "question": "[From Ai Chatbots for Websites - Product Design and Developement.pdf] Topic 7",
+      "answer": "“What are your services?”"
+    },
+    {
+      "question": "[From Ai Chatbots for Websites - Product Design and Developement.pdf] Topic 8",
+      "answer": "4. Bot: \n○ Checks knowledge base \n○ Responds instantly \n5. Bot follow-up:"
+    },
+    {
+      "question": "[From Ai Chatbots for Websites - Product Design and Developement.pdf] Topic 9",
+      "answer": "“Would you like a call?”"
+    },
+    {
+      "question": "[From Ai Chatbots for Websites - Product Design and Developement.pdf] Topic 10",
+      "answer": "6. User submits: \n○ Name \n○ Phone \n○ Email \n7. Lead is stored → sent to admin"
+    },
+    {
+      "question": "[From Ai Chatbots for Websites - Product Design and Developement.pdf] Topic 11",
+      "answer": "⚙ 4. Technical Flow \nScript Integration \n<script src=\"https://yourchatbot.com/widget.js\" data-bot-id=\"123\"></script> \nFlow \n1. Website loads script \n2. Widget initializes \n3. User sends message \n4. API call → backend \n5. Backend:"
+    },
+    {
+      "question": "[From Ai Chatbots for Websites - Product Design and Developement.pdf] Topic 12",
+      "answer": "○ Searches knowledge base \n○ OR calls AI \n6. Response returned \n7. Displayed in chat"
+    },
+    {
+      "question": "[From Ai Chatbots for Websites - Product Design and Developement.pdf] Topic 13",
+      "answer": " 5. Architecture \n Frontend (Widget) \n● Pure JavaScript (recommended for compatibility) \n● Injected via script tag \n Backend \n● Node.js OR Laravel (best for you ) \n AI Layer \n● OpenAI API (GPT models) \n Database \n● MySQL → chats, users, leads \n● Vector DB → knowledge search (Phase 2)"
+    },
+    {
+      "question": "[From Ai Chatbots for Websites - Product Design and Developement.pdf] Topic 14",
+      "answer": "易 6. Smart Features (Core) \n1. Knowledge-Based Answers \n● Input sources: \n○ Website URLs \n○ PDFs \n○ FAQs"
+    },
+    {
+      "question": "[From Ai Chatbots for Websites - Product Design and Developement.pdf] Topic 15",
+      "answer": " Auto-training capability (scraping + indexing)"
+    },
+    {
+      "question": "[From Ai Chatbots for Websites - Product Design and Developement.pdf] Topic 16",
+      "answer": "2. Lead Capture System \n● Trigger after 2–3 interactions \n● Store in DB \n● Email notification to admin"
+    },
+    {
+      "question": "[From Ai Chatbots for Websites - Product Design and Developement.pdf] Topic 17",
+      "answer": "3. Customization \n● Widget color \n● Logo \n● Bot name \n● Position"
+    },
+    {
+      "question": "[From Ai Chatbots for Websites - Product Design and Developement.pdf] Topic 18",
+      "answer": "4. Human Handoff \n● “Talk to agent” option \n● Redirect to: \n○ WhatsApp \n○ Call \n○ Live chat"
+    },
+    {
+      "question": "[From Ai Chatbots for Websites - Product Design and Developement.pdf] Topic 19",
+      "answer": " 7. Admin Dashboard \nFeatures \n● Add/manage websites \n● Upload knowledge base \n● View conversations \n● Download leads"
+    },
+    {
+      "question": "[From Ai Chatbots for Websites - Product Design and Developement.pdf] Topic 20",
+      "answer": "● Analytics: \n○ Total chats \n○ Conversion rate \n○ Response success rate (NEW – important)"
+    },
+    {
+      "question": "[From www.upcase.in] Section 1",
+      "answer": "UpCase &#8211; Premium Mobile Accessories Premium Mobile Accessories Free Shipping on All Orders Cash on Delivery Available Home Shop Now iPhone 17 Series iPhone 17 iPhone 17 Air iPhone 17 Pro iPhone 17 Pro Max iPhone 16 Series iPhone 16 iPhone 16 Plus iPhone 16 Pro iPhone 16 Pro Max iPhone 15 Series iPhone 15 iPhone 15 Plus iPhone 15 Pro iPhone 15 Pro Max iPhone 14 Series iPhone 14 iPhone 14 Plus iPhone 14 Pro iPhone 14 Pro Max iPhone 13 Series iPhone 13 iPhone 13 Mini iPhone 13 Pro iPhone 13"
+    },
+    {
+      "question": "[From www.upcase.in] Section 2",
+      "answer": "Pro Max iPhone 12 Series iPhone 12 iPhone 12 Mini iPhone 12 Pro iPhone 12 Pro Max iPhone 11 Series iPhone 11 iPhone 11 Pro iPhone 11 Pro Max Track your order About us Privacy Policy Return Policy Shipping Policy Terms of Service Contact Us 0 Home Flash sale -80% Wrap Your iPhone in Style - Premium Cases at Unbeatable Prices! Shop The Sale Best Sellers Save on all best selling and exclusive styles -84% New Quick view Select options This product has multiple variants. The options may be chosen on"
+    },
+    {
+      "question": "[From www.upcase.in] Section 3",
+      "answer": "the product page Delhi Capitals Logo Design Silicone Case for Apple iPhone Series &#8377; 1,399.00 Original price was: &#8377;1,399.00. &#8377; 229.00 Current price is: &#8377;229.00. -84% New Quick view Select options This product has multiple variants. The options may be chosen on the product page Bold Pride &#038; Protection Silicone Case for Apple iPhone Series &#8377; 1,399.00 Original price was: &#8377;1,399.00. &#8377; 229.00 Current price is: &#8377;229.00. -86% Quick view Select options"
+    },
+    {
+      "question": "[From www.upcase.in] Section 4",
+      "answer": "This product has multiple variants. The options may be chosen on the product page Spice Pop Chili Silicone Case for Apple iPhone Series &#8377; 1,399.00 Original price was: &#8377;1,399.00. &#8377; 199.00 Current price is: &#8377;199.00. -84% Quick view Select options This product has multiple variants. The options may be chosen on the product page Golden Lion Power Silicone Case for Apple iPhone Series &#8377; 1,399.00 Original price was: &#8377;1,399.00. &#8377; 229.00 Current price is:"
+    },
+    {
+      "question": "[From www.upcase.in] Section 5",
+      "answer": "&#8377;229.00. -86% Quick view Select options This product has multiple variants. The options may be chosen on the product page Safari Adventure Silicone Case for Apple iPhone Series &#8377; 1,399.00 Original price was: &#8377;1,399.00. &#8377; 199.00 Current price is: &#8377;199.00. -86% Quick view Select options This product has multiple variants. The options may be chosen on the product page Floral Charm Vibrant Silicone Case for Apple iPhone Series &#8377; 1,399.00 Original price was:"
+    },
+    {
+      "question": "[From www.upcase.in] Section 6",
+      "answer": "&#8377;1,399.00. &#8377; 199.00 Current price is: &#8377;199.00. -86% Quick view Select options This product has multiple variants. The options may be chosen on the product page Golden Victor Silicone Case for Apple iPhone Series &#8377; 1,399.00 Original price was: &#8377;1,399.00. &#8377; 199.00 Current price is: &#8377;199.00. -86% Quick view Select options This product has multiple variants. The options may be chosen on the product page Chic Leopard Luck Silicone Case for Apple iPhone Series"
+    },
+    {
+      "question": "[From www.upcase.in] Section 7",
+      "answer": "&#8377; 1,399.00 Original price was: &#8377;1,399.00. &#8377; 199.00 Current price is: &#8377;199.00. -86% Quick view Select options This product has multiple variants. The options may be chosen on the product page Tropical Parrot Elegance Vibrant Silicone Case for Apple iPhone Series &#8377; 1,399.00 Original price was: &#8377;1,399.00. &#8377; 199.00 Current price is: &#8377;199.00. -86% Quick view Select options This product has multiple variants. The options may be chosen on the product page"
+    },
+    {
+      "question": "[From www.upcase.in] Section 8",
+      "answer": "Majestic Stallion Design Silicone Case for Apple iPhone Series &#8377; 1,399.00 Original price was: &#8377;1,399.00. &#8377; 199.00 Current price is: &#8377;199.00. -86% Quick view Select options This product has multiple variants. The options may be chosen on the product page Deer &#038; Floral Silicone Case for Apple iPhone Series &#8377; 1,399.00 Original price was: &#8377;1,399.00. &#8377; 199.00 Current price is: &#8377;199.00. -86% Quick view Select options This product has multiple"
+    },
+    {
+      "question": "[From www.upcase.in] Section 9",
+      "answer": "variants. The options may be chosen on the product page Floral Elegance Vintage Peony Silicone Case for Apple iPhone Series &#8377; 1,399.00 Original price was: &#8377;1,399.00. &#8377; 199.00 Current price is: &#8377;199.00. -86% Quick view Select options This product has multiple variants. The options may be chosen on the product page Positivity Shield Stylish Silicone Case for Apple iPhone Series &#8377; 1,399.00 Original price was: &#8377;1,399.00. &#8377; 199.00 Current price is:"
+    },
+    {
+      "question": "[From www.upcase.in] Section 10",
+      "answer": "&#8377;199.00. -86% Quick view Select options This product has multiple variants. The options may be chosen on the product page Skateboarding Panda Groove Silicone Case for Apple iPhone Series &#8377; 1,399.00 Original price was: &#8377;1,399.00. &#8377; 199.00 Current price is: &#8377;199.00. -86% Quick view Select options This product has multiple variants. The options may be chosen on the product page Vibrant Landscape Sunset Silicone Case for Apple iPhone Series &#8377; 1,399.00 Original"
+    },
+    {
+      "question": "[From www.upcase.in] Section 11",
+      "answer": "price was: &#8377;1,399.00. &#8377; 199.00 Current price is: &#8377;199.00. -86% Quick view Select options This product has multiple variants. The options may be chosen on the product page Ocean Waves Art Vibrant Silicone Case for Apple iPhone Series &#8377; 1,399.00 Original price was: &#8377;1,399.00. &#8377; 199.00 Current price is: &#8377;199.00. -86% Quick view Select options This product has multiple variants. The options may be chosen on the product page Dark Shadow Energy Silicone Case"
+    },
+    {
+      "question": "[From www.upcase.in] Section 12",
+      "answer": "for Apple iPhone Series &#8377; 1,399.00 Original price was: &#8377;1,399.00. &#8377; 199.00 Current price is: &#8377;199.00. -86% Quick view Select options This product has multiple variants. The options may be chosen on the product page Anime-Inspired Colorful Silicone Case for Apple iPhone Series &#8377; 1,399.00 Original price was: &#8377;1,399.00. &#8377; 199.00 Current price is: &#8377;199.00. -86% Quick view Select options This product has multiple variants. The options may be chosen on"
+    },
+    {
+      "question": "[From www.upcase.in] Section 13",
+      "answer": "the product page Chevron Hex Pattern Silicone Case for Apple iPhone Series &#8377; 1,399.00 Original price was: &#8377;1,399.00. &#8377; 199.00 Current price is: &#8377;199.00. -86% Quick view Select options This product has multiple variants. The options may be chosen on the product page Magical Mail Adventure Silicone Case for Apple iPhone Series &#8377; 1,399.00 Original price was: &#8377;1,399.00. &#8377; 199.00 Current price is: &#8377;199.00. -86% Quick view Select options This product has"
+    },
+    {
+      "question": "[From www.upcase.in] Section 14",
+      "answer": "multiple variants. The options may be chosen on the product page Badger Pride Floral Shield Silicone Case for Apple iPhone Series &#8377; 1,399.00 Original price was: &#8377;1,399.00. &#8377; 199.00 Current price is: &#8377;199.00. -86% Quick view Select options This product has multiple variants. The options may be chosen on the product page Web Warrior Design Silicone Case for Apple iPhone Series &#8377; 1,399.00 Original price was: &#8377;1,399.00. &#8377; 199.00 Current price is:"
+    },
+    {
+      "question": "[From www.upcase.in] Section 15",
+      "answer": "&#8377;199.00. -86% Quick view Select options This product has multiple variants. The options may be chosen on the product page Playful Deities Illustration Silicone Case for Apple iPhone Series &#8377; 1,399.00 Original price was: &#8377;1,399.00. &#8377; 199.00 Current price is: &#8377;199.00. -86% Quick view Select options This product has multiple variants. The options may be chosen on the product page Wizard Boy Charm Silicone Case for Apple iPhone Series &#8377; 1,399.00 Original price"
+    },
+    {
+      "question": "[From example.com] Section 1",
+      "answer": "Example Domain Example Domain This domain is for use in documentation examples without needing permission. Avoid use in operations. Learn more"
+    },
+    {
+      "question": "[From major project abstract (1).pdf] Topic 1",
+      "answer": "TrustRent: Smart Rental Issue and Payment Management System"
+    },
+    {
+      "question": "[From major project abstract (1).pdf] Topic 2",
+      "answer": "Manual  rental  management  systems  often  face  challenges  such  as  payment \ndisputes, inefficient complaint handling, lack of transparency, and reduced trust \nbetween  tenants  and  property  owners.  Existing  solutions  based  on  the  SSM \nframework  (Spring,  Spring  MVC, and  MyBatis)  mainly  focus  on  basic  data \nstorage  and  lack  intelligent  automation  and  analytical  capabilities.  To  address \nthese issues, the proposed system, TrustRent, is an AI-enabled smart rental issue"
+    },
+    {
+      "question": "What is AI chatbot",
+      "answer": "AI chatbot is an automated assistant"
+    },
+    {
+      "question": "What is your project?",
+      "answer": "This is an AI chatbot project."
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 1",
+      "answer": "Artificial intelligence - Wikipedia Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Contents move to sidebar hide (Top) 1 Goals Toggle Goals subsection 1.1 Reasoning and problem-solving 1.2 Knowledge representation 1.3"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 2",
+      "answer": "uncertain reasoning 2.4 Classifiers and statistical learning methods 2.5 Artificial neural networks 2.6 Deep learning 2.7 GPT 2.8 Hardware and software 3 Applications Toggle Applications subsection 3.1 Health and medicine 3.2 Gaming 3.3 Mathematics 3.4 Finance 3.5 Military 3.6 Generative AI 3.7 Agents 3.8 Web search 3.9 Sexuality 3.10 Other industry-specific tasks 4 Ethics Toggle Ethics subsection 4.1 Risks and harm 4.1.1 Privacy and copyright 4.1.2 Dominance by tech giants 4.1.3 Power needs and"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 3",
+      "answer": "Frameworks 4.5 Regulation 5 History 6 Philosophy Toggle Philosophy subsection 6.1 Defining artificial intelligence 6.1.1 Legal definitions 6.2 Evaluating approaches to AI 6.2.1 Symbolic AI and its limits 6.2.2 Neat vs. scruffy 6.2.3 Soft vs. hard computing 6.2.4 Narrow vs. general AI 6.3 Machine consciousness, sentience, and mind 6.3.1 Consciousness 6.3.2 Computationalism and functionalism 6.3.3 AI welfare and rights 7 Future Toggle Future subsection 7.1 Superintelligence and the singularity 7.2"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 4",
+      "answer": "مصرى অসমীয়া Asturianu Azərbaycanca تۆرکجه Башҡортса Boarisch Žemaitėška Bikol Central Беларуская (тарашкевіца) Беларуская Betawi Български भोजपुरी ပအိုဝ်ႏဘာႏသာႏ বাংলা བོད་ཡིག Brezhoneg Bosanski Буряад Català Cebuano کوردی Qırımtatarca Čeština Чӑвашла Cymraeg Dansk Deutsch Zazaki Kadazandusun Ελληνικά Esperanto Español Eesti Euskara Estremeñu فارسی Suomi Võro Fɔ̀ngbè Français Nordfriisk Furlan Gaeilge 贛語 Kriyòl gwiyannen Gàidhlig Galego Avañe&#039;ẽ गोंयची कोंकणी / Gõychi Konknni Gaelg Hausa עבר"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 5",
+      "answer": "Limburgs Ligure Lombard ລາວ Lietuvių Latviešu Madhurâ Malagasy Minangkabau Македонски മലയാളം Монгол ဘာသာမန် मराठी Bahasa Melayu Malti မြန်မာဘာသာ Nedersaksies Plattdüütsch नेपाली नेपाल भाषा Nederlands Norsk nynorsk Norsk bokmål Sesotho sa Leboa Occitan ଓଡ଼ିଆ ਪੰਜਾਬੀ Picard Polski Piemontèis پنجابی پښتو Português Runa Simi Română Руски Русский Русиньскый संस्कृतम् Саха тыла Sicilianu Scots سنڌي Sängö Srpskohrvatski / српскохрватски සිංහල Simple English Slovenčina Slovenščina Shqip Српски / srpski S"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 6",
+      "answer": "View source View history Tools Tools move to sidebar hide Actions Read View source View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Print/export Download as PDF Printable version In other projects Abstract Wikipedia Wikimedia Commons Wikibooks Wikiquote Wikiversity Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Intelligence of machines \"AI\" redirects here. For other uses, see AI "
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 7",
+      "answer": "Robotics AI safety Approaches Machine learning Symbolic Deep learning Bayesian networks Evolutionary algorithms Hybrid intelligent systems Systems integration Open-source AI data centers Applications Bioinformatics Deepfake Earth sciences Finance Generative AI Art Audio Music Government Healthcare Mental health Industry Software development Translation Military Physics Projects Philosophy AI alignment Artificial consciousness The bitter lesson Chinese room Friendly AI Ethics Existential risk Tur"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 8",
+      "answer": "Giant AI Experiments Removal of Sam Altman from OpenAI Statement on AI Risk Tay (chatbot) Théâtre D'opéra Spatial Voiceverse NFT plagiarism scandal Glossary Glossary v t e Artificial intelligence ( AI ) is the capability of computational systems to perform tasks typically associated with human intelligence , such as learning , reasoning , problem-solving , perception , and decision-making . It is a field of research in engineering , mathematics and computer science that develops and studies meth"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 9",
+      "answer": "assistants , autonomous vehicles , and play and analysis in strategy games (e.g., chess and Go ). Since the 2020s, generative AI has become widely available to generate images, audio, and videos from text prompts. The traditional goals of AI research include learning, reasoning , knowledge representation , planning , natural language processing , and perception , as well as support for robotics . &#91; a &#93; To reach these goals, AI researchers have used techniques including state space search"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 10",
+      "answer": ", Google DeepMind and Meta , aim to create artificial general intelligence (AGI) – AI that can complete virtually any cognitive task at least as well as a human. &#91; 4 &#93; Artificial intelligence was founded as an academic discipline in 1956, &#91; 5 &#93; and the field went through multiple cycles of optimism throughout its history , &#91; 6 &#93; &#91; 7 &#93; followed by periods of disappointment and loss of funding, known as AI winters . &#91; 8 &#93; &#91; 9 &#93; Funding and interest i"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 11",
+      "answer": "boom has coincided with advances in generative AI , which allowed for the creation and modification of media. In addition to AI safety and unintended consequences and harms from the use of AI, ethical concerns , AI's long-term effects , and potential existential risks have prompted discussions of AI regulation . Goals The general problem of simulating (or creating) intelligence has been broken into subproblems. These consist of particular traits or capabilities that researchers expect an intelli"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 12",
+      "answer": "deductions . &#91; 12 &#93; By the late 1980s and 1990s, methods were developed for dealing with uncertain or incomplete information, employing concepts from probability and economics . &#91; 13 &#93; Many of these algorithms are insufficient for solving large reasoning problems because they experience a \"combinatorial explosion\": They become exponentially slower as the problems grow. &#91; 14 &#93; Even humans rarely use the step-by-step deduction that early AI research could model. They solve "
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 13",
+      "answer": "knowledge engineering &#91; 16 &#93; allow AI programs to answer questions intelligently and make deductions about real-world facts. Formal knowledge representations are used in content-based indexing and retrieval, &#91; 17 &#93; scene interpretation, &#91; 18 &#93; clinical decision support, &#91; 19 &#93; knowledge discovery (mining \"interesting\" and actionable inferences from large databases ), &#91; 20 &#93; and other areas. &#91; 21 &#93; A knowledge base is a body of knowledge represented"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 14",
+      "answer": "situations, events, states, and time; &#91; 24 &#93; causes and effects; &#91; 25 &#93; knowledge about knowledge (what we know about what other people know); &#91; 26 &#93; default reasoning (things that humans assume are true until they are told differently and will remain true even when other facts are changing); &#91; 27 &#93; and many other aspects and domains of knowledge. Among the most difficult problems in knowledge representation are the breadth of commonsense knowledge (the set of ato"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 15",
+      "answer": ", the problem of obtaining knowledge for AI applications. &#91; c &#93; Planning and decision-making An \"agent\" is any entity (artificial or not) that perceives and takes actions in the world. A rational agent has goals or preferences and takes actions to make them happen. &#91; d &#93; &#91; 31 &#93; In automated planning , the agent has a specific goal. &#91; 32 &#93; In automated decision-making , the agent has preferences—there are some situations it would prefer to be in, and some situation"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 1",
+      "answer": "Artificial intelligence - Wikipedia Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Contents move to sidebar hide (Top) 1 Goals Toggle Goals subsection 1.1 Reasoning and problem-solving 1.2 Knowledge representation 1.3"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 2",
+      "answer": "uncertain reasoning 2.4 Classifiers and statistical learning methods 2.5 Artificial neural networks 2.6 Deep learning 2.7 GPT 2.8 Hardware and software 3 Applications Toggle Applications subsection 3.1 Health and medicine 3.2 Gaming 3.3 Mathematics 3.4 Finance 3.5 Military 3.6 Generative AI 3.7 Agents 3.8 Web search 3.9 Sexuality 3.10 Other industry-specific tasks 4 Ethics Toggle Ethics subsection 4.1 Risks and harm 4.1.1 Privacy and copyright 4.1.2 Dominance by tech giants 4.1.3 Power needs and"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 3",
+      "answer": "Frameworks 4.5 Regulation 5 History 6 Philosophy Toggle Philosophy subsection 6.1 Defining artificial intelligence 6.1.1 Legal definitions 6.2 Evaluating approaches to AI 6.2.1 Symbolic AI and its limits 6.2.2 Neat vs. scruffy 6.2.3 Soft vs. hard computing 6.2.4 Narrow vs. general AI 6.3 Machine consciousness, sentience, and mind 6.3.1 Consciousness 6.3.2 Computationalism and functionalism 6.3.3 AI welfare and rights 7 Future Toggle Future subsection 7.1 Superintelligence and the singularity 7.2"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 4",
+      "answer": "مصرى অসমীয়া Asturianu Azərbaycanca تۆرکجه Башҡортса Boarisch Žemaitėška Bikol Central Беларуская (тарашкевіца) Беларуская Betawi Български भोजपुरी ပအိုဝ်ႏဘာႏသာႏ বাংলা བོད་ཡིག Brezhoneg Bosanski Буряад Català Cebuano کوردی Qırımtatarca Čeština Чӑвашла Cymraeg Dansk Deutsch Zazaki Kadazandusun Ελληνικά Esperanto Español Eesti Euskara Estremeñu فارسی Suomi Võro Fɔ̀ngbè Français Nordfriisk Furlan Gaeilge 贛語 Kriyòl gwiyannen Gàidhlig Galego Avañe&#039;ẽ गोंयची कोंकणी / Gõychi Konknni Gaelg Hausa עבר"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 5",
+      "answer": "Limburgs Ligure Lombard ລາວ Lietuvių Latviešu Madhurâ Malagasy Minangkabau Македонски മലയാളം Монгол ဘာသာမန် मराठी Bahasa Melayu Malti မြန်မာဘာသာ Nedersaksies Plattdüütsch नेपाली नेपाल भाषा Nederlands Norsk nynorsk Norsk bokmål Sesotho sa Leboa Occitan ଓଡ଼ିଆ ਪੰਜਾਬੀ Picard Polski Piemontèis پنجابی پښتو Português Runa Simi Română Руски Русский Русиньскый संस्कृतम् Саха тыла Sicilianu Scots سنڌي Sängö Srpskohrvatski / српскохрватски සිංහල Simple English Slovenčina Slovenščina Shqip Српски / srpski S"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 6",
+      "answer": "View source View history Tools Tools move to sidebar hide Actions Read View source View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Print/export Download as PDF Printable version In other projects Abstract Wikipedia Wikimedia Commons Wikibooks Wikiquote Wikiversity Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Intelligence of machines \"AI\" redirects here. For other uses, see AI "
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 7",
+      "answer": "Robotics AI safety Approaches Machine learning Symbolic Deep learning Bayesian networks Evolutionary algorithms Hybrid intelligent systems Systems integration Open-source AI data centers Applications Bioinformatics Deepfake Earth sciences Finance Generative AI Art Audio Music Government Healthcare Mental health Industry Software development Translation Military Physics Projects Philosophy AI alignment Artificial consciousness The bitter lesson Chinese room Friendly AI Ethics Existential risk Tur"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 8",
+      "answer": "Giant AI Experiments Removal of Sam Altman from OpenAI Statement on AI Risk Tay (chatbot) Théâtre D'opéra Spatial Voiceverse NFT plagiarism scandal Glossary Glossary v t e Artificial intelligence ( AI ) is the capability of computational systems to perform tasks typically associated with human intelligence , such as learning , reasoning , problem-solving , perception , and decision-making . It is a field of research in engineering , mathematics and computer science that develops and studies meth"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 9",
+      "answer": "assistants , autonomous vehicles , and play and analysis in strategy games (e.g., chess and Go ). Since the 2020s, generative AI has become widely available to generate images, audio, and videos from text prompts. The traditional goals of AI research include learning, reasoning , knowledge representation , planning , natural language processing , and perception , as well as support for robotics . &#91; a &#93; To reach these goals, AI researchers have used techniques including state space search"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 10",
+      "answer": ", Google DeepMind and Meta , aim to create artificial general intelligence (AGI) – AI that can complete virtually any cognitive task at least as well as a human. &#91; 4 &#93; Artificial intelligence was founded as an academic discipline in 1956, &#91; 5 &#93; and the field went through multiple cycles of optimism throughout its history , &#91; 6 &#93; &#91; 7 &#93; followed by periods of disappointment and loss of funding, known as AI winters . &#91; 8 &#93; &#91; 9 &#93; Funding and interest i"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 11",
+      "answer": "boom has coincided with advances in generative AI , which allowed for the creation and modification of media. In addition to AI safety and unintended consequences and harms from the use of AI, ethical concerns , AI's long-term effects , and potential existential risks have prompted discussions of AI regulation . Goals The general problem of simulating (or creating) intelligence has been broken into subproblems. These consist of particular traits or capabilities that researchers expect an intelli"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 12",
+      "answer": "deductions . &#91; 12 &#93; By the late 1980s and 1990s, methods were developed for dealing with uncertain or incomplete information, employing concepts from probability and economics . &#91; 13 &#93; Many of these algorithms are insufficient for solving large reasoning problems because they experience a \"combinatorial explosion\": They become exponentially slower as the problems grow. &#91; 14 &#93; Even humans rarely use the step-by-step deduction that early AI research could model. They solve "
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 13",
+      "answer": "knowledge engineering &#91; 16 &#93; allow AI programs to answer questions intelligently and make deductions about real-world facts. Formal knowledge representations are used in content-based indexing and retrieval, &#91; 17 &#93; scene interpretation, &#91; 18 &#93; clinical decision support, &#91; 19 &#93; knowledge discovery (mining \"interesting\" and actionable inferences from large databases ), &#91; 20 &#93; and other areas. &#91; 21 &#93; A knowledge base is a body of knowledge represented"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 14",
+      "answer": "situations, events, states, and time; &#91; 24 &#93; causes and effects; &#91; 25 &#93; knowledge about knowledge (what we know about what other people know); &#91; 26 &#93; default reasoning (things that humans assume are true until they are told differently and will remain true even when other facts are changing); &#91; 27 &#93; and many other aspects and domains of knowledge. Among the most difficult problems in knowledge representation are the breadth of commonsense knowledge (the set of ato"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 15",
+      "answer": ", the problem of obtaining knowledge for AI applications. &#91; c &#93; Planning and decision-making An \"agent\" is any entity (artificial or not) that perceives and takes actions in the world. A rational agent has goals or preferences and takes actions to make them happen. &#91; d &#93; &#91; 31 &#93; In automated planning , the agent has a specific goal. &#91; 32 &#93; In automated decision-making , the agent has preferences—there are some situations it would prefer to be in, and some situation"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 1",
+      "answer": "Chatbot - Wikipedia Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Contents move to sidebar hide (Top) 1 History Toggle History subsection 1.1 Turing test 1.2 Early chatbots 1.3 Modern chatbots based on large language"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 2",
+      "answer": "effects 3 Limitations 4 Impact on jobs 5 Impact on the environment 6 See also 7 References 8 Further reading 9 External links Toggle the table of contents Chatbot 76 languages Afrikaans العربية Azərbaycanca Boarisch Беларуская Български भोजपुरी বাংলা Bosanski Català کوردی Čeština Dansk Deutsch Ελληνικά Esperanto Español Eesti Euskara فارسی Suomi Français Galego עברית हिन्दी Hrvatski Magyar Հայերեն Bahasa Indonesia Ido Íslenska Italiano 日本語 Jawa Qaraqalpaqsha ಕನ್ನಡ 한국어 Кыргызча Lietuvių Latviešu "
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 3",
+      "answer": "Tiếng Việt 吴语 閩南語 / Bân-lâm-gí 粵語 中文 IsiZulu Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Print/export Download as PDF Printable version In other projects Wikimedia Commons MediaWiki Wikibooks Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Conversational software For othe"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 4",
+      "answer": "Batch learning Curriculum learning Rule-based learning Neuro-symbolic AI Neuromorphic engineering Quantum machine learning Problems Classification Generative modeling Regression Clustering Dimensionality reduction Density estimation Anomaly detection Data cleaning AutoML Association rules Semantic analysis Structured prediction Feature engineering Feature learning Learning to rank Grammar induction Ontology learning Multimodal learning Supervised learning ( classification &#160;&#8226;&#32; regr"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 5",
+      "answer": "Expectation–maximization (EM) DBSCAN OPTICS Mean shift Dimensionality reduction Factor analysis CCA ICA LDA NMF PCA PGD t-SNE SDL Structured prediction Graphical models Bayes net Conditional random field Hidden Markov Anomaly detection RANSAC k -NN Local outlier factor Isolation forest Neural networks Autoencoder Deep learning Feedforward neural network Recurrent neural network LSTM GRU ESN reservoir computing Boltzmann machine Restricted GAN Diffusion model SOM Convolutional neural network U-Ne"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 6",
+      "answer": "humans Active learning Crowdsourcing Human-in-the-loop Mechanistic interpretability RLHF Model diagnostics Coefficient of determination Confusion matrix Learning curve ROC curve Mathematical foundations Kernel machines Bias–variance tradeoff Computational learning theory Empirical risk minimization Occam learning PAC learning Statistical learning VC theory Topological deep learning Journals and conferences AAAI ECML PKDD NeurIPS ICML ICLR IJCAI ML JMLR Related articles Glossary of artificial int"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 7",
+      "answer": "&#91; 3 &#93; &#91; 4 &#93; Modern chatbots are typically online and use generative artificial intelligence systems that are capable of maintaining a conversation with a user in natural language and simulating the way a human would behave as a conversational partner. Such chatbots often use deep learning and natural language processing . Simpler chatbots have existed for decades. Chatbots have gained popularity with the release of ChatGPT by OpenAI in 2022, followed by competitors such as Gemini"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 8",
+      "answer": "[ edit ] In 1950, Alan Turing published an article entitled \" Computing Machinery and Intelligence \" in which he proposed what is now called the Turing test as a criterion of intelligence . This criterion depends on the ability of a computer program to impersonate a human in a real-time written conversation with a human judge, to the extent that the judge is incapable of reliably distinguishing, on the basis of the conversational content alone, between the program and a real human. &#91; 6 &#93;"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 9",
+      "answer": "ways, often sufficient to dazzle even the most experienced observer. But once a particular program is unmasked, once its inner workings are explained, its magic crumbles away; it stands revealed as a mere collection of procedures. The observer says to himself \"I could have written that\". With that thought, he moves the program in question from the shelf marked \"intelligent\", to that reserved for curios. The object of this paper is to cause just such a re-evaluation of the program about to be \"ex"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 10",
+      "answer": "way (e.g. by responding to any input that contains the word 'MOTHER' with 'TELL ME MORE ABOUT YOUR FAMILY'). &#91; 7 &#93; Thus an illusion of understanding is generated, even though the processing involved has been merely superficial. ELIZA showed that such an illusion is surprisingly easy to generate because human judges are ready to give the benefit of the doubt when conversational responses are capable of being interpreted as \"intelligent\". Following ELIZA, psychiatrist Kenneth Colby develop"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 11",
+      "answer": "and updated its database daily by parsing wire news from United Press International . The program was unable to process the news items subsequent to the surprise resignation of Cyrus Vance in April 1980, and the team constructed another chatbot simulating his successor, Edmund Muskie . &#91; 14 &#93; &#91; 13 &#93; In 1984, an interactive version of the program Racter was released which acted as a chatbot. &#91; 15 &#93; A.L.I.C.E. was released in 1995. This uses a markup language called AIML, &"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 12",
+      "answer": "strong AI, which would require sapience and logical reasoning abilities. Jabberwacky , released in 1997, learns new responses and context based on real-time user interactions , rather than being driven from a static database . Chatbot competitions focus on the Turing test or more specific goals. Two such annual contests are the Loebner Prize and The Chatterbox Challenge (the latter has been offline since 2015, however, materials can still be found from web archives). &#91; 16 &#93; Pre-dating th"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 13",
+      "answer": "large language models [ edit ] A Character.ai conversation with a chatbot simulating the philosopher Wittgenstein Modern chatbots like ChatGPT are often based on foundational large language models called generative pre-trained transformers (GPT). They are based on a deep learning architecture called the transformer , which contains artificial neural networks . They generate text after being trained on a large text corpus , and have emergent abilities that they are not specifically trained for. C"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 14",
+      "answer": "task automation without requiring software installation. Application [ edit ] This section needs to be updated . Please help update this article to reflect recent events or newly available information. ( December 2024 ) See also: Virtual assistant Messaging apps [ edit ] Many companies' chatbots run on messaging apps or simply via SMS . They are used for B2C customer service, sales and marketing. &#91; 21 &#93; In 2016, Facebook Messenger allowed developers to place chatbots on their platform. T"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 15",
+      "answer": "&#91; 24 &#93; &#91; 25 &#93; &#91; 26 &#93; both airlines had previously launched customer services on the Facebook Messenger platform. The bots usually appear as one of the user's contacts, but can sometimes act as participants in a group chat . Many banks, insurers, media companies, e-commerce companies, airlines, hotel chains, retailers, health care providers, government entities, and restaurant chains have used chatbots to answer simple questions , increase customer engagement , &#91; 27 &#"
+    },
+    {
+      "question": "What is an AI chatbot?",
+      "answer": "An AI chatbot is a software application that uses artificial intelligence to interact with users and provide automated responses."
+    },
+    {
+      "question": "[From abstract 30.pdf] Topic 1",
+      "answer": "ABSTRACT  \nThe  increasing  impact  of  climate  change  has  made  accurate  prediction  and \nanalysis  of  environmental  conditions  essential  for  sustainable  planning  and \ndisaster management. This project presents an AI-Powered Climate Digital Twin \nfor India, a virtual representation of India’s climate system that simulates real-\nworld environmental behavior using data-driven techniques. \nThe system integrates historical climate data obtained from sources such as the \nIndian  Meteorolo"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 1",
+      "answer": "Chatbot - Wikipedia Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Contents move to sidebar hide (Top) 1 History Toggle History subsection 1.1 Turing test 1.2 Early chatbots 1.3 Modern chatbots based on large language"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 2",
+      "answer": "effects 3 Limitations 4 Impact on jobs 5 Impact on the environment 6 See also 7 References 8 Further reading 9 External links Toggle the table of contents Chatbot 76 languages Afrikaans العربية Azərbaycanca Boarisch Беларуская Български भोजपुरी বাংলা Bosanski Català کوردی Čeština Dansk Deutsch Ελληνικά Esperanto Español Eesti Euskara فارسی Suomi Français Galego עברית हिन्दी Hrvatski Magyar Հայերեն Bahasa Indonesia Ido Íslenska Italiano 日本語 Jawa Qaraqalpaqsha ಕನ್ನಡ 한국어 Кыргызча Lietuvių Latviešu "
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 3",
+      "answer": "Tiếng Việt 吴语 閩南語 / Bân-lâm-gí 粵語 中文 IsiZulu Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Print/export Download as PDF Printable version In other projects Wikimedia Commons MediaWiki Wikibooks Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Conversational software For othe"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 4",
+      "answer": "Batch learning Curriculum learning Rule-based learning Neuro-symbolic AI Neuromorphic engineering Quantum machine learning Problems Classification Generative modeling Regression Clustering Dimensionality reduction Density estimation Anomaly detection Data cleaning AutoML Association rules Semantic analysis Structured prediction Feature engineering Feature learning Learning to rank Grammar induction Ontology learning Multimodal learning Supervised learning ( classification &#160;&#8226;&#32; regr"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 5",
+      "answer": "Expectation–maximization (EM) DBSCAN OPTICS Mean shift Dimensionality reduction Factor analysis CCA ICA LDA NMF PCA PGD t-SNE SDL Structured prediction Graphical models Bayes net Conditional random field Hidden Markov Anomaly detection RANSAC k -NN Local outlier factor Isolation forest Neural networks Autoencoder Deep learning Feedforward neural network Recurrent neural network LSTM GRU ESN reservoir computing Boltzmann machine Restricted GAN Diffusion model SOM Convolutional neural network U-Ne"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 6",
+      "answer": "humans Active learning Crowdsourcing Human-in-the-loop Mechanistic interpretability RLHF Model diagnostics Coefficient of determination Confusion matrix Learning curve ROC curve Mathematical foundations Kernel machines Bias–variance tradeoff Computational learning theory Empirical risk minimization Occam learning PAC learning Statistical learning VC theory Topological deep learning Journals and conferences AAAI ECML PKDD NeurIPS ICML ICLR IJCAI ML JMLR Related articles Glossary of artificial int"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 7",
+      "answer": "&#91; 3 &#93; &#91; 4 &#93; Modern chatbots are typically online and use generative artificial intelligence systems that are capable of maintaining a conversation with a user in natural language and simulating the way a human would behave as a conversational partner. Such chatbots often use deep learning and natural language processing . Simpler chatbots have existed for decades. Chatbots have gained popularity with the release of ChatGPT by OpenAI in 2022, followed by competitors such as Gemini"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 8",
+      "answer": "[ edit ] In 1950, Alan Turing published an article entitled \" Computing Machinery and Intelligence \" in which he proposed what is now called the Turing test as a criterion of intelligence . This criterion depends on the ability of a computer program to impersonate a human in a real-time written conversation with a human judge, to the extent that the judge is incapable of reliably distinguishing, on the basis of the conversational content alone, between the program and a real human. &#91; 6 &#93;"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 9",
+      "answer": "ways, often sufficient to dazzle even the most experienced observer. But once a particular program is unmasked, once its inner workings are explained, its magic crumbles away; it stands revealed as a mere collection of procedures. The observer says to himself \"I could have written that\". With that thought, he moves the program in question from the shelf marked \"intelligent\", to that reserved for curios. The object of this paper is to cause just such a re-evaluation of the program about to be \"ex"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 10",
+      "answer": "way (e.g. by responding to any input that contains the word 'MOTHER' with 'TELL ME MORE ABOUT YOUR FAMILY'). &#91; 7 &#93; Thus an illusion of understanding is generated, even though the processing involved has been merely superficial. ELIZA showed that such an illusion is surprisingly easy to generate because human judges are ready to give the benefit of the doubt when conversational responses are capable of being interpreted as \"intelligent\". Following ELIZA, psychiatrist Kenneth Colby develop"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 11",
+      "answer": "and updated its database daily by parsing wire news from United Press International . The program was unable to process the news items subsequent to the surprise resignation of Cyrus Vance in April 1980, and the team constructed another chatbot simulating his successor, Edmund Muskie . &#91; 14 &#93; &#91; 13 &#93; In 1984, an interactive version of the program Racter was released which acted as a chatbot. &#91; 15 &#93; A.L.I.C.E. was released in 1995. This uses a markup language called AIML, &"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 12",
+      "answer": "strong AI, which would require sapience and logical reasoning abilities. Jabberwacky , released in 1997, learns new responses and context based on real-time user interactions , rather than being driven from a static database . Chatbot competitions focus on the Turing test or more specific goals. Two such annual contests are the Loebner Prize and The Chatterbox Challenge (the latter has been offline since 2015, however, materials can still be found from web archives). &#91; 16 &#93; Pre-dating th"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 13",
+      "answer": "large language models [ edit ] A Character.ai conversation with a chatbot simulating the philosopher Wittgenstein Modern chatbots like ChatGPT are often based on foundational large language models called generative pre-trained transformers (GPT). They are based on a deep learning architecture called the transformer , which contains artificial neural networks . They generate text after being trained on a large text corpus , and have emergent abilities that they are not specifically trained for. C"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 14",
+      "answer": "task automation without requiring software installation. Application [ edit ] This section needs to be updated . Please help update this article to reflect recent events or newly available information. ( December 2024 ) See also: Virtual assistant Messaging apps [ edit ] Many companies' chatbots run on messaging apps or simply via SMS . They are used for B2C customer service, sales and marketing. &#91; 21 &#93; In 2016, Facebook Messenger allowed developers to place chatbots on their platform. T"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 15",
+      "answer": "&#91; 24 &#93; &#91; 25 &#93; &#91; 26 &#93; both airlines had previously launched customer services on the Facebook Messenger platform. The bots usually appear as one of the user's contacts, but can sometimes act as participants in a group chat . Many banks, insurers, media companies, e-commerce companies, airlines, hotel chains, retailers, health care providers, government entities, and restaurant chains have used chatbots to answer simple questions , increase customer engagement , &#91; 27 &#"
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 1",
+      "answer": "Title: AI Chatbot System \n1. Introduction \nAn AI Chatbot is a software application that uses Artificial Intelligence to interact with users \nthrough text or voice. It helps automate conversations and provide instant responses to user \nqueries."
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 2",
+      "answer": "2. Objective \nThe main objective of this project is: \n• To provide automated responses to users  \n• To reduce manual support work  \n• To improve user experience"
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 3",
+      "answer": "3. Features \n• Answer user questions automatically  \n• Supports FAQ-based responses  \n• Can learn from website data  \n• Can process PDF documents  \n• Provides instant replies"
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 4",
+      "answer": "4. How It Works \n1. User asks a question  \n2. System searches in:  \no FAQ data  \no Knowledge base (URL/PDF)  \n3. If answer is found → it replies  \n4. If not → AI generates response"
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 5",
+      "answer": "5. Technologies Used \n• Frontend: HTML, CSS, JavaScript"
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 6",
+      "answer": "• Backend: Node.js  \n• Database: SQLite / JSON  \n• AI Integration: API-based chatbot"
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 7",
+      "answer": "6. Applications \n• Customer support  \n• E-commerce websites  \n• Educational platforms  \n• Business automation"
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 8",
+      "answer": "7. Advantages \n• 24/7 availability  \n• Fast responses  \n• Reduces human effort  \n• Improves efficiency"
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 9",
+      "answer": "8. Conclusion \nThe AI Chatbot system helps automate communication and improves interaction between \nusers and systems. It is a powerful tool for modern applications."
+    },
+    {
+      "question": "What are the features of an AI chatbot?",
+      "answer": "AI chatbot features include answering questions automatically, processing data from websites and PDFs, and providing instant responses."
+    },
+    {
+      "question": "How does an AI chatbot work?",
+      "answer": "It works by searching in FAQ data and knowledge base, and if no data is found, it generates answers using AI."
+    },
+    {
+      "question": "What are the advantages of AI chatbots?",
+      "answer": "AI chatbots provide 24/7 availability, fast responses, and reduce human effort."
+    },
+    {
+      "question": "What are types of Artificial Intelligence?",
+      "answer": "Types of AI include Narrow AI, General AI, and Super AI."
+    },
+    {
+      "question": "What is an AI chatbot?",
+      "answer": "An AI chatbot is a software application that uses artificial intelligence to interact with users and provide automated responses."
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 1",
+      "answer": "Title: AI Chatbot System \n1. Introduction \nAn AI Chatbot is a software application that uses Artificial Intelligence to interact with users \nthrough text or voice. It helps automate conversations and provide instant responses to user \nqueries."
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 2",
+      "answer": "2. Objective \nThe main objective of this project is: \n• To provide automated responses to users  \n• To reduce manual support work  \n• To improve user experience"
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 3",
+      "answer": "3. Features \n• Answer user questions automatically  \n• Supports FAQ-based responses  \n• Can learn from website data  \n• Can process PDF documents  \n• Provides instant replies"
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 4",
+      "answer": "4. How It Works \n1. User asks a question  \n2. System searches in:  \no FAQ data  \no Knowledge base (URL/PDF)  \n3. If answer is found → it replies  \n4. If not → AI generates response"
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 5",
+      "answer": "5. Technologies Used \n• Frontend: HTML, CSS, JavaScript"
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 6",
+      "answer": "• Backend: Node.js  \n• Database: SQLite / JSON  \n• AI Integration: API-based chatbot"
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 7",
+      "answer": "6. Applications \n• Customer support  \n• E-commerce websites  \n• Educational platforms  \n• Business automation"
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 8",
+      "answer": "7. Advantages \n• 24/7 availability  \n• Fast responses  \n• Reduces human effort  \n• Improves efficiency"
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 9",
+      "answer": "8. Conclusion \nThe AI Chatbot system helps automate communication and improves interaction between \nusers and systems. It is a powerful tool for modern applications."
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 1",
+      "answer": "Title: AI Chatbot System \n1. Introduction \nAn AI Chatbot is a software application that uses Artificial Intelligence to interact with users \nthrough text or voice. It helps automate conversations and provide instant responses to user \nqueries."
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 2",
+      "answer": "2. Objective \nThe main objective of this project is: \n• To provide automated responses to users  \n• To reduce manual support work  \n• To improve user experience"
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 3",
+      "answer": "3. Features \n• Answer user questions automatically  \n• Supports FAQ-based responses  \n• Can learn from website data  \n• Can process PDF documents  \n• Provides instant replies"
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 4",
+      "answer": "4. How It Works \n1. User asks a question  \n2. System searches in:  \no FAQ data  \no Knowledge base (URL/PDF)  \n3. If answer is found → it replies  \n4. If not → AI generates response"
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 5",
+      "answer": "5. Technologies Used \n• Frontend: HTML, CSS, JavaScript"
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 6",
+      "answer": "• Backend: Node.js  \n• Database: SQLite / JSON  \n• AI Integration: API-based chatbot"
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 7",
+      "answer": "6. Applications \n• Customer support  \n• E-commerce websites  \n• Educational platforms  \n• Business automation"
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 8",
+      "answer": "7. Advantages \n• 24/7 availability  \n• Fast responses  \n• Reduces human effort  \n• Improves efficiency"
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 9",
+      "answer": "8. Conclusion \nThe AI Chatbot system helps automate communication and improves interaction between \nusers and systems. It is a powerful tool for modern applications."
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 1",
+      "answer": "Chatbot - Wikipedia Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Contents move to sidebar hide (Top) 1 History Toggle History subsection 1.1 Turing test 1.2 Early chatbots 1.3 Modern chatbots based on large language"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 2",
+      "answer": "effects 3 Limitations 4 Impact on jobs 5 Impact on the environment 6 See also 7 References 8 Further reading 9 External links Toggle the table of contents Chatbot 76 languages Afrikaans العربية Azərbaycanca Boarisch Беларуская Български भोजपुरी বাংলা Bosanski Català کوردی Čeština Dansk Deutsch Ελληνικά Esperanto Español Eesti Euskara فارسی Suomi Français Galego עברית हिन्दी Hrvatski Magyar Հայերեն Bahasa Indonesia Ido Íslenska Italiano 日本語 Jawa Qaraqalpaqsha ಕನ್ನಡ 한국어 Кыргызча Lietuvių Latviešu "
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 3",
+      "answer": "Tiếng Việt 吴语 閩南語 / Bân-lâm-gí 粵語 中文 IsiZulu Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Print/export Download as PDF Printable version In other projects Wikimedia Commons MediaWiki Wikibooks Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Conversational software For othe"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 4",
+      "answer": "Batch learning Curriculum learning Rule-based learning Neuro-symbolic AI Neuromorphic engineering Quantum machine learning Problems Classification Generative modeling Regression Clustering Dimensionality reduction Density estimation Anomaly detection Data cleaning AutoML Association rules Semantic analysis Structured prediction Feature engineering Feature learning Learning to rank Grammar induction Ontology learning Multimodal learning Supervised learning ( classification &#160;&#8226;&#32; regr"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 5",
+      "answer": "Expectation–maximization (EM) DBSCAN OPTICS Mean shift Dimensionality reduction Factor analysis CCA ICA LDA NMF PCA PGD t-SNE SDL Structured prediction Graphical models Bayes net Conditional random field Hidden Markov Anomaly detection RANSAC k -NN Local outlier factor Isolation forest Neural networks Autoencoder Deep learning Feedforward neural network Recurrent neural network LSTM GRU ESN reservoir computing Boltzmann machine Restricted GAN Diffusion model SOM Convolutional neural network U-Ne"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 6",
+      "answer": "humans Active learning Crowdsourcing Human-in-the-loop Mechanistic interpretability RLHF Model diagnostics Coefficient of determination Confusion matrix Learning curve ROC curve Mathematical foundations Kernel machines Bias–variance tradeoff Computational learning theory Empirical risk minimization Occam learning PAC learning Statistical learning VC theory Topological deep learning Journals and conferences AAAI ECML PKDD NeurIPS ICML ICLR IJCAI ML JMLR Related articles Glossary of artificial int"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 7",
+      "answer": "&#91; 3 &#93; &#91; 4 &#93; Modern chatbots are typically online and use generative artificial intelligence systems that are capable of maintaining a conversation with a user in natural language and simulating the way a human would behave as a conversational partner. Such chatbots often use deep learning and natural language processing . Simpler chatbots have existed for decades. Chatbots have gained popularity with the release of ChatGPT by OpenAI in 2022, followed by competitors such as Gemini"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 8",
+      "answer": "[ edit ] In 1950, Alan Turing published an article entitled \" Computing Machinery and Intelligence \" in which he proposed what is now called the Turing test as a criterion of intelligence . This criterion depends on the ability of a computer program to impersonate a human in a real-time written conversation with a human judge, to the extent that the judge is incapable of reliably distinguishing, on the basis of the conversational content alone, between the program and a real human. &#91; 6 &#93;"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 9",
+      "answer": "ways, often sufficient to dazzle even the most experienced observer. But once a particular program is unmasked, once its inner workings are explained, its magic crumbles away; it stands revealed as a mere collection of procedures. The observer says to himself \"I could have written that\". With that thought, he moves the program in question from the shelf marked \"intelligent\", to that reserved for curios. The object of this paper is to cause just such a re-evaluation of the program about to be \"ex"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 10",
+      "answer": "way (e.g. by responding to any input that contains the word 'MOTHER' with 'TELL ME MORE ABOUT YOUR FAMILY'). &#91; 7 &#93; Thus an illusion of understanding is generated, even though the processing involved has been merely superficial. ELIZA showed that such an illusion is surprisingly easy to generate because human judges are ready to give the benefit of the doubt when conversational responses are capable of being interpreted as \"intelligent\". Following ELIZA, psychiatrist Kenneth Colby develop"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 11",
+      "answer": "and updated its database daily by parsing wire news from United Press International . The program was unable to process the news items subsequent to the surprise resignation of Cyrus Vance in April 1980, and the team constructed another chatbot simulating his successor, Edmund Muskie . &#91; 14 &#93; &#91; 13 &#93; In 1984, an interactive version of the program Racter was released which acted as a chatbot. &#91; 15 &#93; A.L.I.C.E. was released in 1995. This uses a markup language called AIML, &"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 12",
+      "answer": "strong AI, which would require sapience and logical reasoning abilities. Jabberwacky , released in 1997, learns new responses and context based on real-time user interactions , rather than being driven from a static database . Chatbot competitions focus on the Turing test or more specific goals. Two such annual contests are the Loebner Prize and The Chatterbox Challenge (the latter has been offline since 2015, however, materials can still be found from web archives). &#91; 16 &#93; Pre-dating th"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 13",
+      "answer": "large language models [ edit ] A Character.ai conversation with a chatbot simulating the philosopher Wittgenstein Modern chatbots like ChatGPT are often based on foundational large language models called generative pre-trained transformers (GPT). They are based on a deep learning architecture called the transformer , which contains artificial neural networks . They generate text after being trained on a large text corpus , and have emergent abilities that they are not specifically trained for. C"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 14",
+      "answer": "task automation without requiring software installation. Application [ edit ] This section needs to be updated . Please help update this article to reflect recent events or newly available information. ( December 2024 ) See also: Virtual assistant Messaging apps [ edit ] Many companies' chatbots run on messaging apps or simply via SMS . They are used for B2C customer service, sales and marketing. &#91; 21 &#93; In 2016, Facebook Messenger allowed developers to place chatbots on their platform. T"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 15",
+      "answer": "&#91; 24 &#93; &#91; 25 &#93; &#91; 26 &#93; both airlines had previously launched customer services on the Facebook Messenger platform. The bots usually appear as one of the user's contacts, but can sometimes act as participants in a group chat . Many banks, insurers, media companies, e-commerce companies, airlines, hotel chains, retailers, health care providers, government entities, and restaurant chains have used chatbots to answer simple questions , increase customer engagement , &#91; 27 &#"
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 1",
+      "answer": "Title: AI Chatbot System \n1. Introduction \nAn AI Chatbot is a software application that uses Artificial Intelligence to interact with users \nthrough text or voice. It helps automate conversations and provide instant responses to user \nqueries."
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 2",
+      "answer": "2. Objective \nThe main objective of this project is: \n• To provide automated responses to users  \n• To reduce manual support work  \n• To improve user experience"
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 3",
+      "answer": "3. Features \n• Answer user questions automatically  \n• Supports FAQ-based responses  \n• Can learn from website data  \n• Can process PDF documents  \n• Provides instant replies"
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 4",
+      "answer": "4. How It Works \n1. User asks a question  \n2. System searches in:  \no FAQ data  \no Knowledge base (URL/PDF)  \n3. If answer is found → it replies  \n4. If not → AI generates response"
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 5",
+      "answer": "5. Technologies Used \n• Frontend: HTML, CSS, JavaScript"
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 6",
+      "answer": "• Backend: Node.js  \n• Database: SQLite / JSON  \n• AI Integration: API-based chatbot"
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 7",
+      "answer": "6. Applications \n• Customer support  \n• E-commerce websites  \n• Educational platforms  \n• Business automation"
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 8",
+      "answer": "7. Advantages \n• 24/7 availability  \n• Fast responses  \n• Reduces human effort  \n• Improves efficiency"
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 9",
+      "answer": "8. Conclusion \nThe AI Chatbot system helps automate communication and improves interaction between \nusers and systems. It is a powerful tool for modern applications."
+    },
+    {
+      "question": "Where are AI chatbots used?",
+      "answer": "AI chatbots are used in customer support, e-commerce, education, and business automation"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 1",
+      "answer": "Chatbot - Wikipedia Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Contents move to sidebar hide (Top) 1 History Toggle History subsection 1.1 Turing test 1.2 Early chatbots 1.3 Modern chatbots based on large language"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 2",
+      "answer": "effects 3 Limitations 4 Impact on jobs 5 Impact on the environment 6 See also 7 References 8 Further reading 9 External links Toggle the table of contents Chatbot 76 languages Afrikaans العربية Azərbaycanca Boarisch Беларуская Български भोजपुरी বাংলা Bosanski Català کوردی Čeština Dansk Deutsch Ελληνικά Esperanto Español Eesti Euskara فارسی Suomi Français Galego עברית हिन्दी Hrvatski Magyar Հայերեն Bahasa Indonesia Ido Íslenska Italiano 日本語 Jawa Qaraqalpaqsha ಕನ್ನಡ 한국어 Кыргызча Lietuvių Latviešu "
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 3",
+      "answer": "Tiếng Việt 吴语 閩南語 / Bân-lâm-gí 粵語 中文 IsiZulu Edit links Article Talk English Read Edit View history Tools Tools move to sidebar hide Actions Read Edit View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Print/export Download as PDF Printable version In other projects Wikimedia Commons MediaWiki Wikibooks Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Conversational software For othe"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 4",
+      "answer": "Batch learning Curriculum learning Rule-based learning Neuro-symbolic AI Neuromorphic engineering Quantum machine learning Problems Classification Generative modeling Regression Clustering Dimensionality reduction Density estimation Anomaly detection Data cleaning AutoML Association rules Semantic analysis Structured prediction Feature engineering Feature learning Learning to rank Grammar induction Ontology learning Multimodal learning Supervised learning ( classification &#160;&#8226;&#32; regr"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 5",
+      "answer": "Expectation–maximization (EM) DBSCAN OPTICS Mean shift Dimensionality reduction Factor analysis CCA ICA LDA NMF PCA PGD t-SNE SDL Structured prediction Graphical models Bayes net Conditional random field Hidden Markov Anomaly detection RANSAC k -NN Local outlier factor Isolation forest Neural networks Autoencoder Deep learning Feedforward neural network Recurrent neural network LSTM GRU ESN reservoir computing Boltzmann machine Restricted GAN Diffusion model SOM Convolutional neural network U-Ne"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 6",
+      "answer": "humans Active learning Crowdsourcing Human-in-the-loop Mechanistic interpretability RLHF Model diagnostics Coefficient of determination Confusion matrix Learning curve ROC curve Mathematical foundations Kernel machines Bias–variance tradeoff Computational learning theory Empirical risk minimization Occam learning PAC learning Statistical learning VC theory Topological deep learning Journals and conferences AAAI ECML PKDD NeurIPS ICML ICLR IJCAI ML JMLR Related articles Glossary of artificial int"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 7",
+      "answer": "&#91; 3 &#93; &#91; 4 &#93; Modern chatbots are typically online and use generative artificial intelligence systems that are capable of maintaining a conversation with a user in natural language and simulating the way a human would behave as a conversational partner. Such chatbots often use deep learning and natural language processing . Simpler chatbots have existed for decades. Chatbots have gained popularity with the release of ChatGPT by OpenAI in 2022, followed by competitors such as Gemini"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 8",
+      "answer": "[ edit ] In 1950, Alan Turing published an article entitled \" Computing Machinery and Intelligence \" in which he proposed what is now called the Turing test as a criterion of intelligence . This criterion depends on the ability of a computer program to impersonate a human in a real-time written conversation with a human judge, to the extent that the judge is incapable of reliably distinguishing, on the basis of the conversational content alone, between the program and a real human. &#91; 6 &#93;"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 9",
+      "answer": "ways, often sufficient to dazzle even the most experienced observer. But once a particular program is unmasked, once its inner workings are explained, its magic crumbles away; it stands revealed as a mere collection of procedures. The observer says to himself \"I could have written that\". With that thought, he moves the program in question from the shelf marked \"intelligent\", to that reserved for curios. The object of this paper is to cause just such a re-evaluation of the program about to be \"ex"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 10",
+      "answer": "way (e.g. by responding to any input that contains the word 'MOTHER' with 'TELL ME MORE ABOUT YOUR FAMILY'). &#91; 7 &#93; Thus an illusion of understanding is generated, even though the processing involved has been merely superficial. ELIZA showed that such an illusion is surprisingly easy to generate because human judges are ready to give the benefit of the doubt when conversational responses are capable of being interpreted as \"intelligent\". Following ELIZA, psychiatrist Kenneth Colby develop"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 11",
+      "answer": "and updated its database daily by parsing wire news from United Press International . The program was unable to process the news items subsequent to the surprise resignation of Cyrus Vance in April 1980, and the team constructed another chatbot simulating his successor, Edmund Muskie . &#91; 14 &#93; &#91; 13 &#93; In 1984, an interactive version of the program Racter was released which acted as a chatbot. &#91; 15 &#93; A.L.I.C.E. was released in 1995. This uses a markup language called AIML, &"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 12",
+      "answer": "strong AI, which would require sapience and logical reasoning abilities. Jabberwacky , released in 1997, learns new responses and context based on real-time user interactions , rather than being driven from a static database . Chatbot competitions focus on the Turing test or more specific goals. Two such annual contests are the Loebner Prize and The Chatterbox Challenge (the latter has been offline since 2015, however, materials can still be found from web archives). &#91; 16 &#93; Pre-dating th"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 13",
+      "answer": "large language models [ edit ] A Character.ai conversation with a chatbot simulating the philosopher Wittgenstein Modern chatbots like ChatGPT are often based on foundational large language models called generative pre-trained transformers (GPT). They are based on a deep learning architecture called the transformer , which contains artificial neural networks . They generate text after being trained on a large text corpus , and have emergent abilities that they are not specifically trained for. C"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 14",
+      "answer": "task automation without requiring software installation. Application [ edit ] This section needs to be updated . Please help update this article to reflect recent events or newly available information. ( December 2024 ) See also: Virtual assistant Messaging apps [ edit ] Many companies' chatbots run on messaging apps or simply via SMS . They are used for B2C customer service, sales and marketing. &#91; 21 &#93; In 2016, Facebook Messenger allowed developers to place chatbots on their platform. T"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 15",
+      "answer": "&#91; 24 &#93; &#91; 25 &#93; &#91; 26 &#93; both airlines had previously launched customer services on the Facebook Messenger platform. The bots usually appear as one of the user's contacts, but can sometimes act as participants in a group chat . Many banks, insurers, media companies, e-commerce companies, airlines, hotel chains, retailers, health care providers, government entities, and restaurant chains have used chatbots to answer simple questions , increase customer engagement , &#91; 27 &#"
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 1",
+      "answer": "Title: AI Chatbot System \n1. Introduction \nAn AI Chatbot is a software application that uses Artificial Intelligence to interact with users \nthrough text or voice. It helps automate conversations and provide instant responses to user \nqueries."
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 2",
+      "answer": "2. Objective \nThe main objective of this project is: \n• To provide automated responses to users  \n• To reduce manual support work  \n• To improve user experience"
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 3",
+      "answer": "3. Features \n• Answer user questions automatically  \n• Supports FAQ-based responses  \n• Can learn from website data  \n• Can process PDF documents  \n• Provides instant replies"
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 4",
+      "answer": "4. How It Works \n1. User asks a question  \n2. System searches in:  \no FAQ data  \no Knowledge base (URL/PDF)  \n3. If answer is found → it replies  \n4. If not → AI generates response"
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 5",
+      "answer": "5. Technologies Used \n• Frontend: HTML, CSS, JavaScript"
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 6",
+      "answer": "• Backend: Node.js  \n• Database: SQLite / JSON  \n• AI Integration: API-based chatbot"
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 7",
+      "answer": "6. Applications \n• Customer support  \n• E-commerce websites  \n• Educational platforms  \n• Business automation"
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 8",
+      "answer": "7. Advantages \n• 24/7 availability  \n• Fast responses  \n• Reduces human effort  \n• Improves efficiency"
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 9",
+      "answer": "8. Conclusion \nThe AI Chatbot system helps automate communication and improves interaction between \nusers and systems. It is a powerful tool for modern applications."
+    },
+    {
+      "question": "[From realestate(1).pdf] Topic 1",
+      "answer": "Q1. What is real estate? Answer: Real estate refers to land and any permanent structures \nattached to it, such as buildings or homes. Q2. What are the types of real estate? Answer: \nThe main types include residential, commercial, industrial, and land. Q3. What is a property \nvaluation? Answer: It is the process of determining the current worth of a property based on \nmarket conditions. Q4. What is a home loan? Answer: A home loan is a loan taken from a \nbank or financial institution to purchase "
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 1",
+      "answer": "Artificial intelligence - Wikipedia Jump to content Main menu Main menu move to sidebar hide Navigation Main page Contents Current events Random article About Wikipedia Contact us Contribute Help Learn to edit Community portal Recent changes Upload file Special pages Search Search Appearance Donate Create account Log in Personal tools Donate Create account Log in Contents move to sidebar hide (Top) 1 Goals Toggle Goals subsection 1.1 Reasoning and problem-solving 1.2 Knowledge representation 1.3"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 2",
+      "answer": "uncertain reasoning 2.4 Classifiers and statistical learning methods 2.5 Artificial neural networks 2.6 Deep learning 2.7 GPT 2.8 Hardware and software 3 Applications Toggle Applications subsection 3.1 Health and medicine 3.2 Gaming 3.3 Mathematics 3.4 Finance 3.5 Military 3.6 Generative AI 3.7 Agents 3.8 Web search 3.9 Sexuality 3.10 Other industry-specific tasks 4 Ethics Toggle Ethics subsection 4.1 Risks and harm 4.1.1 Privacy and copyright 4.1.2 Dominance by tech giants 4.1.3 Power needs and"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 3",
+      "answer": "Frameworks 4.5 Regulation 5 History 6 Philosophy Toggle Philosophy subsection 6.1 Defining artificial intelligence 6.1.1 Legal definitions 6.2 Evaluating approaches to AI 6.2.1 Symbolic AI and its limits 6.2.2 Neat vs. scruffy 6.2.3 Soft vs. hard computing 6.2.4 Narrow vs. general AI 6.3 Machine consciousness, sentience, and mind 6.3.1 Consciousness 6.3.2 Computationalism and functionalism 6.3.3 AI welfare and rights 7 Future Toggle Future subsection 7.1 Superintelligence and the singularity 7.2"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 4",
+      "answer": "مصرى অসমীয়া Asturianu Azərbaycanca تۆرکجه Башҡортса Boarisch Žemaitėška Bikol Central Беларуская (тарашкевіца) Беларуская Betawi Български भोजपुरी ပအိုဝ်ႏဘာႏသာႏ বাংলা བོད་ཡིག Brezhoneg Bosanski Буряад Català Cebuano کوردی Qırımtatarca Čeština Чӑвашла Cymraeg Dansk Deutsch Zazaki Kadazandusun Ελληνικά Esperanto Español Eesti Euskara Estremeñu فارسی Suomi Võro Fɔ̀ngbè Français Nordfriisk Furlan Gaeilge 贛語 Kriyòl gwiyannen Gàidhlig Galego Avañe&#039;ẽ गोंयची कोंकणी / Gõychi Konknni Gaelg Hausa עבר"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 5",
+      "answer": "Limburgs Ligure Lombard ລາວ Lietuvių Latviešu Madhurâ Malagasy Minangkabau Македонски മലയാളം Монгол ဘာသာမန် मराठी Bahasa Melayu Malti မြန်မာဘာသာ Nedersaksies Plattdüütsch नेपाली नेपाल भाषा Nederlands Norsk nynorsk Norsk bokmål Sesotho sa Leboa Occitan ଓଡ଼ିଆ ਪੰਜਾਬੀ Picard Polski Piemontèis پنجابی پښتو Português Runa Simi Română Руски Русский Русиньскый संस्कृतम् Саха тыла Sicilianu Scots سنڌي Sängö Srpskohrvatski / српскохрватски සිංහල Simple English Slovenčina Slovenščina Shqip Српски / srpski S"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 6",
+      "answer": "View source View history Tools Tools move to sidebar hide Actions Read View source View history General What links here Related changes Upload file Permanent link Page information Cite this page Get shortened URL Print/export Download as PDF Printable version In other projects Abstract Wikipedia Wikimedia Commons Wikibooks Wikiquote Wikiversity Wikidata item Appearance move to sidebar hide From Wikipedia, the free encyclopedia Intelligence of machines \"AI\" redirects here. For other uses, see AI "
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 7",
+      "answer": "Robotics AI safety Approaches Machine learning Symbolic Deep learning Bayesian networks Evolutionary algorithms Hybrid intelligent systems Systems integration Open-source AI data centers Applications Bioinformatics Deepfake Earth sciences Finance Generative AI Art Audio Music Government Healthcare Mental health Industry Software development Translation Military Physics Projects Philosophy AI alignment Artificial consciousness The bitter lesson Chinese room Friendly AI Ethics Existential risk Tur"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 8",
+      "answer": "Giant AI Experiments Removal of Sam Altman from OpenAI Statement on AI Risk Tay (chatbot) Théâtre D'opéra Spatial Voiceverse NFT plagiarism scandal Glossary Glossary v t e Artificial intelligence ( AI ) is the capability of computational systems to perform tasks typically associated with human intelligence , such as learning , reasoning , problem-solving , perception , and decision-making . It is a field of research in engineering , mathematics and computer science that develops and studies meth"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 9",
+      "answer": "assistants , autonomous vehicles , and play and analysis in strategy games (e.g., chess and Go ). Since the 2020s, generative AI has become widely available to generate images, audio, and videos from text prompts. The traditional goals of AI research include learning, reasoning , knowledge representation , planning , natural language processing , and perception , as well as support for robotics . &#91; a &#93; To reach these goals, AI researchers have used techniques including state space search"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 10",
+      "answer": ", Google DeepMind and Meta , aim to create artificial general intelligence (AGI) – AI that can complete virtually any cognitive task at least as well as a human. &#91; 4 &#93; Artificial intelligence was founded as an academic discipline in 1956, &#91; 5 &#93; and the field went through multiple cycles of optimism throughout its history , &#91; 6 &#93; &#91; 7 &#93; followed by periods of disappointment and loss of funding, known as AI winters . &#91; 8 &#93; &#91; 9 &#93; Funding and interest i"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 11",
+      "answer": "boom has coincided with advances in generative AI , which allowed for the creation and modification of media. In addition to AI safety and unintended consequences and harms from the use of AI, ethical concerns , AI's long-term effects , and potential existential risks have prompted discussions of AI regulation . Goals The general problem of simulating (or creating) intelligence has been broken into subproblems. These consist of particular traits or capabilities that researchers expect an intelli"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 12",
+      "answer": "deductions . &#91; 12 &#93; By the late 1980s and 1990s, methods were developed for dealing with uncertain or incomplete information, employing concepts from probability and economics . &#91; 13 &#93; Many of these algorithms are insufficient for solving large reasoning problems because they experience a \"combinatorial explosion\": They become exponentially slower as the problems grow. &#91; 14 &#93; Even humans rarely use the step-by-step deduction that early AI research could model. They solve "
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 13",
+      "answer": "knowledge engineering &#91; 16 &#93; allow AI programs to answer questions intelligently and make deductions about real-world facts. Formal knowledge representations are used in content-based indexing and retrieval, &#91; 17 &#93; scene interpretation, &#91; 18 &#93; clinical decision support, &#91; 19 &#93; knowledge discovery (mining \"interesting\" and actionable inferences from large databases ), &#91; 20 &#93; and other areas. &#91; 21 &#93; A knowledge base is a body of knowledge represented"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 14",
+      "answer": "situations, events, states, and time; &#91; 24 &#93; causes and effects; &#91; 25 &#93; knowledge about knowledge (what we know about what other people know); &#91; 26 &#93; default reasoning (things that humans assume are true until they are told differently and will remain true even when other facts are changing); &#91; 27 &#93; and many other aspects and domains of knowledge. Among the most difficult problems in knowledge representation are the breadth of commonsense knowledge (the set of ato"
+    },
+    {
+      "question": "[From en.wikipedia.org] Section 15",
+      "answer": ", the problem of obtaining knowledge for AI applications. &#91; c &#93; Planning and decision-making An \"agent\" is any entity (artificial or not) that perceives and takes actions in the world. A rational agent has goals or preferences and takes actions to make them happen. &#91; d &#93; &#91; 31 &#93; In automated planning , the agent has a specific goal. &#91; 32 &#93; In automated decision-making , the agent has preferences—there are some situations it would prefer to be in, and some situation"
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 1",
+      "answer": "Title: AI Chatbot System \n1. Introduction \nAn AI Chatbot is a software application that uses Artificial Intelligence to interact with users \nthrough text or voice. It helps automate conversations and provide instant responses to user \nqueries."
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 2",
+      "answer": "2. Objective \nThe main objective of this project is: \n• To provide automated responses to users  \n• To reduce manual support work  \n• To improve user experience"
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 3",
+      "answer": "3. Features \n• Answer user questions automatically  \n• Supports FAQ-based responses  \n• Can learn from website data  \n• Can process PDF documents  \n• Provides instant replies"
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 4",
+      "answer": "4. How It Works \n1. User asks a question  \n2. System searches in:  \no FAQ data  \no Knowledge base (URL/PDF)  \n3. If answer is found → it replies  \n4. If not → AI generates response"
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 5",
+      "answer": "5. Technologies Used \n• Frontend: HTML, CSS, JavaScript"
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 6",
+      "answer": "• Backend: Node.js  \n• Database: SQLite / JSON  \n• AI Integration: API-based chatbot"
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 7",
+      "answer": "6. Applications \n• Customer support  \n• E-commerce websites  \n• Educational platforms  \n• Business automation"
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 8",
+      "answer": "7. Advantages \n• 24/7 availability  \n• Fast responses  \n• Reduces human effort  \n• Improves efficiency"
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 9",
+      "answer": "8. Conclusion \nThe AI Chatbot system helps automate communication and improves interaction between \nusers and systems. It is a powerful tool for modern applications."
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 1",
+      "answer": "Title: AI Chatbot System \n1. Introduction \nAn AI Chatbot is a software application that uses Artificial Intelligence to interact with users \nthrough text or voice. It helps automate conversations and provide instant responses to user \nqueries."
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 2",
+      "answer": "2. Objective \nThe main objective of this project is: \n• To provide automated responses to users  \n• To reduce manual support work  \n• To improve user experience"
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 3",
+      "answer": "3. Features \n• Answer user questions automatically  \n• Supports FAQ-based responses  \n• Can learn from website data  \n• Can process PDF documents  \n• Provides instant replies"
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 4",
+      "answer": "4. How It Works \n1. User asks a question  \n2. System searches in:  \no FAQ data  \no Knowledge base (URL/PDF)  \n3. If answer is found → it replies  \n4. If not → AI generates response"
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 5",
+      "answer": "5. Technologies Used \n• Frontend: HTML, CSS, JavaScript"
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 6",
+      "answer": "• Backend: Node.js  \n• Database: SQLite / JSON  \n• AI Integration: API-based chatbot"
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 7",
+      "answer": "6. Applications \n• Customer support  \n• E-commerce websites  \n• Educational platforms  \n• Business automation"
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 8",
+      "answer": "7. Advantages \n• 24/7 availability  \n• Fast responses  \n• Reduces human effort  \n• Improves efficiency"
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 9",
+      "answer": "8. Conclusion \nThe AI Chatbot system helps automate communication and improves interaction between \nusers and systems. It is a powerful tool for modern applications."
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 1",
+      "answer": "Title: AI Chatbot System \n1. Introduction \nAn AI Chatbot is a software application that uses Artificial Intelligence to interact with users \nthrough text or voice. It helps automate conversations and provide instant responses to user \nqueries."
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 2",
+      "answer": "2. Objective \nThe main objective of this project is: \n• To provide automated responses to users  \n• To reduce manual support work  \n• To improve user experience"
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 3",
+      "answer": "3. Features \n• Answer user questions automatically  \n• Supports FAQ-based responses  \n• Can learn from website data  \n• Can process PDF documents  \n• Provides instant replies"
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 4",
+      "answer": "4. How It Works \n1. User asks a question  \n2. System searches in:  \no FAQ data  \no Knowledge base (URL/PDF)  \n3. If answer is found → it replies  \n4. If not → AI generates response"
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 5",
+      "answer": "5. Technologies Used \n• Frontend: HTML, CSS, JavaScript"
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 6",
+      "answer": "• Backend: Node.js  \n• Database: SQLite / JSON  \n• AI Integration: API-based chatbot"
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 7",
+      "answer": "6. Applications \n• Customer support  \n• E-commerce websites  \n• Educational platforms  \n• Business automation"
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 8",
+      "answer": "7. Advantages \n• 24/7 availability  \n• Fast responses  \n• Reduces human effort  \n• Improves efficiency"
+    },
+    {
+      "question": "[From aichatbot(pdf).pdf] Topic 9",
+      "answer": "8. Conclusion \nThe AI Chatbot system helps automate communication and improves interaction between \nusers and systems. It is a powerful tool for modern applications."
+    },
+    {
+      "question": "[From gadigitalsolutions.com] Section 1",
+      "answer": "Best Digital Marketing agency in Hyderabad - GA Digital Solutions Beware! GA Digital Solutions, a business division of GUNNAM ASSOCIATES is not associated with any other company. We DO NOT outsource data entry work to people. If you come across any such job opportunity, kindly ignore it. We won't be responsible for any kind of financial dealings between you and the fraudster. --> A Full Service Digital Marketing Agency --> --> Home About Us --> Services Services Branding & Communication Brand Id"
+    },
+    {
+      "question": "[From gadigitalsolutions.com] Section 2",
+      "answer": "Portfolio Careers Internships Blog Contact Us About Us GA Digital Solutions is an Inbound Marketing and Sales agency offering services from branding to conversions and everything in-between: Healthcare We create visibility online for the practitioners of various specialties and drive footfalls to clinics or hospitals through our inbound marketing strategies E-commerce We execute end to end solutions to promote your product pan India online. Share with us your product, we do the rest to report sa"
+    },
+    {
+      "question": "[From gadigitalsolutions.com] Section 3",
+      "answer": "institutions through our inbound marketing strategies People also ask What is Inbound Marketing? Inbound marketing drives customers to our platforms (website, social profiles, youtube channels, Google My Business, etc.,) by creating valuable content and experiences tailored to our target audience with an objective of initiating an interaction or offering a solution to their problem or requirement What is the significance of Inside sales? Inbound sales is responding to the enquiries generated fro"
+    },
+    {
+      "question": "[From gadigitalsolutions.com] Section 4",
+      "answer": "buyer’s journey. Why should I outsource customer care? With the rapid digital transformation of businesses online post COVID, start-ups and mid-sized businesses can quickly scale up their operations outsourcing the functions of customer care as quick response rates to the customer interactions on webchats, social media, e-mail and support contact numbers helps in better customer experiences and conversions. What are the benefits of deploying marketing and sales tools? The marketing RoI can be ma"
+    },
+    {
+      "question": "[From gadigitalsolutions.com] Section 5",
+      "answer": "automation of sales funnel, we also can analyse the RoI of various marketing channels. TESTIMONIALS About 30+ Happy Clients Auto Testimonial Slider --> --> Brand Identities Logo Design Brand Guidelines Brochure Design Website Services Website Design & Development Re-Design Services Maintenance Services Malware Removal Applications Development Web Applications Mobile Applications Content Marketing Content Development Content Distribution Search Engine Optimisation Social Media Management Performa"
+    },
+    {
+      "question": "[From gadigitalsolutions.com] Section 6",
+      "answer": "Careers Contact Us Disclaimer Privacy Policy © 2026 GA Digital Solutions. All Rights Reserved. Home About Us Services Our Works ▼ Websites Design Portfolio Blog Careers Internship Contact Us ☰ Digital Marketing Agency --> Your browser does not support the video tag. --> Branding & Communication Mobile UI/UX Design Social Email Marketing Digital Marketing Social Media marketing Online Reputation Managaement --> About Us GA Digital Solutions is an Inbound Marketing and Sales agency offering servic"
+    },
+    {
+      "question": "[From gadigitalsolutions.com] Section 7",
+      "answer": "India online. Share with us your product, we do the rest to report sales conversions Real Estate We understand the investment dynamics of open plots, residential apartments and villas. All that we do is identify and schedule a site visit of a potential buyer Education We create visibility online for the students of various specialties and drive footfalls to institutions through our inbound marketing strategies People also ask What is Inbound Marketing? Inbound marketing drives customers to our p"
+    },
+    {
+      "question": "[From gadigitalsolutions.com] Section 8",
+      "answer": "sales? Inbound sales is responding to the enquiries generated from marketing activities, thus they are sales qualified leads with higher probability of conversions. In Inbound sales, the prospect expresses interest and initiates the sales process. The sales people acts as a consultant, addressing the prospects pain points, aligning the sales process to the buyer’s journey. Why should I outsource customer care? With the rapid digital transformation of businesses online post COVID, start-ups and m"
+    },
+    {
+      "question": "[From gadigitalsolutions.com] Section 9",
+      "answer": "deploying marketing and sales tools? The marketing RoI can be maximized with an effective automation of leads flowing in from multiple marketing platforms, which helps in lead scoring, thus segmenting the sales qualified leads for the sales consultant to attend or follow-up for the sales closures. This rapidly increases the sales volume of each consultant. With automation of sales funnel, we also can analyse the RoI of various marketing channels. TESTIMONIALS About 30+ Happy Clients --> Modified"
+    },
+    {
+      "question": "[From gadigitalsolutions.com] Section 10",
+      "answer": "Distribution Search Engine Optimisation Social Media Management Performance Marketing Search Engine Marketing Social Media Marketing SMS Marketing E-mail Marketing WhatsApp Marketing Lead Management Services Inside Sales Customer Support Customer Engagement Reseller Services Domain Web Hosting & SSL Collaboration Services Podcast Printing Services Home About Us Blogs Careers Contact Us Disclaimer Privacy Policy © 2026 GA Digital Solutions. All Rights Reserved."
+    },
+    {
+      "question": "[From gadigitalsolutions.com] Section 1",
+      "answer": "Best Digital Marketing agency in Hyderabad - GA Digital Solutions Beware! GA Digital Solutions, a business division of GUNNAM ASSOCIATES is not associated with any other company. We DO NOT outsource data entry work to people. If you come across any such job opportunity, kindly ignore it. We won't be responsible for any kind of financial dealings between you and the fraudster. --> A Full Service Digital Marketing Agency --> --> Home About Us --> Services Services Branding & Communication Brand Id"
+    },
+    {
+      "question": "[From gadigitalsolutions.com] Section 2",
+      "answer": "Portfolio Careers Internships Blog Contact Us About Us GA Digital Solutions is an Inbound Marketing and Sales agency offering services from branding to conversions and everything in-between: Healthcare We create visibility online for the practitioners of various specialties and drive footfalls to clinics or hospitals through our inbound marketing strategies E-commerce We execute end to end solutions to promote your product pan India online. Share with us your product, we do the rest to report sa"
+    },
+    {
+      "question": "[From gadigitalsolutions.com] Section 3",
+      "answer": "institutions through our inbound marketing strategies People also ask What is Inbound Marketing? Inbound marketing drives customers to our platforms (website, social profiles, youtube channels, Google My Business, etc.,) by creating valuable content and experiences tailored to our target audience with an objective of initiating an interaction or offering a solution to their problem or requirement What is the significance of Inside sales? Inbound sales is responding to the enquiries generated fro"
+    },
+    {
+      "question": "[From gadigitalsolutions.com] Section 4",
+      "answer": "buyer’s journey. Why should I outsource customer care? With the rapid digital transformation of businesses online post COVID, start-ups and mid-sized businesses can quickly scale up their operations outsourcing the functions of customer care as quick response rates to the customer interactions on webchats, social media, e-mail and support contact numbers helps in better customer experiences and conversions. What are the benefits of deploying marketing and sales tools? The marketing RoI can be ma"
+    },
+    {
+      "question": "[From gadigitalsolutions.com] Section 5",
+      "answer": "automation of sales funnel, we also can analyse the RoI of various marketing channels. TESTIMONIALS About 30+ Happy Clients Auto Testimonial Slider --> --> Brand Identities Logo Design Brand Guidelines Brochure Design Website Services Website Design & Development Re-Design Services Maintenance Services Malware Removal Applications Development Web Applications Mobile Applications Content Marketing Content Development Content Distribution Search Engine Optimisation Social Media Management Performa"
+    },
+    {
+      "question": "[From gadigitalsolutions.com] Section 6",
+      "answer": "Careers Contact Us Disclaimer Privacy Policy © 2026 GA Digital Solutions. All Rights Reserved. Home About Us Services Our Works ▼ Websites Design Portfolio Blog Careers Internship Contact Us ☰ Digital Marketing Agency --> Your browser does not support the video tag. --> Branding & Communication Mobile UI/UX Design Social Email Marketing Digital Marketing Social Media marketing Online Reputation Managaement --> About Us GA Digital Solutions is an Inbound Marketing and Sales agency offering servic"
+    },
+    {
+      "question": "[From gadigitalsolutions.com] Section 7",
+      "answer": "India online. Share with us your product, we do the rest to report sales conversions Real Estate We understand the investment dynamics of open plots, residential apartments and villas. All that we do is identify and schedule a site visit of a potential buyer Education We create visibility online for the students of various specialties and drive footfalls to institutions through our inbound marketing strategies People also ask What is Inbound Marketing? Inbound marketing drives customers to our p"
+    },
+    {
+      "question": "[From gadigitalsolutions.com] Section 8",
+      "answer": "sales? Inbound sales is responding to the enquiries generated from marketing activities, thus they are sales qualified leads with higher probability of conversions. In Inbound sales, the prospect expresses interest and initiates the sales process. The sales people acts as a consultant, addressing the prospects pain points, aligning the sales process to the buyer’s journey. Why should I outsource customer care? With the rapid digital transformation of businesses online post COVID, start-ups and m"
+    },
+    {
+      "question": "[From gadigitalsolutions.com] Section 9",
+      "answer": "deploying marketing and sales tools? The marketing RoI can be maximized with an effective automation of leads flowing in from multiple marketing platforms, which helps in lead scoring, thus segmenting the sales qualified leads for the sales consultant to attend or follow-up for the sales closures. This rapidly increases the sales volume of each consultant. With automation of sales funnel, we also can analyse the RoI of various marketing channels. TESTIMONIALS About 30+ Happy Clients --> Modified"
+    },
+    {
+      "question": "[From gadigitalsolutions.com] Section 10",
+      "answer": "Distribution Search Engine Optimisation Social Media Management Performance Marketing Search Engine Marketing Social Media Marketing SMS Marketing E-mail Marketing WhatsApp Marketing Lead Management Services Inside Sales Customer Support Customer Engagement Reseller Services Domain Web Hosting & SSL Collaboration Services Podcast Printing Services Home About Us Blogs Careers Contact Us Disclaimer Privacy Policy © 2026 GA Digital Solutions. All Rights Reserved."
+    }
+  ],
+  "emailCapture": true,
+  "emailCaptureTitle": "Start a Conversation",
+  "emailCaptureSubtitle": "Enter your email to begin chatting with us",
+  "introMessage": "Welcome to Smart Ai Bot! We are a leading technology company dedicated to providing innovative AI solutions. Our team is here to assist you with any queries about our products and services. Let's get started!",
+  "leadCapture": {
+    "enabled": true,
+    "triggerAfter": 3,
+    "title": "Would you like us to call you?",
+    "subtitle": "Share your details and our team will reach out.",
+    "fields": [
+      "name",
+      "phone"
+    ]
+  },
+  "handoff": {
+    "enabled": true,
+    "buttonText": "Talk to Agent",
+    "whatsapp": " 8008463405                  ",
+    "phone": "+918008463405",
+    "email": ""
+  },
+  "fallbackMessage": "I'm not fully sure about that. Let me connect you to our team — please use the 'Talk to Agent' button above.",
+  "offlineMessage": "We're currently offline. Please leave your email and we'll get back to you soon.",
+  "rateLimitPerMinute": 20,
+  "logo": "data:image/png;base64,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",
+  "allowedDomains": [],
+  "emailNotifications": {
+    "enabled": true,
+    "adminEmail": "shivaratrimanikanth@gmail.com",
+    "smtpHost": "smtp.resend.com",
+    "smtpPort": 587,
+    "smtpUser": "resend",
+    "smtpPass": "re_your_api_key",
+    "senderEmail": "onboarding@resend.dev"
+  },
+  "apiKey": "bot_b7cf6025f5562b13b2e2096e59bd1cd5",
+  "enforceApiKey": false,
+  "semanticSearch": true,
+  "primaryMode": "ai_chatbot",
+  "enableDefaultFallback": true
+}

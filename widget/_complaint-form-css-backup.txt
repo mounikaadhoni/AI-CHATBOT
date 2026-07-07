@@ -1,0 +1,124 @@
+/* ============================================================
+   ORIGINAL Customer Complaint Form CSS — backup of v3.4.0
+   To revert: paste this block back over the new CSS in
+   chatbot.js between the markers
+   "Complaint Form — ..." and the .complaint-success block.
+   ============================================================ */
+
+      /* ==================================================
+         Complaint Form — Customer Complaint Form (clean, light)
+         ================================================== */
+      .chatbot-complaint-card {
+        align-self: flex-start;
+        width: 94%; max-width: 320px;
+        margin: 6px 0 8px;
+        border-radius: 14px;
+        background: #ffffff;
+        border: 2px solid #3b82f6;
+        box-shadow: 0 2px 6px rgba(59, 130, 246, 0.08);
+        overflow: hidden;
+        animation: complaintSlide 0.3s ease;
+      }
+      .dark .chatbot-complaint-card {
+        background: #ffffff;
+        border-color: #3b82f6;
+      }
+      #chatbot-window.fullscreen .chatbot-complaint-card {
+        max-width: 380px;
+      }
+
+      @keyframes complaintSlide {
+        from { opacity: 0; transform: translateY(8px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+
+      /* Header band — light blue background, bold dark title */
+      .complaint-header {
+        background: #e6efff;
+        padding: 10px 14px;
+      }
+      .complaint-header h4 {
+        font-size: 14px; font-weight: 700;
+        color: #1e293b; line-height: 1.2;
+      }
+      .complaint-header p { display: none; }
+
+      /* Body */
+      .complaint-body { padding: 10px 14px 12px; background: #ffffff; }
+      .complaint-field { margin-bottom: 8px; }
+      .complaint-field label {
+        display: block; font-size: 12px; font-weight: 500;
+        margin-bottom: 4px; color: #334155;
+      }
+
+      .complaint-input-wrap { position: relative; }
+      .complaint-input-wrap .field-icon { display: none; }
+
+      .complaint-body input,
+      .complaint-body textarea {
+        width: 100%; padding: 8px 10px;
+        border: none;
+        border-radius: 7px; font-size: 13px; outline: none;
+        font-family: inherit;
+        background: #dde4ec; color: #1e293b;
+        transition: box-shadow 0.15s ease, background 0.15s ease;
+      }
+      .complaint-body input::placeholder,
+      .complaint-body textarea::placeholder { color: #94a3b8; }
+      .complaint-body input:focus,
+      .complaint-body textarea:focus {
+        background: #eef2f7;
+        box-shadow: 0 0 0 2px #93c5fd;
+      }
+      .complaint-body textarea {
+        resize: none; min-height: 50px; max-height: 90px;
+      }
+      .complaint-body input:disabled,
+      .complaint-body textarea:disabled {
+        opacity: 0.85; cursor: default;
+      }
+
+      /* Action buttons — Cancel (left) + Submit (right), share width */
+      .complaint-actions {
+        display: flex; gap: 8px; margin-top: 4px;
+      }
+      .complaint-submit,
+      .complaint-cancel {
+        flex: 1;
+        padding: 9px 14px;
+        border-radius: 8px;
+        font-size: 13.5px; font-weight: 600; cursor: pointer;
+        font-family: inherit;
+        transition: background 0.15s ease;
+      }
+      .complaint-submit {
+        border: none;
+        background: #bcd5f8; color: #1e3a8a;
+      }
+      .complaint-submit:hover { background: #a5c4f5; }
+      .complaint-submit:disabled {
+        background: #c8e0d2; color: #15803d; cursor: default;
+      }
+      .complaint-cancel {
+        border: 1px solid #cbd5e1;
+        background: #ffffff; color: #475569;
+      }
+      .complaint-cancel:hover { background: #f1f5f9; }
+
+      /* Confirmation row inside card after submit */
+      .complaint-confirm {
+        margin-top: 10px;
+        text-align: center;
+        font-size: 12.5px;
+        color: #15803d;
+        font-weight: 500;
+        display: flex; align-items: center; justify-content: center; gap: 6px;
+      }
+      .complaint-confirm .dot {
+        width: 6px; height: 6px; border-radius: 50%; background: #f59e0b;
+        animation: confirmDot 1s ease-in-out infinite;
+      }
+      @keyframes confirmDot {
+        0%,100% { opacity: 1; }
+        50% { opacity: 0.4; }
+      }

@@ -1,0 +1,4047 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flow Builder</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #f8f9fc;
+      color: #1e293b;
+      display: flex !important;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    
+    /* Sidebar */
+    .sidebar {
+      width: 280px;
+      background: #1e1b4b;
+      color: #e2e8f0;
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      z-index: 100;
+      box-shadow: 4px 0 12px rgba(0, 0, 0, 0.1);
+    }
+    .sidebar-header {
+      padding: 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+    .brand-text h2 {
+      font-size: 15px;
+      font-weight: 700;
+      color: white;
+    }
+    .brand-text span {
+      font-size: 11px;
+      color: #94a3b8;
+    }
+    .sidebar-nav {
+      flex: 1;
+      padding: 20px 0;
+      overflow-y: auto;
+    }
+    .nav-section {
+      padding: 8px 20px;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #64748b;
+      font-weight: 600;
+      margin-top: 16px;
+    }
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-size: 13px;
+      color: #cbd5e1;
+      transition: all 0.2s;
+      border-left: 3px solid transparent;
+      text-decoration: none;
+    }
+    .nav-item:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: white;
+    }
+    .nav-item.active {
+      background: rgba(99, 102, 241, 0.15);
+      color: white;
+      border-left-color: #6366f1;
+      font-weight: 500;
+    }
+    .nav-item .icon {
+      font-size: 16px;
+      width: 20px;
+      text-align: center;
+    }
+    
+    .nav-item .badge {
+      margin-left: auto;
+      background: #6366f1;
+      color: white;
+      font-size: 10px;
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-weight: 600;
+    }
+    
+    /* Main Content */
+    .main-content {
+      flex: 1;
+      margin-left: 280px;
+      height: 100vh !important;
+      min-height: 100vh;
+      display: flex !important;
+      flex-direction: column !important;
+      width: auto !important;
+      background: #f8f9fc !important;
+      overflow: hidden !important;
+    }
+    
+    /* Responsive: Mobile/Tablet */
+    @media (max-width: 768px) {
+      .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s;
+      }
+      
+      .sidebar.mobile-open {
+        transform: translateX(0);
+      }
+      
+      .main-content {
+        margin-left: 0;
+        width: 100%;
+      }
+    }
+    .topbar {
+      background: white;
+      padding: 12px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #e2e8f0;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .mobile-menu-btn {
+      display: none;
+      width: 40px;
+      height: 40px;
+      background: #f1f5f9;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 20px;
+      align-items: center;
+      justify-content: center;
+    }
+    @media (max-width: 768px) {
+      .mobile-menu-btn {
+        display: flex;
+      }
+    }
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .page-header {
+      background: #f8f9fc;
+      padding: 24px 24px 0 24px;
+      border-bottom: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .btn-domain {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .btn-status {
+      padding: 8px 16px;
+      background: #d1fae5;
+      color: #065f46;
+      border: none;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .btn-logout {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #fef2f2;
+      border: 1px solid #fca5a5;
+      color: #dc2626;
+      border-radius: 9999px;
+      padding: 6px 20px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    
+    .super-admin-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background-color: #fffbeb;
+      border: 1px solid #fde68a;
+      color: #ea580c;
+      border-radius: 9999px;
+      padding: 6px 16px;
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .super-admin-badge span {
+      display: inline-block;
+    }
+
+    .theme-toggle-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 2px solid #000000;
+      background-color: #eff6ff; /* light blue */
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      padding: 0;
+      outline: none;
+    }
+    .theme-toggle-btn:hover {
+      transform: scale(1.05);
+      background-color: #e2e8f0;
+    }
+    .btn-refresh {
+      padding: 8px 20px;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    
+    .btn-preview, .btn-save {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-preview {
+      background: white;
+      color: #6366f1;
+      border: 2px solid #6366f1;
+    }
+    .btn-preview:hover {
+      background: #6366f1;
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+    }
+    .btn-save {
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      color: white;
+    }
+    .btn-save:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+    }
+    
+    /* 3-Column Flow Builder Layout */
+    .flow-builder-container {
+      display: flex;
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      margin: 16px 24px 24px 24px;
+      flex: 1;
+      min-height: 0;
+      overflow: hidden;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    }
+    
+    /* Left Panel: Components */
+    .components-panel {
+      width: 280px;
+      background: white;
+      border-right: 1px solid #e2e8f0;
+      padding: 20px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+    }
+    .panel-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: #64748b;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .component-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .component-pill {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: white;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 9999px; /* Rounded pill */
+      padding: 10px 20px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-size: 13px;
+      font-weight: 500;
+      color: #475569;
+    }
+    .component-pill:hover {
+      border-color: #6366f1;
+      background: #f5f3ff;
+      color: #6366f1;
+      transform: translateX(4px);
+    }
+    .component-pill .icon {
+      font-size: 16px;
+      width: 20px;
+      text-align: center;
+    }
+    
+    /* Middle Panel: Sequence */
+    .flow-sequence-panel {
+      flex: 1;
+      background: #fafbfc;
+      border-right: 1px solid #e2e8f0;
+      padding: 20px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    
+    /* Right Panel: Live Preview */
+    .live-preview-panel {
+      width: 380px;
+      background: white;
+      padding: 20px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+    }
+    
+    .live-preview-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 16px;
+      position: relative;
+      min-height: 480px;
+      max-height: calc(100vh - 280px);
+      overflow: hidden;
+    }
+
+    @keyframes bubblePop {
+      from { transform: scale(0.9); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    /* Live Preview Floating Button States */
+    .preview-floating-btn {
+      position: absolute;
+      bottom: 16px;
+      right: 16px;
+      width: 54px;
+      height: 54px;
+      background: #db2777;
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 16px rgba(219, 39, 119, 0.4);
+      cursor: pointer;
+      font-size: 24px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 1000;
+    }
+    .preview-floating-btn:hover {
+      transform: scale(1.08) rotate(5deg);
+      background: #be185d;
+    }
+    .preview-floating-btn.active {
+      background: #db2777;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    }
+    
+    /* Widget Mockup Wrapper */
+    .preview-widget-wrapper {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      right: 16px;
+      bottom: 16px;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      border: 1px solid #e2e8f0;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transform: scale(0.95) translateY(20px);
+      opacity: 0;
+      pointer-events: none;
+      z-index: 999;
+    }
+    .preview-widget-wrapper.open {
+      transform: scale(1) translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+    
+    /* Widget Header */
+    .widget-header {
+      background: #db2777;
+      color: white;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    .widget-header-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .widget-avatar-container {
+      position: relative;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .widget-avatar {
+      width: 36px;
+      height: 36px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+    .widget-status-dot {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 10px;
+      height: 10px;
+      background: #10b981;
+      border: 2px solid #db2777;
+      border-radius: 50%;
+    }
+    .widget-profile-info h4 {
+      font-size: 13px;
+      font-weight: 600;
+      color: white;
+    }
+    .widget-header-controls {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.85);
+    }
+    .widget-header-controls span {
+      cursor: pointer;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s, transform 0.1s;
+    }
+    .widget-header-controls span:hover {
+      background: rgba(255, 255, 255, 0.3);
+      color: white;
+    }
+    .widget-header-controls span:active {
+      transform: scale(0.95);
+    }
+    
+    /* Widget Subheader */
+    .widget-subheader {
+      background: #f8fafc;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      color: #64748b;
+    }
+    .widget-lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .widget-lang-select {
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      padding: 2px 8px;
+      background: white;
+      font-size: 11px;
+      color: #475569;
+      outline: none;
+      cursor: pointer;
+    }
+    .widget-status-text {
+      font-size: 11px;
+      color: #64748b;
+    }
+    
+    /* Widget Message Feed */
+    .widget-chat-feed {
+      flex: 1;
+      background: #ebf2fa;
+      padding: 16px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      scrollbar-width: none;
+    }
+    .widget-chat-feed::-webkit-scrollbar {
+      display: none;
+    }
+    
+    /* Widget Bot Bubble Layout */
+    .widget-msg-row {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+      max-width: 88%;
+      align-self: flex-start;
+      animation: bubblePop 0.25s ease-out;
+    }
+    .widget-msg-avatar {
+      width: 30px;
+      height: 30px;
+      background: white;
+      border: 1px solid #cbd5e1;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+    .widget-msg-bubble-container {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .widget-msg-sender {
+      font-size: 11px;
+      font-weight: 600;
+      color: #64748b;
+      margin-left: 2px;
+    }
+    .widget-msg-bubble {
+      background: white;
+      color: #1e293b;
+      border-radius: 0px 12px 12px 12px;
+      padding: 10px 14px;
+      font-size: 12.5px;
+      line-height: 1.4;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+      border: 1px solid #e2e8f0;
+    }
+    .widget-msg-time {
+      font-size: 9px;
+      color: #94a3b8;
+      margin-top: 2px;
+      margin-left: 4px;
+    }
+    
+    .preview-bubble-label {
+      font-size: 9px;
+      font-weight: 700;
+      color: #6366f1;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+    
+    .preview-options-container {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 8px;
+      width: 100%;
+    }
+    
+    .preview-option-pill {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      color: #475569;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 500;
+      text-align: center;
+      cursor: not-allowed;
+    }
+    
+    .preview-input-field {
+      width: 100%;
+      background: white;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 12px;
+      color: #94a3b8;
+      margin-top: 8px;
+      pointer-events: none;
+    }
+    
+    /* Widget Footer */
+    .widget-footer {
+      background: white;
+      border-top: 1px solid #e2e8f0;
+      padding: 12px 16px 16px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      position: relative;
+    }
+    .widget-input-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+    }
+    .widget-footer-btn {
+      width: 34px;
+      height: 44px;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #64748b;
+      background: white;
+      font-size: 16px;
+      transition: all 0.2s;
+      flex-shrink: 0;
+    }
+    .widget-footer-btn:hover {
+      background: #f8fafc;
+      border-color: #94a3b8;
+    }
+    .widget-input-box {
+      flex: 1;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 22px;
+      padding: 10px 16px;
+      font-size: 13px;
+      color: #334155;
+      background: white;
+      outline: none;
+    }
+    .widget-send-btn {
+      width: 36px;
+      height: 56px;
+      background: #111827;
+      color: white;
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+      margin-right: -8px; /* Matches cut-off effect on right edge */
+      flex-shrink: 0;
+    }
+    .widget-send-btn:hover {
+      background: #1f2937;
+    }
+    .widget-footer-tips {
+      font-size: 9px;
+      color: #94a3b8;
+      text-align: center;
+    }
+    .widget-footer-custom-link {
+      font-size: 10px;
+      color: #94a3b8;
+      text-align: center;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    /* Preview Widget Dark Mode styles */
+    .preview-widget-wrapper.dark {
+      background: #1a1a2e;
+      color: #e0e0e0;
+      border-color: #334155;
+    }
+    .preview-widget-wrapper.dark .widget-subheader {
+      background: #16213e;
+      border-bottom: 1px solid #1e293b;
+      color: #94a3b8;
+    }
+    .preview-widget-wrapper.dark .widget-lang-select {
+      background: #0f0f23;
+      border-color: #334155;
+      color: #ccc;
+    }
+    .preview-widget-wrapper.dark .widget-chat-feed {
+      background: #0f0f23;
+    }
+    .preview-widget-wrapper.dark .widget-msg-bubble {
+      background: #16213e;
+      color: #e0e0e0;
+      border-color: #1e293b;
+    }
+    .preview-widget-wrapper.dark .widget-msg-sender {
+      color: #94a3b8;
+    }
+    .preview-widget-wrapper.dark .widget-msg-avatar {
+      background: #16213e;
+      border-color: #334155;
+      color: #e0e0e0;
+    }
+    .preview-widget-wrapper.dark .preview-option-pill {
+      background: #0f0f23;
+      border-color: #334155;
+      color: #94a3b8;
+    }
+    .preview-widget-wrapper.dark .preview-input-field {
+      background: #0f0f23;
+      border-color: #334155;
+      color: #64748b;
+    }
+    .preview-widget-wrapper.dark .widget-footer {
+      background: #1a1a2e;
+      border-top: 1px solid #1e293b;
+    }
+    .preview-widget-wrapper.dark .widget-footer-btn {
+      color: #94a3b8;
+    }
+    .preview-widget-wrapper.dark .widget-input-box {
+      background: #0f0f23;
+      color: #e0e0e0;
+      border-color: #334155;
+    }
+    .preview-widget-wrapper.dark .widget-footer-tips {
+      color: #475569;
+    }
+    .preview-widget-wrapper.dark .widget-footer-custom-link {
+      color: #818cf8;
+    }
+    .preview-widget-wrapper.dark #previewSearchBar {
+      background: #16213e !important;
+      border-bottom: 1px solid #1e293b !important;
+    }
+    .preview-widget-wrapper.dark #previewSearchInput {
+      background: #0f0f23 !important;
+      border-color: #334155 !important;
+      color: #e0e0e0 !important;
+    }
+    
+    /* Flow Cards */
+    .flow-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+     .flow-card {
+       background: white;
+       border: 1px solid #e2e8f0;
+       border-radius: 12px;
+       overflow: hidden;
+       transition: all 0.2s;
+       flex-shrink: 0;
+     }
+     .flow-card:hover {
+       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+     }
+    .flow-card-header {
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      background: #fafbfc;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .flow-card-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      color: white;
+      flex-shrink: 0;
+    }
+    .flow-card-icon.statement {
+      background: linear-gradient(135deg, #3b82f6, #06b6d4);
+    }
+    .flow-card-icon.conditional {
+      background: linear-gradient(135deg, #f59e0b, #f97316);
+    }
+    .flow-card-title {
+      flex: 1;
+    }
+    .flow-card-title h4 {
+      font-size: 13px;
+      font-weight: 600;
+      color: #0f172a;
+      margin-bottom: 2px;
+    }
+    .flow-card-title p {
+      font-size: 11px;
+      color: #64748b;
+    }
+    .flow-card-actions {
+      display: flex;
+      gap: 6px;
+    }
+    .flow-card-btn {
+      width: 28px;
+      height: 28px;
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 11px;
+      transition: all 0.2s;
+      color: #64748b;
+    }
+    .flow-card-btn:hover {
+      background: #f8f9fc;
+      border-color: #6366f1;
+      color: #6366f1;
+    }
+    .flow-card-content {
+      padding: 20px;
+      display: none;
+    }
+    .flow-card.expanded .flow-card-content {
+      display: block;
+    }
+    .flow-card.expanded .flow-card-header {
+      background: white;
+    }
+    .form-field {
+      margin-bottom: 16px;
+    }
+    .form-field label {
+      display: block;
+      font-size: 11px;
+      font-weight: 600;
+      color: #374151;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .form-field input,
+    .form-field textarea {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 13px;
+      font-family: inherit;
+      transition: all 0.2s;
+    }
+    .form-field input:focus,
+    .form-field textarea:focus {
+      outline: none;
+      border-color: #6366f1;
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    }
+    .form-field textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+    
+    /* Flowbuilder Options Editor custom styles */
+    .choices-label {
+      text-transform: none !important;
+      color: #64748b !important;
+      font-size: 13px !important;
+      font-weight: 600 !important;
+      margin-bottom: 8px !important;
+      display: block;
+    }
+    body.dark-theme .choices-label {
+      color: #94a3b8 !important;
+    }
+    .option-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    .option-input {
+      flex: 1;
+      padding: 10px 14px;
+      border: 1.5px solid #cbd5e1 !important;
+      border-radius: 10px !important;
+      font-size: 14px !important;
+      outline: none;
+      background: #f8fafc !important;
+      color: #1e293b !important;
+      transition: all 0.2s;
+    }
+    body.dark-theme .option-input {
+      background: #0f172a !important;
+      border-color: #334155 !important;
+      color: #f1f5f9 !important;
+    }
+    .option-input:focus {
+      border-color: #6366f1 !important;
+      background: white !important;
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    }
+    body.dark-theme .option-input:focus {
+      border-color: #818cf8 !important;
+      background: #0f172a !important;
+      box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.15);
+    }
+    .delete-option-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      background: #f1f5f9;
+      border: 1.5px solid #e2e8f0;
+      color: #64748b;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+    body.dark-theme .delete-option-btn {
+      background: #1e293b !important;
+      border-color: #334155 !important;
+      color: #cbd5e1 !important;
+    }
+    .delete-option-btn:hover {
+      background: #fee2e2 !important;
+      border-color: #fca5a5 !important;
+      color: #dc2626 !important;
+    }
+    body.dark-theme .delete-option-btn:hover {
+      background: #450a0a !important;
+      border-color: #991b1b !important;
+      color: #ef4444 !important;
+    }
+    .add-option-btn {
+      margin-top: 8px;
+      padding: 10px 18px;
+      font-size: 13px;
+      font-weight: 600;
+      border: 1.5px solid #6366f1;
+      border-radius: 10px;
+      background: #f5f3ff;
+      color: #6366f1;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    body.dark-theme .add-option-btn {
+      border-color: #818cf8 !important;
+      background: rgba(129, 140, 248, 0.1) !important;
+      color: #818cf8 !important;
+    }
+    .add-option-btn:hover {
+      background: #eeebff;
+      border-color: #4f46e5;
+      color: #4f46e5;
+      box-shadow: 0 2px 4px rgba(99, 102, 241, 0.1);
+    }
+    body.dark-theme .add-option-btn:hover {
+      background: rgba(129, 140, 248, 0.15) !important;
+      border-color: #a5b4fc !important;
+      color: #a5b4fc !important;
+    }
+    
+    /* Getting Started Banner */
+    .getting-started {
+      background: linear-gradient(135deg, #4338ca, #6366f1);
+      color: white;
+      padding: 20px 32px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .getting-started .icon {
+      font-size: 32px;
+      flex-shrink: 0;
+    }
+    .getting-started-content {
+      flex: 1;
+    }
+    .getting-started h3 {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .getting-started p {
+      font-size: 12px;
+      opacity: 0.95;
+      line-height: 1.5;
+    }
+    .getting-started button {
+      padding: 10px 24px;
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .getting-started button:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+    
+    /* Preview Modal */
+    .preview-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.7);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 10000;
+      animation: fadeIn 0.3s ease;
+    }
+    
+    .preview-modal.show {
+      display: flex;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    .preview-container {
+      background: white;
+      border-radius: 16px;
+      width: 90%;
+      max-width: 900px;
+      max-height: 90vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      animation: slideUp 0.3s ease;
+    }
+    
+    @keyframes slideUp {
+      from { transform: translateY(50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    /* Modals */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(15, 23, 42, 0.4);
+      backdrop-filter: blur(4px);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal.show {
+      display: flex;
+    }
+
+    .modal-content {
+      background: white;
+      border-radius: 16px;
+      width: 100%;
+      max-width: 500px;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      overflow: hidden;
+      border: 1px solid #e2e8f0;
+      animation: modalSlideUp 0.3s ease-out;
+    }
+
+    @keyframes modalSlideUp {
+      from {
+        transform: translateY(20px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .modal-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .modal-header h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .modal-close {
+      font-size: 20px;
+      cursor: pointer;
+      color: #94a3b8;
+      transition: color 0.2s;
+      display: inline-block;
+      line-height: 1;
+    }
+
+    .modal-close:hover {
+      color: #475569;
+    }
+
+    .modal-body {
+      padding: 24px;
+    }
+
+    .modal-footer {
+      padding: 16px 24px;
+      border-top: 1px solid #e2e8f0;
+      background: #f8fafc;
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+    }
+    
+    .preview-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #f8f9fc;
+    }
+    
+    .preview-header h2 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+    
+    .preview-close {
+      width: 32px;
+      height: 32px;
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 18px;
+      color: #64748b;
+      transition: all 0.2s;
+    }
+    
+    .preview-close:hover {
+      background: #fee2e2;
+      border-color: #fecaca;
+      color: #991b1b;
+    }
+    
+    .preview-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px;
+    }
+    
+    .preview-chatbot {
+      max-width: 400px;
+      margin: 0 auto;
+      background: #f8f9fc;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    .preview-message {
+      background: white;
+      padding: 16px;
+      border-radius: 12px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+    
+    .preview-message-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: #6366f1;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .preview-message-text {
+      font-size: 14px;
+      color: #1e293b;
+      margin-bottom: 12px;
+    }
+    
+    .preview-options {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    
+    .preview-option {
+      padding: 10px 16px;
+      background: #f1f5f9;
+      border: 2px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 13px;
+      color: #475569;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .preview-option:hover {
+      background: #e0e7ff;
+      border-color: #6366f1;
+      color: #6366f1;
+    }
+    
+    .preview-input {
+      width: 100%;
+      padding: 10px 14px;
+      border: 2px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 13px;
+      font-family: inherit;
+    }
+    
+    .preview-input:focus {
+      outline: none;
+      border-color: #6366f1;
+    }
+    
+    .conditional-badge {
+      display: inline-block;
+      padding: 4px 10px;
+      background: #fef3c7;
+      color: #92400e;
+      border-radius: 6px;
+      font-size: 10px;
+      font-weight: 600;
+      margin-top: 8px;
+    }
+    
+    .statement-badge {
+      display: inline-block;
+      padding: 4px 10px;
+      background: #dbeafe;
+      color: #1e40af;
+      border-radius: 6px;
+      font-size: 10px;
+      font-weight: 600;
+      margin-top: 8px;
+    }
+    
+    /* Super Admin layout overrides */
+    body.superadmin-view,
+    body.superadmin-view .main-content,
+    body.superadmin-view .page-header {
+      background: #ffffff !important;
+      background-color: #ffffff !important;
+    }
+
+    /* Dark Theme styling rules */
+    body.dark-theme,
+    body.dark-theme .main-content,
+    body.dark-theme .page-header {
+      background: #0f172a !important;
+      background-color: #0f172a !important;
+      color: #f1f5f9 !important;
+    }
+    body.dark-theme h1,
+    body.dark-theme h2,
+    body.dark-theme h3,
+    body.dark-theme h4,
+    body.dark-theme .brand-text h2 {
+      color: #ffffff !important;
+    }
+    body.dark-theme p,
+    body.dark-theme .page-header-text p {
+      color: #94a3b8 !important;
+    }
+    body.dark-theme .topbar {
+      background: #0f172a !important;
+      border-bottom-color: #1e293b !important;
+    }
+    body.dark-theme .card,
+    body.dark-theme .stat-card,
+    body.dark-theme .data-table,
+    body.dark-theme .sessions-pane,
+    body.dark-theme .sessions-header,
+    body.dark-theme .sessions-list,
+    body.dark-theme .thread-pane,
+    body.dark-theme .thread-header,
+    body.dark-theme .thread-messages,
+    body.dark-theme .tab-content,
+    body.dark-theme .modal-content {
+      background: #1e293b !important;
+      background-color: #1e293b !important;
+      border-color: #334155 !important;
+      color: #f1f5f9 !important;
+    }
+    body.dark-theme .session-item {
+      background: #1e293b !important;
+      border-color: #334155 !important;
+    }
+    body.dark-theme .session-item:hover {
+      background: #334155 !important;
+    }
+    body.dark-theme .session-item.active {
+      background: #312e81 !important;
+      border-color: #4f46e5 !important;
+    }
+    body.dark-theme .session-title {
+      color: #f1f5f9 !important;
+    }
+    body.dark-theme .session-msg-count {
+      color: #cbd5e1 !important;
+    }
+    body.dark-theme .message-wrapper.assistant .message-bubble {
+      background: #334155 !important;
+      color: #f1f5f9 !important;
+    }
+    body.dark-theme .empty-thread-state h3 {
+      color: #f1f5f9 !important;
+    }
+    body.dark-theme .empty-thread-state p {
+      color: #94a3b8 !important;
+    }
+    body.dark-theme table {
+      color: #f1f5f9 !important;
+    }
+    body.dark-theme th {
+      background-color: #334155 !important;
+      color: #f1f5f9 !important;
+      border-bottom-color: #475569 !important;
+    }
+    body.dark-theme td {
+      border-bottom-color: #334155 !important;
+      color: #e2e8f0 !important;
+    }
+    body.dark-theme input[type="text"],
+    body.dark-theme input[type="email"],
+    body.dark-theme input[type="number"],
+    body.dark-theme input[type="password"],
+    body.dark-theme select,
+    body.dark-theme textarea {
+      background-color: #0f172a !important;
+      border-color: #334155 !important;
+      color: #f1f5f9 !important;
+    }
+    body.dark-theme input::placeholder,
+    body.dark-theme textarea::placeholder {
+      color: #475569 !important;
+    }
+    body.dark-theme .theme-toggle-btn {
+      background-color: #1e293b !important;
+      border-color: #ffffff !important;
+      color: #ffffff !important;
+    }
+    body.dark-theme .btn-refresh-chats {
+      background-color: #0f172a !important;
+      border-color: #334155 !important;
+      color: #cbd5e1 !important;
+    }
+    body.dark-theme .btn-refresh-chats:hover {
+      background-color: #1e293b !important;
+    }
+    body.dark-theme .modal-header,
+    body.dark-theme .modal-footer {
+      border-color: #334155 !important;
+    }
+    body.dark-theme .btn-delete-session-icon {
+      color: #ef4444 !important;
+    }
+
+    /* Dark theme overrides for Flow Builder */
+    body.dark-theme .components-panel {
+      background: #1e293b !important;
+      border-right-color: #334155 !important;
+    }
+    body.dark-theme .component-card {
+      background: #1e293b !important;
+      border-color: #334155 !important;
+    }
+    body.dark-theme .component-card:hover {
+      background: #312e81 !important;
+      border-color: #6366f1 !important;
+    }
+    body.dark-theme .component-card .label {
+      color: #cbd5e1 !important;
+    }
+    body.dark-theme .component-card:hover .label {
+      color: #ffffff !important;
+    }
+    body.dark-theme .panel-title {
+      color: #94a3b8 !important;
+    }
+    body.dark-theme .flow-sequence-panel {
+      background: #0f172a !important;
+    }
+    body.dark-theme .sequence-title {
+      color: #ffffff !important;
+    }
+    body.dark-theme .btn-preview {
+      background: #1e293b !important;
+      color: #818cf8 !important;
+      border-color: #818cf8 !important;
+    }
+    body.dark-theme .btn-preview:hover {
+      background: #818cf8 !important;
+      color: white !important;
+    }
+
+    /* Sidebar Toggles styles */
+    .sidebar-toggle-container {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2px;
+      cursor: pointer;
+    }
+    .sidebar-switch {
+      position: relative;
+      width: 38px;
+      height: 20px;
+      background: #475569;
+      border-radius: 10px;
+      transition: all 0.3s;
+    }
+    .sidebar-switch.active {
+      background: #6366f1;
+    }
+    .sidebar-switch::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 16px;
+      height: 16px;
+      background: white;
+      border-radius: 50%;
+      transition: all 0.3s;
+    }
+    .sidebar-switch.active::after {
+      left: 20px;
+    }
+
+    /* Dark Mode Flow Builder Overrides */
+    body.dark-theme .flow-builder-container {
+      background: #1e293b !important;
+      border-color: #334155 !important;
+    }
+    body.dark-theme .components-panel {
+      background: #1e293b !important;
+      border-right-color: #334155 !important;
+    }
+    body.dark-theme .component-pill {
+      background: #1e293b !important;
+      border-color: #334155 !important;
+      color: #cbd5e1 !important;
+    }
+    body.dark-theme .component-pill:hover {
+      border-color: #818cf8 !important;
+      background: #312e81 !important;
+      color: #ffffff !important;
+    }
+    body.dark-theme .component-pill .label {
+      color: #cbd5e1 !important;
+    }
+    body.dark-theme .component-pill:hover .label {
+      color: #ffffff !important;
+    }
+    body.dark-theme .flow-sequence-panel {
+      background: #0f172a !important;
+      border-right-color: #334155 !important;
+    }
+    body.dark-theme .panel-header {
+      border-bottom-color: #334155 !important;
+    }
+    body.dark-theme .panel-header h3 {
+      color: #ffffff !important;
+    }
+    body.dark-theme .btn-revert {
+      background: #1e293b !important;
+      border-color: #334155 !important;
+      color: #cbd5e1 !important;
+    }
+    body.dark-theme .btn-revert:hover {
+      background: #334155 !important;
+      color: white !important;
+    }
+    body.dark-theme .flow-card {
+      background: #1e293b !important;
+      border-color: #334155 !important;
+    }
+    body.dark-theme .flow-card:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+    body.dark-theme .flow-card-header {
+      background: #1e293b !important;
+      border-bottom-color: #334155 !important;
+    }
+    body.dark-theme .flow-card.expanded .flow-card-header {
+      background: #1e293b !important;
+    }
+    body.dark-theme .flow-card-title h4 {
+      color: #ffffff !important;
+    }
+    body.dark-theme .flow-card-title p {
+      color: #94a3b8 !important;
+    }
+    body.dark-theme .flow-card-btn {
+      background: #0f172a !important;
+      border-color: #334155 !important;
+      color: #cbd5e1 !important;
+    }
+    body.dark-theme .flow-card-btn:hover {
+      border-color: #818cf8 !important;
+      color: #818cf8 !important;
+    }
+    body.dark-theme .form-field label {
+      color: #94a3b8 !important;
+    }
+    body.dark-theme .form-field input,
+    body.dark-theme .form-field textarea {
+      background-color: #0f172a !important;
+      border-color: #334155 !important;
+      color: #f1f5f9 !important;
+    }
+    body.dark-theme .form-field input:focus,
+    body.dark-theme .form-field textarea:focus {
+      border-color: #818cf8 !important;
+    }
+    
+    /* Live Preview Column overrides */
+    body.dark-theme .live-preview-panel {
+      background: #1e293b !important;
+    }
+    body.dark-theme .live-preview-container {
+      background: #0f172a !important;
+      border-color: #334155 !important;
+    }
+    body.dark-theme .preview-bubble-bot {
+      background: #1e293b !important;
+      border-color: #334155 !important;
+      color: #f1f5f9 !important;
+    }
+    body.dark-theme .preview-bubble-label {
+      color: #818cf8 !important;
+    }
+    body.dark-theme .preview-text {
+      color: #e2e8f0 !important;
+    }
+    body.dark-theme .preview-option-pill {
+      background: #334155 !important;
+      border-color: #475569 !important;
+      color: #cbd5e1 !important;
+    }
+    body.dark-theme .preview-input-field {
+      background: #1e293b !important;
+      border-color: #334155 !important;
+      color: #64748b !important;
+    }
+
+    /* Flow Preview Modal dark mode overrides */
+    body.dark-theme .preview-container {
+      background: #1e293b !important;
+      color: #f1f5f9 !important;
+    }
+    body.dark-theme .preview-header {
+      background: #0f172a !important;
+      border-bottom-color: #334155 !important;
+    }
+    body.dark-theme .preview-header h2 {
+      color: #ffffff !important;
+    }
+    body.dark-theme .preview-close {
+      background: #1e293b !important;
+      border-color: #334155 !important;
+      color: #cbd5e1 !important;
+    }
+    body.dark-theme .preview-close:hover {
+      background: #7f1d1d !important;
+      border-color: #b91c1c !important;
+      color: white !important;
+    }
+    body.dark-theme .preview-chatbot {
+      background: #0f172a !important;
+    }
+    body.dark-theme .preview-message {
+      background: #1e293b !important;
+      border-color: #334155 !important;
+    }
+    body.dark-theme .preview-message-label {
+      color: #818cf8 !important;
+    }
+    body.dark-theme .preview-message-text {
+      color: #f1f5f9 !important;
+    }
+    body.dark-theme .preview-option {
+      background: #334155 !important;
+      border-color: #475569 !important;
+      color: #cbd5e1 !important;
+    }
+    body.dark-theme .preview-option:hover {
+      background: #312e81 !important;
+      border-color: #818cf8 !important;
+      color: #ffffff !important;
+    }
+    body.dark-theme .preview-input {
+      background: #0f172a !important;
+      border-color: #334155 !important;
+      color: #cbd5e1 !important;
+    }
+    
+    /* Domain Selector & Dropdown styling (matching knowledge.html) */
+    .domain-selector {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+      transition: all 0.2s;
+      font-size: 13px;
+      font-weight: 600;
+      position: relative;
+    }
+
+    .domain-selector:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+    }
+
+    .domain-selector .icon {
+      font-size: 16px;
+    }
+
+    /* Dropdown Menu */
+    .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      right: 0; /* Align right to avoid clipping */
+      margin-top: 8px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+      overflow: hidden;
+      display: none;
+      z-index: 1000;
+      animation: slideDown 0.2s ease;
+      min-width: 240px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .dropdown-menu.show {
+      display: block;
+    }
+
+    .dropdown-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      color: #1e293b;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      border-bottom: 1px solid #f1f5f9;
+      text-align: left;
+      width: 100%;
+      background: white;
+    }
+
+    .dropdown-item:last-child {
+      border-bottom: none;
+    }
+
+    .dropdown-item:hover {
+      background: #f8fafc;
+    }
+
+    .dropdown-item.active {
+      background: #ede9fe;
+      color: #6366f1;
+      font-weight: 600;
+    }
+
+    .dropdown-item .check {
+      margin-left: auto;
+      color: #6366f1;
+      font-size: 14px;
+    }
+    
+    .dropdown-item.disabled {
+      color: #94a3b8 !important;
+      cursor: not-allowed !important;
+      background: transparent !important;
+    }
+    
+    /* Dark Theme overrides for dropdown */
+    body.dark-theme .dropdown-menu {
+      background: #1e293b !important;
+      border-color: #334155 !important;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    }
+    body.dark-theme .dropdown-item {
+      background: #1e293b !important;
+      color: #cbd5e1 !important;
+      border-bottom-color: #334155 !important;
+    }
+    body.dark-theme .dropdown-item:hover {
+      background: #334155 !important;
+      color: #ffffff !important;
+    }
+    body.dark-theme .dropdown-item.active {
+      background: #312e81 !important;
+      color: #818cf8 !important;
+    }
+    body.dark-theme .dropdown-item.active .check {
+      color: #818cf8 !important;
+    }
+    body.dark-theme .dropdown-item.disabled {
+      color: #475569 !important;
+    }
+  </style>
+</head>
+<body>
+  <!-- Sidebar (will be rendered dynamically) -->
+  <div class="sidebar"></div>
+
+  <div class="main-content">
+    <!-- Top Bar (will be rendered dynamically) -->
+    <div class="topbar"></div>
+
+    <div class="page-header">
+      <div class="page-header-left" style="display: flex; align-items: center; gap: 12px;">
+        <div style="font-size: 24px; color: #3b82f6;">💠</div>
+        <div>
+          <h1 style="font-size: 20px; font-weight: 700; color: #0f172a; margin-bottom: 2px;">Flow Builder</h1>
+          <p style="font-size: 13px; color: #64748b;">Create visual guided flows for the landing page chatbot.</p>
+        </div>
+      </div>
+      <div class="page-header-right" style="display: flex; align-items: center; gap: 12px;">
+        <button class="btn-save" onclick="openCreateBotModal()" style="padding: 10px 24px; font-weight: 700; font-size: 13px; background: #6366f1; color: white; border: none; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.2s;">
+          <span>+</span> Create Bot
+        </button>
+        <input type="file" id="importFlowFile" accept=".json" style="display: none;" onchange="importFlow(event)">
+        <button class="btn-import" onclick="document.getElementById('importFlowFile').click()" style="padding: 10px 24px; font-weight: 700; font-size: 13px; background: white; border: 1px solid #cbd5e1; color: #475569; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.2s;">
+          <span>📂</span> Load Flow
+        </button>
+        <button class="btn-preview" id="btnGenerateScript" onclick="showEmbedScriptModal()" style="padding: 10px 24px; font-weight: 700; font-size: 13px; display: flex; align-items: center; gap: 8px; border-radius: 8px; cursor: pointer; transition: all 0.2s;">
+          <span>📋</span> Generate Script
+        </button>
+        <button class="btn-save" onclick="saveFlow()" style="padding: 10px 24px; font-weight: 700; font-size: 13px; background: #6366f1; color: white; border: none; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 8px;">
+          <span>💾</span> Save Flow
+        </button>
+      </div>
+    </div>
+
+    <div class="flow-builder-container">
+      <!-- Column 1: Components -->
+      <div class="components-panel">
+        <div class="panel-title">COMPONENTS</div>
+        <div class="component-list">
+          <div class="component-pill" onclick="addComponent('statement', '💬', 'Statement')">
+            <span class="icon">💬</span>
+            <span class="label">Statement</span>
+          </div>
+          <div class="component-pill" onclick="addComponent('question', '❓', 'Basic Question')">
+            <span class="icon">❓</span>
+            <span class="label">Basic Question</span>
+          </div>
+          <div class="component-pill" onclick="addComponent('single', '🔘', 'Single Choice')">
+            <span class="icon">🔘</span>
+            <span class="label">Single Choice</span>
+          </div>
+          <div class="component-pill" onclick="addComponent('multiple', '☑️', 'Multiple Choice')">
+            <span class="icon">☑️</span>
+            <span class="label">Multiple Choice</span>
+          </div>
+          <div class="component-pill" onclick="addComponent('email', '📧', 'Email')">
+            <span class="icon">📧</span>
+            <span class="label">Email</span>
+          </div>
+          <div class="component-pill" onclick="addComponent('mobile', '📱', 'Mobile Number')">
+            <span class="icon">📱</span>
+            <span class="label">Mobile Number</span>
+          </div>
+          <div class="component-pill" onclick="addComponent('number', '🔢', 'Number')">
+            <span class="icon">🔢</span>
+            <span class="label">Number</span>
+          </div>
+          <div class="component-pill" onclick="addComponent('rating', '⭐', 'Rating')">
+            <span class="icon">⭐</span>
+            <span class="label">Rating</span>
+          </div>
+          <div class="component-pill" onclick="addComponent('date', '📅', 'Date Picker')">
+            <span class="icon">📅</span>
+            <span class="label">Date Picker</span>
+          </div>
+          <div class="component-pill" onclick="addComponent('website', '🔗', 'Website Link')">
+            <span class="icon">🔗</span>
+            <span class="label">Website Link</span>
+          </div>
+          <div class="component-pill" onclick="addComponent('appointment', '🏢', 'Appointment')">
+            <span class="icon">🏢</span>
+            <span class="label">Appointment</span>
+          </div>
+          <div class="component-pill" onclick="addComponent('age', '🎂', 'Age')">
+            <span class="icon">🎂</span>
+            <span class="label">Age</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Column 2: Flow Sequence -->
+      <div class="flow-sequence-panel">
+        <div class="panel-header" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid #e2e8f0; flex-shrink: 0;">
+          <h3 style="font-size: 14px; font-weight: 700; color: #1e293b;">Flow Sequence</h3>
+          <div style="display: flex; gap: 8px;">
+            <button class="btn-refresh" onclick="refreshFlow()" style="padding: 6px 16px; background: white; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 12px; font-weight: 600; color: #475569; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 4px;">
+              🔄 Refresh
+            </button>
+            <button class="btn-revert" onclick="revertFlow()" style="padding: 6px 16px; background: white; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 12px; font-weight: 600; color: #475569; cursor: pointer; transition: all 0.2s;">Revert</button>
+          </div>
+        </div>
+        
+        <div class="flow-cards" id="flowCards" style="flex: 1; overflow-y: auto; padding-right: 4px; min-height: 0;">
+          <!-- Flow cards will be added here -->
+        </div>
+      </div>
+
+      <!-- Column 3: Live Preview -->
+      <div class="live-preview-panel">
+        <div class="panel-header" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid #e2e8f0; flex-shrink: 0;">
+          <h3 style="font-size: 14px; font-weight: 700; color: #1e293b;">Live Preview</h3>
+        </div>
+        
+        <div class="live-preview-container">
+          <!-- Widget Wrapper Mockup (toggled by the FAB) -->
+          <div class="preview-widget-wrapper open" id="previewWidget">
+            <!-- Widget Header -->
+            <div class="widget-header">
+              <div class="widget-header-left">
+                <div class="widget-avatar-container">
+                  <div class="widget-avatar">🤖</div>
+                  <div class="widget-status-dot"></div>
+                </div>
+                <div class="widget-profile-info">
+                  <h4>Online</h4>
+                </div>
+              </div>
+              <div class="widget-header-controls">
+                <span onclick="clearPreviewChat(); event.stopPropagation();" title="Clear chat">🗑️</span>
+                <span onclick="togglePreviewSearch(true); event.stopPropagation();" title="Search">🔍</span>
+                <span onclick="toggleWidget(false); event.stopPropagation();" title="Minimize">⬜</span>
+                <span id="btnPreviewDarkMode" onclick="togglePreviewDarkMode(); event.stopPropagation();" title="Toggle Dark Theme">🌙</span>
+                <span onclick="exportPreviewChat(); event.stopPropagation();" title="Export chat">📥</span>
+                <span onclick="toggleWidget(false); event.stopPropagation();" title="Close" style="font-weight: bold; cursor: pointer;">✕</span>
+              </div>
+            </div>
+            
+            <!-- Widget Subheader -->
+            <div class="widget-subheader">
+              <div class="widget-lang-selector">
+                <span>Language:</span>
+                <select class="widget-lang-select">
+                  <option>English (EN)</option>
+                </select>
+              </div>
+              <div class="widget-status-text">Ready to chat</div>
+            </div>
+
+            <!-- Widget Search Bar Mockup -->
+            <div id="previewSearchBar" style="display: none; padding: 8px 16px; background: #f1f5f9; border-bottom: 1px solid #e2e8f0; align-items: center; gap: 8px; flex-shrink: 0;">
+              <input type="text" id="previewSearchInput" placeholder="Search preview messages..." style="flex: 1; border: 1px solid #cbd5e1; border-radius: 6px; padding: 4px 8px; font-size: 11px; outline: none;" oninput="handlePreviewSearch(this.value)">
+              <span style="cursor: pointer; font-size: 12px; color: #64748b; font-weight: bold;" onclick="togglePreviewSearch(false)">✕</span>
+            </div>
+            
+            <!-- Widget Feed -->
+            <div class="widget-chat-feed" id="livePreviewFeed">
+              <!-- Chat bubbles rendered here by renderLivePreview() -->
+            </div>
+            
+            <!-- Widget Footer -->
+            <div class="widget-footer">
+              <div class="widget-input-row">
+                <div class="widget-footer-btn" title="Attachments">📎</div>
+                <div class="widget-footer-btn" title="Voice Input">🎤</div>
+                <div style="position: relative; flex: 1; display: flex; align-items: center;">
+                  <input type="text" class="widget-input-box" id="widgetInputBox" placeholder="Type your message..." onkeydown="handleWidgetKeyDown(event)" style="padding-right: 40px; width: 100%;">
+                  <button class="widget-send-btn" id="widgetSendBtn" onclick="handleWidgetSend()" style="position: absolute; right: 4px; width: 32px; height: 32px; border-radius: 50%; background: #db2777; margin: 0; display: flex; align-items: center; justify-content: center;">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" style="margin-left: 2px;">
+                      <line x1="22" y1="2" x2="11" y2="13"/>
+                      <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              <div class="widget-footer-tips">ESC close • Ctrl+F search • Ctrl+Enter send</div>
+              <div class="widget-footer-custom-link">Full Customization</div>
+            </div>
+          </div>
+          
+          <!-- Floating Action Button -->
+          <div class="preview-floating-btn active" id="widgetFAB" onclick="toggleWidget()">
+            <!-- Default closed state icon: chat bubble -->
+            <svg id="fabChatIcon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+            </svg>
+            <!-- Open state icon: X (hidden by default) -->
+            <svg id="fabCloseIcon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display: block;">
+              <line x1="18" y1="6" x2="6" y2="18"/>
+              <line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="getting-started">
+      <div class="icon">🚀</div>
+      <div class="getting-started-content">
+        <h3>Getting Started</h3>
+        <p>You haven't created any bots yet. Please go to "Bot Management" to create your first chatbot for your domain.</p>
+      </div>
+      <button onclick="dismissBanner()">Create My First Bot</button>
+    </div>
+  </div>
+
+  <!-- Preview Modal -->
+  <div class="preview-modal" id="previewModal">
+    <div class="preview-container">
+      <div class="preview-header">
+        <h2>🎬 Flow Preview</h2>
+        <button class="preview-close" onclick="closePreview()">✕</button>
+      </div>
+      <div class="preview-body" id="previewBody">
+        <!-- Preview content will be rendered here -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Session authentication check
+    if (sessionStorage.getItem('isLoggedIn') !== 'true') {
+      window.location.href = '/admin/login.html';
+    }
+
+    // Logout function
+    function handleLogout() {
+      sessionStorage.clear();
+      window.location.href = '/admin/login.html';
+    }
+
+    // Theme toggle
+    function toggleDarkMode() {
+      const isDark = document.body.classList.toggle('dark-theme');
+      localStorage.setItem('adminTheme', isDark ? 'dark' : 'light');
+      const btn = document.getElementById('themeToggleBtn');
+      if (btn) btn.innerHTML = isDark ? '☀️' : '🌙';
+      showToast(isDark ? 'Dark theme enabled' : 'Light theme enabled');
+    }
+
+    // Render sidebar and topbar based on role
+        async function renderSidebarAndTopbar() {
+      const userRole = sessionStorage.getItem('userRole') || 'client';
+      const sidebarEl = document.querySelector('.sidebar');
+      const topbarEl = document.querySelector('.topbar');
+      
+      let config = { enableAI: false, primaryMode: 'ai_chatbot' };
+      if (userRole === 'admin') {
+        try {
+          const res = await fetch('/api/config/full');
+          if (res.ok) {
+            config = await res.json();
+          }
+        } catch (err) {
+          console.error('Failed to fetch config for sidebar:', err);
+        }
+      }
+      
+      if (userRole === 'admin') {
+        // Apply white background for admin
+        document.body.classList.add('superadmin-view');
+        
+        const isAIActive = config.enableAI !== false;
+        const isFlowActive = config.primaryMode === 'flow_builder';
+        
+        if (sidebarEl) {
+          sidebarEl.innerHTML = `
+            <div class="sidebar-header">
+              <div class="brand">
+                <div class="brand-icon">🤖</div>
+                <div class="brand-text">
+                  <h2>GA Digital</h2>
+                  <span style="font-size: 11px; color: #10b981; font-weight: 600; display: flex; align-items: center; gap: 4px; margin-top: 2px;">
+                    <span style="display: inline-block; width: 6px; height: 6px; background-color: #10b981; border-radius: 50%;"></span>
+                    Super Admin
+                  </span>
+                </div>
+              </div>
+            </div>
+            <nav class="sidebar-nav">
+              <div class="nav-section">SAAS PLATFORM</div>
+              <a href="/admin/superadmin.html" class="nav-item ${window.location.pathname.includes('superadmin') ? 'active' : ''}">
+                <span class="icon">📊</span>
+                <span>Platform Stats</span>
+              </a>
+              <a href="/admin/superadmin.html?tab=plans" class="nav-item">
+                <span class="icon">💎</span>
+                <span>Plan Packages</span>
+              </a>
+              <div class="nav-section">DEMO CHATBOT SETUP</div>
+              <a href="/admin/settings.html" class="nav-item ${window.location.pathname.includes('settings') ? 'active' : ''}">
+                <span class="icon">⚙️</span>
+                <span>Bot Settings</span>
+              </a>
+              <a href="/admin/knowledge.html" class="nav-item ${window.location.pathname.includes('knowledge') ? 'active' : ''}">
+                <span class="icon">🤖</span>
+                <span>AI Chatbot</span>
+                <div class="sidebar-toggle-container" onclick="handleSidebarToggle(event, 'ai')">
+                  <div class="sidebar-switch ${isAIActive ? 'active' : ''}" id="sidebarToggleAI"></div>
+                </div>
+              </a>
+              <a href="/admin/flowbuilder.html" class="nav-item ${window.location.pathname.includes('flowbuilder') ? 'active' : ''}">
+                <span class="icon">🔄</span>
+                <span>Flow Builder</span>
+                <div class="sidebar-toggle-container" onclick="handleSidebarToggle(event, 'flow')">
+                  <div class="sidebar-switch ${isFlowActive ? 'active' : ''}" id="sidebarToggleFlow"></div>
+                </div>
+              </a>
+              <a href="/admin/dashboard.html" class="nav-item ${window.location.pathname.includes('dashboard') ? 'active' : ''}">
+                <span class="icon">💬</span>
+                <span>Chat History</span>
+              </a>
+            </nav>
+          `;
+        }
+        if (topbarEl) {
+          topbarEl.innerHTML = `
+            <div class="topbar-left">
+              <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+              <h1 id="page-title">${document.getElementById('page-title') ? document.getElementById('page-title').textContent : 'Admin Panel'}</h1>
+            </div>
+            <div class="topbar-right" style="display: flex; align-items: center; gap: 16px;">
+              <div class="domain-selector" id="domainSelector" style="padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 8px; cursor: pointer; position: relative; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; margin-right: 8px;">
+                <span class="icon">🤖</span>
+                <span id="selectedDomain">Select Chatbot</span>
+                <span class="arrow">▼</span>
+                <div class="dropdown-menu" id="dropdownMenu" style="top: 100%; margin-top: 8px; min-width: 220px;"></div>
+              </div>
+              <button id="themeToggleBtn" onclick="toggleDarkMode()" class="theme-toggle-btn" title="Toggle Theme">🌙</button>
+              <div class="super-admin-badge">
+                <span>👑</span>
+                <span>SUPER ADMIN</span>
+              </div>
+              <button class="btn-logout" onclick="handleLogout()">Logout</button>
+            </div>
+          `;
+        }
+      } else {
+        // Apply default background for client
+        document.body.classList.remove('superadmin-view');
+        document.body.style.backgroundColor = '#f8f9fc';
+        const mainContent = document.querySelector('.main-content');
+        if (mainContent) {
+          mainContent.style.backgroundColor = '#f8f9fc';
+          mainContent.style.setProperty('background', '#f8f9fc', 'important');
+        }
+        
+        if (sidebarEl) {
+          sidebarEl.innerHTML = `
+            <div class="sidebar-header">
+              <div class="brand">
+                <div class="brand-icon">🤖</div>
+                <div class="brand-text">
+                  <h2>AI Chatbot</h2>
+                  <span style="font-size: 11px; color: #94a3b8; font-weight: 500;">Admin Panel v3.0</span>
+                </div>
+              </div>
+            </div>
+            <nav class="sidebar-nav">
+              <div class="nav-section">MAIN</div>
+              <a href="/admin/dashboard.html?page=dashboard" class="nav-item">
+                <span class="icon">📊</span>
+                <span>Dashboard</span>
+              </a>
+              <a href="/admin/dashboard.html?page=users" class="nav-item">
+                <span class="icon">👥</span>
+                <span>Users</span>
+              </a>
+              <a href="/admin/dashboard.html?page=chats" class="nav-item">
+                <span class="icon">💬</span>
+                <span>Chats</span>
+              </a>
+              <a href="/admin/dashboard.html?page=leads" class="nav-item">
+                <span class="icon">📝</span>
+                <span>Leads</span>
+              </a>
+              <a href="/admin/dashboard.html?page=analytics" class="nav-item">
+                <span class="icon">📈</span>
+                <span>Analytics</span>
+              </a>
+              <a href="/admin/dashboard.html?page=bots" class="nav-item">
+                <span class="icon">🤖</span>
+                <span>Bots</span>
+              </a>
+              <div class="nav-section">BOT SETUP</div>
+              <a href="/admin/knowledge.html" class="nav-item">
+                <span class="icon">🧠</span>
+                <span>1. AI Chatbot</span>
+              </a>
+              <a href="/admin/flowbuilder.html" class="nav-item active">
+                <span class="icon">🔄</span>
+                <span>2. Flow Builder</span>
+              </a>
+              <div class="nav-section">CONFIGURATION</div>
+              <a href="/admin/dashboard.html?page=settings" class="nav-item">
+                <span class="icon">⚙️</span>
+                <span>Settings</span>
+              </a>
+              <a href="/admin/dashboard.html?page=embed" class="nav-item">
+                <span class="icon">📋</span>
+                <span>Embed Code</span>
+              </a>
+            </nav>
+          `;
+        }
+        if (topbarEl) {
+          topbarEl.innerHTML = `
+            <div class="topbar-left">
+              <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+              <h1 id="page-title">2. Flow Builder</h1>
+            </div>
+            <div class="topbar-right" style="display: flex; align-items: center; gap: 16px;">
+              <div class="domain-selector" id="domainSelector" style="padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 8px; cursor: pointer; position: relative; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; margin-right: 8px;">
+                <span class="icon">🤖</span>
+                <span id="selectedDomain">Select Chatbot</span>
+                <span class="arrow">▼</span>
+                <div class="dropdown-menu" id="dropdownMenu" style="top: 100%; margin-top: 8px; min-width: 220px;"></div>
+              </div>
+              <button id="themeToggleBtn" onclick="toggleDarkMode()" style="background:none; border:none; font-size:20px; cursor:pointer; margin-right:8px;" title="Toggle Light/Dark Theme">☀️</button>
+              <div class="status-badge" style="display: flex; align-items: center; gap: 6px; padding: 6px 12px; background: #d1fae5; color: #065f46; border-radius: 6px; font-size: 12px; font-weight: 600; margin-right: 8px;">
+                <span class="status-dot" style="width: 8px; height: 8px; background: #10b981; border-radius: 50%;"></span>
+                <span>Server Online</span>
+              </div>
+              <button class="btn-logout" onclick="handleLogout()" style="background:#fee2e2; color:#991b1b; border:none; border-radius:8px; padding:8px 16px; font-size:13px; font-weight:600; cursor:pointer;">Logout</button>
+            </div>
+          `;
+        }
+      }
+    }
+
+    let currentBotApiKey = '';
+    let defaultApiKey = '';
+
+    // Load Default API Key
+    async function loadDefaultApiKey() {
+      try {
+        const configRes = await fetch('/api/config/full');
+        if (configRes.ok) {
+          const config = await configRes.json();
+          defaultApiKey = config.apiKey || '';
+        }
+      } catch (e) {
+        console.error('Failed to load default API key:', e);
+      }
+    }
+
+    // Initialize Bot Selector Dropdown (specific to Flow Builder bots)
+    async function initializeDomainSelector() {
+      try {
+        const clientId = sessionStorage.getItem('clientId') || 'default';
+        const userRole = sessionStorage.getItem('userRole') || 'client';
+        const url = (userRole === 'client' && clientId !== 'default') 
+          ? `/api/bots?clientId=${encodeURIComponent(clientId)}` 
+          : '/api/bots';
+        
+        const res = await fetch(url);
+        const bots = await res.json();
+        
+        // Filter Flow Builder bots
+        const flowBots = bots.filter(b => b.type === 'flow');
+        
+        let currentBotId = localStorage.getItem('selectedFlowBotId') || 'default';
+        let currentBotName = 'Select Chatbot';
+        
+        // Find current bot
+        const activeBot = flowBots.find(b => b.bot_id === currentBotId);
+        if (activeBot) {
+          currentBotApiKey = activeBot.api_key;
+          currentBotName = activeBot.name;
+        } else if (currentBotId === 'default') {
+          if (flowBots.length > 0) {
+            currentBotId = flowBots[0].bot_id;
+            localStorage.setItem('selectedFlowBotId', currentBotId);
+            currentBotApiKey = flowBots[0].api_key;
+            currentBotName = flowBots[0].name;
+          } else {
+            currentBotName = 'Select Chatbot';
+          }
+        } else {
+          if (flowBots.length > 0) {
+            currentBotId = flowBots[0].bot_id;
+            localStorage.setItem('selectedFlowBotId', currentBotId);
+            currentBotApiKey = flowBots[0].api_key;
+            currentBotName = flowBots[0].name;
+          } else {
+            localStorage.setItem('selectedFlowBotId', 'default');
+            currentBotId = 'default';
+            currentBotName = 'Select Chatbot';
+          }
+        }
+        
+        const selectedDomainEl = document.getElementById('selectedDomain');
+        if (selectedDomainEl) {
+          selectedDomainEl.textContent = currentBotName;
+        }
+        
+        const dropdownMenu = document.getElementById('dropdownMenu');
+        if (dropdownMenu) {
+          let html = '';
+          
+          if (flowBots.length === 0) {
+            html = `
+              <div class="dropdown-item disabled" style="color: #94a3b8; cursor: not-allowed; padding: 12px 16px;">
+                No Flow Bots created
+              </div>
+            `;
+          } else {
+            flowBots.forEach(bot => {
+              const isSelected = bot.bot_id === currentBotId;
+              let botDomain = '';
+              try {
+                const cfg = JSON.parse(bot.config || '{}');
+                botDomain = cfg.domain ? ` (${cfg.domain})` : '';
+              } catch(e) {}
+              
+              html += `
+                <div class="dropdown-item ${isSelected ? 'active' : ''}" data-bot-id="${bot.bot_id}" data-name="${bot.name}">
+                  <span class="icon">🤖</span>
+                  <span>${bot.name}${botDomain}</span>
+                  ${isSelected ? '<span class="check">✓</span>' : ''}
+                </div>
+              `;
+            });
+          }
+          
+          dropdownMenu.innerHTML = html;
+          
+          // Add click events to dropdown items
+          dropdownMenu.querySelectorAll('.dropdown-item').forEach(item => {
+            if (item.classList.contains('disabled')) return;
+            item.addEventListener('click', function(e) {
+              e.stopPropagation();
+              const botId = this.getAttribute('data-bot-id');
+              localStorage.setItem('selectedFlowBotId', botId);
+              window.location.reload();
+            });
+          });
+        }
+
+        // Setup dropdown toggle click listener
+        const domainSelector = document.getElementById('domainSelector');
+        if (domainSelector) {
+          domainSelector.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const menu = document.getElementById('dropdownMenu');
+            if (menu) menu.classList.toggle('show');
+          });
+        }
+
+        // Close dropdown on click outside
+        document.addEventListener('click', function() {
+          const menu = document.getElementById('dropdownMenu');
+          if (menu) menu.classList.remove('show');
+        });
+
+      } catch (err) {
+        console.error('Failed to initialize domain selector:', err);
+      }
+    }
+
+    // Embed Script Modal controls
+    function showEmbedScriptModal() {
+      const botId = localStorage.getItem('selectedFlowBotId') || 'default';
+      const apiKey = currentBotApiKey || defaultApiKey;
+      const serverUrl = window.location.origin;
+      
+      const snippet = `<script src="${serverUrl}/widget/chatbot.js" data-server="${serverUrl}" data-bot-id="${botId}" data-api-key="${apiKey}" async></` + 'script>';
+      
+      const textarea = document.getElementById('scriptCodeTextarea');
+      if (textarea) {
+        textarea.value = snippet;
+      }
+      
+      const modal = document.getElementById('embedScriptModal');
+      if (modal) {
+        modal.classList.add('show');
+      }
+    }
+
+    function closeEmbedScriptModal() {
+      const modal = document.getElementById('embedScriptModal');
+      if (modal) {
+        modal.classList.remove('show');
+      }
+    }
+
+    function copyScriptToClipboard() {
+      const textarea = document.getElementById('scriptCodeTextarea');
+      if (!textarea) return;
+      
+      textarea.select();
+      document.execCommand('copy');
+      showToast('📋 Script copied to clipboard!', 'success');
+    }
+
+    async function handleSidebarToggle(event, type) {
+      if (event) {
+        event.stopPropagation();
+        event.preventDefault();
+      }
+      
+      const switchEl = document.getElementById(type === 'ai' ? 'sidebarToggleAI' : 'sidebarToggleFlow');
+      if (!switchEl) return;
+      
+      // Determine intent from current state (do NOT pre-toggle)
+      const isActive = !switchEl.classList.contains('active');
+      
+      try {
+        let payload = {};
+        if (type === 'ai') {
+          payload = { enableAI: isActive };
+          showToast(isActive ? '✅ AI Chatbot enabled — Flow Builder disabled' : '⚠️ AI Chatbot disabled', 'success');
+        } else {
+          payload = { primaryMode: isActive ? 'flow_builder' : 'ai_chatbot' };
+          showToast(isActive ? '✅ Flow Builder Mode active — AI Chatbot disabled' : '✅ AI Chatbot Mode active', 'success');
+        }
+        
+        const res = await fetch('/api/config', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        
+        if (res.ok) {
+          const resData = await res.json();
+          const updatedConfig = resData.config;
+          
+          // Sync BOTH switches from the authoritative server response
+          const aiSwitch = document.getElementById('sidebarToggleAI');
+          const flowSwitch = document.getElementById('sidebarToggleFlow');
+          if (aiSwitch) aiSwitch.classList.toggle('active', updatedConfig.enableAI !== false);
+          if (flowSwitch) flowSwitch.classList.toggle('active', updatedConfig.primaryMode === 'flow_builder');
+        }
+        
+        if (typeof loadConfigData === 'function') {
+          loadConfigData();
+        }
+      } catch (err) {
+        console.error('Failed to toggle config:', err);
+      }
+    }
+
+function toggleMobileMenu() {
+      const sidebar = document.querySelector('.sidebar');
+      sidebar.classList.toggle('mobile-open');
+    }
+    
+    let flowComponents = [];
+    let componentIdCounter = 1;
+    let expandedCardIds = new Set();
+    let simCurrentStepIndex = 0;
+    let simAnswers = {};
+    let simIsActive = false;
+
+    function normalizeFlowComponents() {
+      if (!Array.isArray(flowComponents)) return;
+      flowComponents.forEach(comp => {
+        if (comp.type === 'single' || comp.type === 'multiple') {
+          if (typeof comp.options === 'string') {
+            comp.options = comp.options ? comp.options.split(',').map(o => o.trim()) : [];
+          }
+          if (!Array.isArray(comp.options)) {
+            comp.options = [];
+          }
+          if (typeof comp.destinations === 'string') {
+            comp.destinations = comp.destinations ? comp.destinations.split(',') : [];
+          }
+          if (!Array.isArray(comp.destinations)) {
+            comp.destinations = [];
+          }
+          while (comp.destinations.length < comp.options.length) {
+            comp.destinations.push('');
+          }
+        }
+      });
+    }
+
+    function addComponent(type, icon, label) {
+      const component = {
+        id: componentIdCounter++,
+        type: type,
+        icon: icon,
+        label: label,
+        question: '',
+        options: (type === 'multiple' || type === 'single') ? ['Option 1', 'Option 2', 'Option 3'] : [],
+        destinations: (type === 'multiple' || type === 'single') ? ['', '', ''] : [],
+        statement: '',
+        condition: '',
+        conditionValue: '',
+        thenAction: '',
+        elseAction: '',
+        buttonLabel: type === 'website' ? '' : undefined,
+        redirectUrl: type === 'website' ? '' : undefined,
+        minValue: type === 'age' ? 0 : undefined,
+        maxValue: type === 'age' ? 100 : undefined,
+        timeSlots: type === 'appointment' ? '' : undefined,
+        minDaysAhead: type === 'appointment' ? 1 : undefined,
+        blockedWeekdays: type === 'appointment' ? '' : undefined
+      };
+      
+      flowComponents.push(component);
+      expandedCardIds.clear();
+      expandedCardIds.add(component.id);
+      renderFlowCards();
+      saveFlowState();
+      showToast(`Added ${label} to flow`, 'success');
+    }
+
+    function getComponentSVG(type) {
+      const svgs = {
+        question: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`,
+        single: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f43f5e" stroke-width="2.5"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3" fill="#f43f5e"/></svg>`,
+        multiple: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4" fill="#8b5cf6" stroke="#8b5cf6"/><path d="m9 12 2 2 4-4" stroke="white" fill="none"/></svg>`,
+        email: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#c084fc" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>`,
+        mobile: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="3"/><line x1="12" y1="18" x2="12.01" y2="18" stroke-width="3"/></svg>`,
+        number: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 8h1.5v8M7 16h3M14 8h2v3h-2v5h3"/></svg>`,
+        rating: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#eab308" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" fill="#eab308"/></svg>`,
+        date: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="3"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>`,
+        time: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12 6 12 12 15.5 14"/><path d="m5 3-2 2M19 3l2 2"/></svg>`,
+        location: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ec4899" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3" fill="#ec4899"/></svg>`,
+        file: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg>`,
+        website: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0ea5e9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>`,
+        appointment: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="3"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><circle cx="15" cy="16" r="3"/><polyline points="15 14.5 15 16 16 16"/></svg>`,
+        statement: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>`,
+        conditional: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0ea5e9" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/><line x1="4" y1="4" x2="9" y2="9"/></svg>`
+      };
+      return svgs[type] || '';
+    }
+
+    function renderFlowCards() {
+      const container = document.getElementById('flowCards');
+      
+      if (flowComponents.length === 0) {
+        container.innerHTML = `
+          <div style="text-align: center; padding: 60px 20px; color: #94a3b8;">
+            <div style="font-size: 48px; margin-bottom: 12px; opacity: 0.3;">📋</div>
+            <p style="font-size: 13px;">Click a component on the left to add it to your flow</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = flowComponents.map((comp, index) => {
+        let contentFields = '';
+        const isExpanded = expandedCardIds.has(comp.id) || (flowComponents.length > 0 && index === 0 && expandedCardIds.size === 0);
+        
+        const stepNameField = `
+          <div class="form-field" style="margin-bottom: 12px;">
+            <label style="color: #6366f1; font-weight: 700; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;">Step Name / Label (for branching references)</label>
+            <input type="text" placeholder="e.g. WelcomeStep, AskAge, Option1Branch" 
+                   value="${escapeHtml(comp.label || '')}" 
+                   onchange="updateCardLabel(${comp.id}, this.value)" style="border: 1px solid #c7d2fe; background: #faf5ff;">
+          </div>
+        `;
+        
+        // Statement component
+        if (comp.type === 'statement') {
+          contentFields = stepNameField + `
+            <div class="form-field">
+              <label>Statement Message</label>
+              <textarea placeholder="Enter the message to display to the user..." 
+                        onchange="updateStatement(${comp.id}, this.value)">${comp.statement || ''}</textarea>
+            </div>
+          `;
+        }
+        // Conditional component
+        else if (comp.type === 'conditional') {
+          contentFields = stepNameField + `
+            <div class="form-field">
+              <label>Condition Field</label>
+              <input type="text" placeholder="e.g., user_age, email, rating" 
+                     value="${comp.condition || ''}" 
+                     onchange="updateCondition(${comp.id}, this.value)">
+            </div>
+            <div class="form-field">
+              <label>Condition Value</label>
+              <input type="text" placeholder="e.g., > 18, contains @gmail, >= 4" 
+                     value="${comp.conditionValue || ''}" 
+                     onchange="updateConditionValue(${comp.id}, this.value)">
+            </div>
+            <div class="form-field">
+              <label>Then Action (if true)</label>
+              <input type="text" placeholder="e.g., Show premium options" 
+                     value="${comp.thenAction || ''}" 
+                     onchange="updateThenAction(${comp.id}, this.value)">
+            </div>
+            <div class="form-field">
+              <label>Else Action (if false)</label>
+              <input type="text" placeholder="e.g., Show basic options" 
+                     value="${comp.elseAction || ''}" 
+                     onchange="updateElseAction(${comp.id}, this.value)">
+            </div>
+          `;
+        }
+        // Regular question components
+        else {
+          let customFields = '';
+          if (comp.type === 'website') {
+            customFields = `
+              <div style="display: flex; gap: 12px; margin-top: 12px;">
+                <div class="form-field" style="flex: 1; margin-bottom: 0;">
+                  <label style="text-transform: none; color: #64748b; font-weight: 600; font-size: 12px;">Button Label</label>
+                  <input type="text" placeholder="e.g. Visit Page" value="${escapeHtml(comp.buttonLabel || '')}" onchange="updateButtonLabel(${comp.id}, this.value)">
+                </div>
+                <div class="form-field" style="flex: 1; margin-bottom: 0;">
+                  <label style="text-transform: none; color: #64748b; font-weight: 600; font-size: 12px;">Redirect URL</label>
+                  <input type="text" placeholder="e.g. https://yoursite" value="${escapeHtml(comp.redirectUrl || '')}" onchange="updateRedirectUrl(${comp.id}, this.value)">
+                </div>
+              </div>
+            `;
+          } else if (comp.type === 'age') {
+            customFields = `
+              <div style="display: flex; gap: 12px; margin-top: 12px;">
+                <div class="form-field" style="flex: 1; margin-bottom: 0;">
+                  <label style="text-transform: none; color: #64748b; font-weight: 600; font-size: 12px;">Min Value</label>
+                  <input type="number" placeholder="0" value="${comp.minValue !== undefined ? comp.minValue : 0}" onchange="updateMinValue(${comp.id}, this.value)">
+                </div>
+                <div class="form-field" style="flex: 1; margin-bottom: 0;">
+                  <label style="text-transform: none; color: #64748b; font-weight: 600; font-size: 12px;">Max Value</label>
+                  <input type="number" placeholder="100" value="${comp.maxValue !== undefined ? comp.maxValue : 100}" onchange="updateMaxValue(${comp.id}, this.value)">
+                </div>
+              </div>
+            `;
+          } else if (comp.type === 'appointment') {
+            customFields = `
+              <div style="display: flex; gap: 12px; margin-top: 12px;">
+                <div class="form-field" style="flex: 1; margin-bottom: 0;">
+                  <label style="text-transform: none; color: #64748b; font-weight: 600; font-size: 12px;">Available Time Slots</label>
+                  <input type="text" placeholder="e.g. 09:00, 10:00, 1" value="${escapeHtml(comp.timeSlots || '')}" onchange="updateTimeSlots(${comp.id}, this.value)">
+                </div>
+                <div class="form-field" style="flex: 1; margin-bottom: 0;">
+                  <label style="text-transform: none; color: #64748b; font-weight: 600; font-size: 12px;">Min Days Ahead</label>
+                  <input type="number" placeholder="1" value="${comp.minDaysAhead !== undefined ? comp.minDaysAhead : 1}" onchange="updateMinDaysAhead(${comp.id}, this.value)">
+                </div>
+              </div>
+              <div class="form-field" style="margin-top: 12px;">
+                <label style="text-transform: none; color: #64748b; font-weight: 600; font-size: 12px;">Blocked Weekdays (comma separated, e.g. Sunday, Saturday)</label>
+                <input type="text" placeholder="e.g. Sunday, Saturday" value="${escapeHtml(comp.blockedWeekdays || '')}" onchange="updateBlockedWeekdays(${comp.id}, this.value)">
+              </div>
+            `;
+          }
+
+          contentFields = stepNameField + `
+            <div class="form-field">
+              <label>BOT ASKS:</label>
+              <input type="text" placeholder="Please provide your input?" 
+                     value="${comp.question || ''}" 
+                     onchange="updateQuestion(${comp.id}, this.value)">
+            </div>
+            ${customFields}
+            ${comp.type === 'multiple' || comp.type === 'single' ? renderOptionsEditor(comp) : ''}
+          `;
+        }
+        
+        const displayText = comp.statement || comp.question || 
+                           (comp.condition ? `IF ${comp.condition} ${comp.conditionValue}` : 'NOT CONFIGURED');
+        
+        const iconClass = comp.type === 'statement' ? 'statement' : 
+                         comp.type === 'conditional' ? 'conditional' : '';
+        
+        return `
+          <div class="flow-card ${isExpanded ? 'expanded' : ''}" id="card-${comp.id}">
+            <div class="flow-card-header" onclick="toggleCard(${comp.id})">
+              <div class="flow-card-icon ${iconClass}" style="background: transparent;">${getComponentSVG(comp.type)}</div>
+              <div class="flow-card-title">
+                <h4>${comp.label}</h4>
+                <p>${displayText}</p>
+              </div>
+              <div class="flow-card-actions">
+                <button class="flow-card-btn" onclick="event.stopPropagation(); moveUp(${comp.id})" title="Move Up">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="pointer-events: none;"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+                </button>
+                <button class="flow-card-btn" onclick="event.stopPropagation(); moveDown(${comp.id})" title="Move Down">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="pointer-events: none;"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+                </button>
+                <button class="flow-card-btn" onclick="event.stopPropagation(); duplicateCard(${comp.id})" title="Duplicate">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="pointer-events: none;"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                </button>
+                <button class="flow-card-btn" onclick="event.stopPropagation(); deleteCard(${comp.id})" title="Delete">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="pointer-events: none;"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
+                </button>
+              </div>
+            </div>
+            <div class="flow-card-content">
+              ${contentFields}
+              ${comp.type !== 'conditional' ? `
+                <div class="form-field" style="margin-top: 16px; border-top: 1px solid #f1f5f9; padding-top: 12px;">
+                  <label style="color: #64748b; font-weight: 600; font-size: 12px; margin-bottom: 6px;">Next Step (Default)</label>
+                  <select onchange="updateNextStepId(${comp.id}, this.value)" style="width: 100%; padding: 10px 12px; background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 12.5px; color: #475569; outline: none; height: 38px;">
+                    <option value="">-- Continue Sequentially --</option>
+                    <option value="end" ${comp.nextStepId === 'end' ? 'selected' : ''}>🛑 End Conversation</option>
+                    ${flowComponents.filter(c => c.id !== comp.id).map(targetComp => {
+                      const label = targetComp.label || 'Step';
+                      const detail = targetComp.question || targetComp.statement || (targetComp.condition ? `IF ${targetComp.condition}` : '');
+                      const truncatedDetail = detail.length > 25 ? detail.substring(0, 22) + '...' : detail;
+                      const displayText = truncatedDetail ? `${label} (${truncatedDetail})` : label;
+                      return `<option value="${targetComp.id}" ${comp.nextStepId == targetComp.id ? 'selected' : ''}>➡️ Go to: ${escapeHtml(displayText)}</option>`;
+                    }).join('')}
+                  </select>
+                </div>
+              ` : ''}
+            </div>
+          </div>
+        `;
+      }).join('');
+      renderLivePreview();
+    }
+ 
+    function toggleCard(id) {
+      const card = document.getElementById(`card-${id}`);
+      if (!card) return;
+      const isExpanded = card.classList.toggle('expanded');
+      if (isExpanded) {
+        expandedCardIds.add(id);
+      } else {
+        expandedCardIds.delete(id);
+      }
+    }
+
+    function updateCardHeaderPreview(id) {
+      const comp = flowComponents.find(c => c.id === id);
+      if (!comp) return;
+      const card = document.getElementById(`card-${id}`);
+      if (!card) return;
+      
+      const titleEl = card.querySelector('.flow-card-title h4');
+      const descEl = card.querySelector('.flow-card-title p');
+      
+      if (titleEl) titleEl.textContent = comp.label || '';
+      
+      let displayText = comp.statement || comp.question || 
+                         (comp.condition ? `IF ${comp.condition} ${comp.conditionValue}` : 'NOT CONFIGURED');
+      if (descEl) descEl.textContent = displayText;
+      
+      renderLivePreview();
+    }
+
+    function updateNextStepId(id, value) {
+      const comp = flowComponents.find(c => c.id === id);
+      if (comp) {
+        comp.nextStepId = value;
+        saveFlowState();
+      }
+    }
+
+    function updateQuestion(id, value) {
+      const comp = flowComponents.find(c => c.id === id);
+      if (comp) {
+        comp.question = value;
+        updateCardHeaderPreview(id);
+        saveFlowState();
+      }
+    }
+
+    function updateButtonLabel(id, value) {
+      const comp = flowComponents.find(c => c.id === id);
+      if (comp) {
+        comp.buttonLabel = value;
+        updateCardHeaderPreview(id);
+        saveFlowState();
+      }
+    }
+
+    function updateRedirectUrl(id, value) {
+      const comp = flowComponents.find(c => c.id === id);
+      if (comp) {
+        comp.redirectUrl = value;
+        saveFlowState();
+      }
+    }
+
+    function updateMinValue(id, value) {
+      const comp = flowComponents.find(c => c.id === id);
+      if (comp) {
+        comp.minValue = parseInt(value, 10);
+        if (isNaN(comp.minValue)) comp.minValue = 0;
+        saveFlowState();
+      }
+    }
+
+    function updateMaxValue(id, value) {
+      const comp = flowComponents.find(c => c.id === id);
+      if (comp) {
+        comp.maxValue = parseInt(value, 10);
+        if (isNaN(comp.maxValue)) comp.maxValue = 100;
+        saveFlowState();
+      }
+    }
+
+    function updateTimeSlots(id, value) {
+      const comp = flowComponents.find(c => c.id === id);
+      if (comp) {
+        comp.timeSlots = value;
+        saveFlowState();
+      }
+    }
+
+    function updateMinDaysAhead(id, value) {
+      const comp = flowComponents.find(c => c.id === id);
+      if (comp) {
+        comp.minDaysAhead = parseInt(value, 10);
+        if (isNaN(comp.minDaysAhead)) comp.minDaysAhead = 1;
+        saveFlowState();
+      }
+    }
+
+    function updateBlockedWeekdays(id, value) {
+      const comp = flowComponents.find(c => c.id === id);
+      if (comp) {
+        comp.blockedWeekdays = value;
+        saveFlowState();
+      }
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return str
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function renderOptionsEditor(comp) {
+      let optionsArr = Array.isArray(comp.options) ? comp.options : [];
+      let destsArr = Array.isArray(comp.destinations) ? comp.destinations : [];
+      if (optionsArr.length === 0) {
+        optionsArr = ['New Option'];
+        comp.options = optionsArr;
+      }
+      while (destsArr.length < optionsArr.length) {
+        destsArr.push('');
+      }
+      comp.destinations = destsArr;
+      
+      // Get all other steps to populate the target dropdown
+      const otherSteps = flowComponents.filter(c => c.id !== comp.id);
+      
+      const optionsHtml = optionsArr.map((opt, index) => {
+        const selectedDest = destsArr[index] || '';
+        return `
+          <div class="option-row" style="display: flex; gap: 8px; align-items: center; margin-bottom: 8px; width: 100%;">
+            <input type="text" class="option-input" value="${escapeHtml(opt)}" 
+                   onchange="updateOptionValue(${comp.id}, ${index}, this.value)" placeholder="Option text" style="flex: 2; margin-bottom: 0;">
+            <select class="option-destination-select" onchange="updateOptionDestination(${comp.id}, ${index}, this.value)" 
+                    style="flex: 2; padding: 10px 12px; background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 12.5px; color: #475569; outline: none; transition: border 0.2s; height: 38px;">
+              <option value="">-- Continue Sequentially --</option>
+              <option value="end" ${selectedDest == 'end' ? 'selected' : ''}>🛑 End Conversation</option>
+              ${otherSteps.map(targetComp => {
+                const label = targetComp.label || 'Step';
+                const detail = targetComp.question || targetComp.statement || (targetComp.condition ? `IF ${targetComp.condition}` : '');
+                const truncatedDetail = detail.length > 25 ? detail.substring(0, 22) + '...' : detail;
+                const displayText = truncatedDetail ? `${label} (${truncatedDetail})` : label;
+                return `
+                  <option value="${targetComp.id}" ${selectedDest == targetComp.id ? 'selected' : ''}>
+                    ➡️ Go to: ${escapeHtml(displayText)}
+                  </option>
+                `;
+              }).join('')}
+            </select>
+            <button class="delete-option-btn" onclick="event.stopPropagation(); deleteOption(${comp.id}, ${index})" title="Delete Option" style="flex-shrink: 0; padding: 10px; background: #f1f5f9; border: none; border-radius: 8px; cursor: pointer; height: 38px; display: flex; align-items: center; justify-content: center;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="pointer-events: none;"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
+            </button>
+          </div>
+        `;
+      }).join('');
+
+      return `
+        <div class="form-field" style="margin-top: 12px;">
+          <label class="choices-label">Choices / Options & Branching</label>
+          <div class="options-list-container" id="options-container-${comp.id}">
+            ${optionsHtml}
+          </div>
+          <button class="add-option-btn" onclick="event.stopPropagation(); addOption(${comp.id})">
+            <span style="font-size: 16px; font-weight: 700; line-height: 1;">+</span> Add Option
+          </button>
+        </div>
+      `;
+    }
+
+    function updateOptionValue(id, index, value) {
+      const comp = flowComponents.find(c => c.id === id);
+      if (comp) {
+        if (!Array.isArray(comp.options)) {
+          comp.options = comp.options ? comp.options.split(',').map(o => o.trim()) : [];
+        }
+        while (comp.options.length <= index) {
+          comp.options.push('');
+        }
+        comp.options[index] = value.trim();
+        saveFlowState();
+        renderLivePreview();
+      }
+    }
+
+    function updateOptionDestination(id, index, value) {
+      const comp = flowComponents.find(c => c.id === id);
+      if (comp) {
+        if (!Array.isArray(comp.destinations)) {
+          comp.destinations = comp.destinations ? comp.destinations.split(',') : [];
+        }
+        while (comp.destinations.length <= index) {
+          comp.destinations.push('');
+        }
+        comp.destinations[index] = value.trim();
+        saveFlowState();
+        renderLivePreview();
+      }
+    }
+
+    function addOption(id) {
+      const comp = flowComponents.find(c => c.id === id);
+      if (comp) {
+        if (!Array.isArray(comp.options)) {
+          comp.options = comp.options ? comp.options.split(',').map(o => o.trim()) : [];
+        }
+        if (!Array.isArray(comp.destinations)) {
+          comp.destinations = comp.destinations ? comp.destinations.split(',') : [];
+        }
+        comp.options.push('New Option');
+        comp.destinations.push('');
+        renderFlowCards();
+        saveFlowState();
+      }
+    }
+
+    function deleteOption(id, index) {
+      const comp = flowComponents.find(c => c.id === id);
+      if (comp) {
+        if (!Array.isArray(comp.options)) {
+          comp.options = comp.options ? comp.options.split(',').map(o => o.trim()) : [];
+        }
+        if (!Array.isArray(comp.destinations)) {
+          comp.destinations = comp.destinations ? comp.destinations.split(',') : [];
+        }
+        if (comp.options.length > 0) {
+          comp.options.splice(index, 1);
+          comp.destinations.splice(index, 1);
+          renderFlowCards();
+          saveFlowState();
+        }
+      }
+    }
+    
+    function updateStatement(id, value) {
+      const comp = flowComponents.find(c => c.id === id);
+      if (comp) {
+        comp.statement = value;
+        updateCardHeaderPreview(id);
+        saveFlowState();
+      }
+    }
+
+    function updateCardLabel(id, value) {
+      const comp = flowComponents.find(c => c.id === id);
+      if (comp) {
+        comp.label = value.trim();
+        updateCardHeaderPreview(id);
+        saveFlowState();
+      }
+    }
+    
+    function updateCondition(id, value) {
+      const comp = flowComponents.find(c => c.id === id);
+      if (comp) {
+        comp.condition = value;
+        updateCardHeaderPreview(id);
+        saveFlowState();
+      }
+    }
+    
+    function updateConditionValue(id, value) {
+      const comp = flowComponents.find(c => c.id === id);
+      if (comp) {
+        comp.conditionValue = value;
+        updateCardHeaderPreview(id);
+        saveFlowState();
+      }
+    }
+    
+    function updateThenAction(id, value) {
+      const comp = flowComponents.find(c => c.id === id);
+      if (comp) {
+        comp.thenAction = value;
+        saveFlowState();
+      }
+    }
+    
+    function updateElseAction(id, value) {
+      const comp = flowComponents.find(c => c.id === id);
+      if (comp) {
+        comp.elseAction = value;
+        saveFlowState();
+      }
+    }
+    
+    // Preview functionality
+    function openPreview() {
+      if (flowComponents.length === 0) {
+        showToast('⚠️ Add components to your flow first', 'warning');
+        return;
+      }
+      
+      const modal = document.getElementById('previewModal');
+      const body = document.getElementById('previewBody');
+      
+      let previewHTML = '<div class="preview-chatbot">';
+      
+      flowComponents.forEach((comp, index) => {
+        previewHTML += '<div class="preview-message">';
+        previewHTML += `<div class="preview-message-label">Step ${index + 1}: ${comp.label}</div>`;
+        
+        if (comp.type === 'statement') {
+          previewHTML += `<div class="preview-message-text">${comp.statement || 'No statement configured'}</div>`;
+          previewHTML += '<span class="statement-badge">💬 STATEMENT</span>';
+        } else if (comp.type === 'conditional') {
+          previewHTML += `<div class="preview-message-text">
+            <strong>IF</strong> ${comp.condition || 'field'} ${comp.conditionValue || 'condition'}<br>
+            <strong>THEN:</strong> ${comp.thenAction || 'action'}<br>
+            <strong>ELSE:</strong> ${comp.elseAction || 'action'}
+          </div>`;
+          previewHTML += '<span class="conditional-badge">🔀 CONDITIONAL LOGIC</span>';
+        } else {
+          previewHTML += `<div class="preview-message-text">${comp.question || 'No question configured'}</div>`;
+          
+          if (comp.type === 'single' || comp.type === 'multiple') {
+            const options = Array.isArray(comp.options) ? comp.options : (comp.options ? comp.options.split(',') : ['Option 1', 'Option 2', 'Option 3']);
+            previewHTML += '<div class="preview-options">';
+            options.forEach(opt => {
+              previewHTML += `<div class="preview-option">${escapeHtml(opt.trim())}</div>`;
+            });
+            previewHTML += '</div>';
+          } else if (comp.type === 'website') {
+            const btnLabel = comp.buttonLabel || 'Visit Page';
+            previewHTML += `<div class="preview-options"><a href="${comp.redirectUrl || '#'}" target="_blank" class="preview-option" style="display: block; text-decoration: none; text-align: center; background: #6366f1; color: white !important; border: none; cursor: pointer;">🔗 ${btnLabel}</a></div>`;
+          } else if (comp.type === 'age') {
+            const minVal = comp.minValue !== undefined ? comp.minValue : 0;
+            const maxVal = comp.maxValue !== undefined ? comp.maxValue : 100;
+            previewHTML += `<input type="number" class="preview-input" placeholder="Age (Min: ${minVal}, Max: ${maxVal})" disabled>`;
+          } else if (comp.type === 'appointment') {
+            const slots = comp.timeSlots ? comp.timeSlots.split(',') : ['09:00', '10:00'];
+            previewHTML += '<div class="preview-options">';
+            slots.forEach(slot => {
+              previewHTML += `<div class="preview-option">📅 ${slot.trim()}</div>`;
+            });
+            previewHTML += '</div>';
+          } else {
+            previewHTML += `<input type="text" class="preview-input" placeholder="User will type here..." disabled>`;
+          }
+        }
+        
+        previewHTML += '</div>';
+      });
+      
+      previewHTML += '</div>';
+      body.innerHTML = previewHTML;
+      modal.classList.add('show');
+    }
+    
+    function closePreview() {
+      const modal = document.getElementById('previewModal');
+      modal.classList.remove('show');
+    }
+    
+    // Close preview on escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closePreview();
+      }
+    });
+
+     function deleteCard(id) {
+      flowComponents = flowComponents.filter(c => c.id !== id);
+      expandedCardIds.delete(id);
+      renderFlowCards();
+      saveFlowState();
+      showToast('Component removed', 'info');
+    }
+
+    function duplicateCard(id) {
+      const comp = flowComponents.find(c => c.id === id);
+      if (comp) {
+        const newComp = { ...comp, id: componentIdCounter++ };
+        const index = flowComponents.findIndex(c => c.id === id);
+        flowComponents.splice(index + 1, 0, newComp);
+        expandedCardIds.clear();
+        expandedCardIds.add(newComp.id);
+        renderFlowCards();
+        saveFlowState();
+        showToast('Component duplicated', 'success');
+      }
+    }
+
+    // Close preview on backdrop click
+    document.getElementById('previewModal').addEventListener('click', (e) => {
+      if (e.target.id === 'previewModal') {
+        closePreview();
+      }
+    });
+
+    function moveUp(id) {
+      const index = flowComponents.findIndex(c => c.id === id);
+      if (index > 0) {
+        [flowComponents[index - 1], flowComponents[index]] = [flowComponents[index], flowComponents[index - 1]];
+        renderFlowCards();
+        saveFlowState();
+      }
+    }
+
+    function moveDown(id) {
+      const index = flowComponents.findIndex(c => c.id === id);
+      if (index < flowComponents.length - 1) {
+        [flowComponents[index], flowComponents[index + 1]] = [flowComponents[index + 1], flowComponents[index]];
+        renderFlowCards();
+        saveFlowState();
+      }
+    }
+
+    function refreshFlow() {
+      if (confirm('Are you sure you want to refresh the page? Unsaved changes will be lost.')) {
+        window.location.reload();
+      }
+    }
+
+    function revertFlow() {
+      if (confirm('Are you sure you want to revert all unsaved changes?')) {
+        const selectedBotId = localStorage.getItem('selectedFlowBotId') || 'default';
+        const savedFlow = localStorage.getItem('chatbotFlow_' + selectedBotId);
+        if (savedFlow) {
+          flowComponents = JSON.parse(savedFlow);
+          normalizeFlowComponents();
+          componentIdCounter = flowComponents.length > 0 ? Math.max(...flowComponents.map(c => c.id)) + 1 : 1;
+          renderFlowCards();
+          if (typeof renderLivePreview === 'function') {
+            renderLivePreview();
+          }
+          showToast('✅ Restored last saved flow', 'success');
+        } else {
+          flowComponents = [];
+          renderFlowCards();
+          if (typeof renderLivePreview === 'function') {
+            renderLivePreview();
+          }
+          showToast('No saved flow found. Cleared canvas.', 'info');
+        }
+      }
+    }
+
+    function toggleWidget(forceState) {
+      const widget = document.getElementById('previewWidget');
+      const fab = document.getElementById('widgetFAB');
+      const chatIcon = document.getElementById('fabChatIcon');
+      const closeIcon = document.getElementById('fabCloseIcon');
+      if (!widget || !fab) return;
+      
+      let toOpen = !widget.classList.contains('open');
+      if (typeof forceState === 'boolean') {
+        toOpen = forceState;
+      }
+      
+      if (toOpen) {
+        widget.classList.add('open');
+        fab.classList.add('active');
+        chatIcon.style.display = 'none';
+        closeIcon.style.display = 'block';
+        const feed = document.getElementById('livePreviewFeed');
+        if (feed) {
+          setTimeout(() => {
+            feed.scrollTop = feed.scrollHeight;
+          }, 100);
+        }
+      } else {
+        widget.classList.remove('open');
+        fab.classList.remove('active');
+        chatIcon.style.display = 'block';
+        closeIcon.style.display = 'none';
+      }
+    }
+
+    function handleWidgetSend() {
+      const input = document.getElementById('widgetInputBox');
+      if (!input) return;
+      
+      const text = input.value.trim();
+      if (!text) return;
+      
+      if (simIsActive) {
+        const comp = flowComponents[simCurrentStepIndex];
+        if (comp) {
+          simAnswers[comp.label] = text;
+        }
+        
+        appendUserMessage(text);
+        input.value = '';
+        
+        if (comp && comp.nextStepId) {
+          if (comp.nextStepId === 'end') {
+            simCurrentStepIndex = flowComponents.length;
+          } else {
+            const targetStep = flowComponents.find(c => String(c.id) === String(comp.nextStepId));
+            if (targetStep) {
+              simCurrentStepIndex = flowComponents.indexOf(targetStep);
+            } else {
+              simCurrentStepIndex++;
+            }
+          }
+        } else {
+          simCurrentStepIndex++;
+        }
+        setTimeout(simShowNextStep, 800);
+        return;
+      }
+      
+      const feed = document.getElementById('livePreviewFeed');
+      if (!feed) return;
+      
+      if (flowComponents.length === 0 && feed.querySelector('p')) {
+        feed.innerHTML = '';
+      }
+      
+      const now = new Date();
+      let hours = now.getHours();
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const ampm = hours >= 12 ? 'PM' : 'AM';
+      hours = hours % 12;
+      hours = hours ? hours : 12;
+      const timeStr = `${hours}:${minutes} ${ampm}`;
+      
+      const userBubble = `
+        <div class="widget-msg-row user-msg" style="align-self: flex-end; max-width: 85%; margin-top: 8px;">
+          <div class="widget-msg-bubble-container" style="align-items: flex-end; display: flex; flex-direction: column; gap: 4px;">
+            <div class="widget-msg-sender" style="margin-right: 2px; font-size: 11px; font-weight: 600; color: #64748b;">You</div>
+            <div class="widget-msg-bubble" style="background: #db2777; color: white; border-radius: 12px 0px 12px 12px; border: none; padding: 10px 14px; font-size: 12.5px; line-height: 1.4; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);">
+              ${text}
+            </div>
+            <div class="widget-msg-time" style="font-size: 9px; color: #94a3b8; margin-top: 2px; margin-right: 4px;">${timeStr}</div>
+          </div>
+        </div>
+      `;
+      
+      feed.insertAdjacentHTML('beforeend', userBubble);
+      input.value = '';
+      feed.scrollTop = feed.scrollHeight;
+      
+      setTimeout(() => {
+        const replyHtml = `
+          <div class="widget-msg-row" style="margin-top: 8px;">
+            <div class="widget-msg-avatar">🤖</div>
+            <div class="widget-msg-bubble-container">
+              <div class="widget-msg-sender">Super Admin</div>
+              <div class="widget-msg-bubble">
+                <div class="preview-text">This is a live preview simulation of your manual flow. To test the actual flow responses on your website, integrate the widget code!</div>
+              </div>
+              <div class="widget-msg-time">${timeStr}</div>
+            </div>
+          </div>
+        `;
+        feed.insertAdjacentHTML('beforeend', replyHtml);
+        feed.scrollTop = feed.scrollHeight;
+      }, 1000);
+    }
+    
+    function handleWidgetKeyDown(event) {
+      if (event.key === 'Enter' && !event.shiftKey) {
+        event.preventDefault();
+        handleWidgetSend();
+      }
+    }
+
+    /* JavaScript functions for Live Preview controls */
+    function clearPreviewChat() {
+      initPreviewSimulation();
+      showToast('🧹 Simulation restarted', 'success');
+    }
+
+    function togglePreviewSearch(show) {
+      const searchBar = document.getElementById('previewSearchBar');
+      const searchInput = document.getElementById('previewSearchInput');
+      if (!searchBar) return;
+      if (show) {
+        searchBar.style.display = 'flex';
+        if (searchInput) searchInput.focus();
+      } else {
+        searchBar.style.display = 'none';
+        if (searchInput) {
+          searchInput.value = '';
+          handlePreviewSearch('');
+        }
+      }
+    }
+
+    function handlePreviewSearch(query) {
+      const cleanQuery = query.trim().toLowerCase();
+      const bubbles = document.querySelectorAll('#livePreviewFeed .widget-msg-bubble');
+      bubbles.forEach(bubble => {
+        const textEl = bubble.querySelector('.preview-text');
+        if (!textEl) return;
+        const originalText = textEl.getAttribute('data-original-text') || textEl.innerHTML;
+        if (!textEl.hasAttribute('data-original-text')) {
+          textEl.setAttribute('data-original-text', originalText);
+        }
+        
+        if (!cleanQuery) {
+          textEl.innerHTML = originalText;
+          bubble.closest('.widget-msg-row').style.opacity = '1';
+          return;
+        }
+        
+        const textContent = textEl.textContent.toLowerCase();
+        if (textContent.includes(cleanQuery)) {
+          bubble.closest('.widget-msg-row').style.opacity = '1';
+          const regex = new RegExp(`(${cleanQuery.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+          const highlighted = originalText.replace(regex, '<mark style="background: #fef08a; color: #854d0e;">$1</mark>');
+          textEl.innerHTML = highlighted;
+        } else {
+          bubble.closest('.widget-msg-row').style.opacity = '0.3';
+        }
+      });
+    }
+
+    function togglePreviewDarkMode() {
+      const widget = document.getElementById('previewWidget');
+      const btn = document.getElementById('btnPreviewDarkMode');
+      if (!widget || !btn) return;
+      const isDark = widget.classList.toggle('dark');
+      btn.textContent = isDark ? '☀️' : '🌙';
+      btn.title = isDark ? 'Toggle Light Theme' : 'Toggle Dark Theme';
+      showToast(isDark ? '🌙 Dark Mode enabled' : '☀️ Light Mode enabled', 'success');
+    }
+
+    function exportPreviewChat() {
+      const feed = document.getElementById('livePreviewFeed');
+      if (!feed) return;
+      const rows = feed.querySelectorAll('.widget-msg-row');
+      if (rows.length === 0) {
+        showToast('⚠️ No chat history to export', 'warning');
+        return;
+      }
+      
+      let html = `<html><head><title>Chat Preview Export</title>
+        <style>
+          body { font-family: Arial, sans-serif; max-width: 600px; margin: 40px auto; padding: 20px; }
+          h1 { color: #db2777; font-size: 20px; border-bottom: 2px solid #db2777; padding-bottom: 10px; }
+          .msg { margin: 10px 0; padding: 10px 14px; border-radius: 12px; max-width: 80%; }
+          .user { background: #db2777; color: white; margin-left: auto; text-align: right; }
+          .bot { background: #f0f0f0; color: #333; }
+          .time { font-size: 10px; opacity: 0.6; margin-top: 4px; }
+          .footer { text-align: center; margin-top: 30px; font-size: 12px; color: #999; border-top: 1px solid #eee; padding-top: 10px; }
+        </style></head><body>
+        <h1>Chat Preview Session</h1>
+        <p style="color:#888;font-size:13px;">Exported on ${new Date().toLocaleString()}</p>`;
+        
+      rows.forEach(row => {
+        const isUser = row.classList.contains('user-msg');
+        const sender = isUser ? 'You' : 'Super Admin';
+        const cls = isUser ? 'user' : 'bot';
+        const textEl = row.querySelector('.preview-text');
+        const text = textEl ? textEl.textContent : '';
+        const timeEl = row.querySelector('.widget-msg-time');
+        const time = timeEl ? timeEl.textContent : '';
+        html += `<div class="msg ${cls}"><strong>${sender}</strong><br>${text}<div class="time">${time}</div></div>`;
+      });
+      
+      html += `<div class="footer">Exported from Chatbot Builder Preview</div></body></html>`;
+      
+      const blob = new Blob([html], { type: 'text/html' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `preview-chat-export-${new Date().toISOString().slice(0, 10)}.html`;
+      a.click();
+      URL.revokeObjectURL(url);
+      showToast('📥 Chat history exported', 'success');
+    }
+
+    function renderLivePreview() {
+      initPreviewSimulation();
+    }
+
+    function initPreviewSimulation() {
+      const feed = document.getElementById('livePreviewFeed');
+      if (!feed) return;
+      
+      feed.innerHTML = '';
+      simCurrentStepIndex = 0;
+      simAnswers = {};
+      simIsActive = true;
+      
+      simShowNextStep();
+    }
+
+    function simShowNextStep() {
+      if (!simIsActive) return;
+      const feed = document.getElementById('livePreviewFeed');
+      if (!feed) return;
+      
+      if (flowComponents.length === 0) {
+        feed.innerHTML = `
+          <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; color: #94a3b8; text-align: center; padding: 20px;">
+            <div style="font-size: 40px; margin-bottom: 12px; opacity: 0.5;">💬</div>
+            <p style="font-size: 12px; color: #94a3b8;">Add components to see live chatbot preview here</p>
+          </div>
+        `;
+        return;
+      }
+      
+      if (simCurrentStepIndex >= flowComponents.length) {
+        appendBotMessage("🎉 Flow completed! Click the trash icon at the top to restart.");
+        return;
+      }
+      
+      const comp = flowComponents[simCurrentStepIndex];
+      
+      if (comp.type === 'statement') {
+        appendBotMessage(comp.statement || 'Statement Message');
+        simCurrentStepIndex++;
+        setTimeout(simShowNextStep, 1000);
+      } 
+      else if (comp.type === 'conditional') {
+        let conditionMet = false;
+        
+        const refField = (comp.condition || '').trim().toLowerCase();
+        const refVal = (comp.conditionValue || '').trim().toLowerCase();
+        
+        let answer = undefined;
+        for (const [key, val] of Object.entries(simAnswers)) {
+          if (key.toLowerCase() === refField) {
+            answer = val;
+            break;
+          }
+        }
+        
+        if (answer !== undefined) {
+          const ansStr = String(answer).trim().toLowerCase();
+          
+          if (refVal.startsWith('>') || refVal.startsWith('<') || refVal.startsWith('=') || refVal.startsWith('!')) {
+            try {
+              const match = refVal.match(/^([><=!]+)\s*(.*)$/);
+              if (match) {
+                const op = match[1];
+                const val = parseFloat(match[2]);
+                const ansNum = parseFloat(ansStr);
+                
+                if (!isNaN(ansNum) && !isNaN(val)) {
+                  if (op === '>') conditionMet = ansNum > val;
+                  else if (op === '<') conditionMet = ansNum < val;
+                  else if (op === '>=') conditionMet = ansNum >= val;
+                  else if (op === '<=') conditionMet = ansNum <= val;
+                  else if (op === '==' || op === '=') conditionMet = ansNum === val;
+                  else if (op === '!=') conditionMet = ansNum !== val;
+                }
+              }
+            } catch (e) {
+              console.error('Error parsing operator condition:', e);
+            }
+          } else {
+            conditionMet = ansStr === refVal || ansStr.includes(refVal);
+          }
+        }
+        
+        const nextAction = conditionMet ? (comp.thenAction || '').trim() : (comp.elseAction || '').trim();
+        
+        const targetStep = flowComponents.find(c => c.label.trim().toLowerCase() === nextAction.toLowerCase());
+        if (targetStep) {
+          const targetIndex = flowComponents.indexOf(targetStep);
+          simCurrentStepIndex = targetIndex;
+          setTimeout(simShowNextStep, 500);
+        } else {
+          if (nextAction) {
+            appendBotMessage(nextAction);
+          }
+          simCurrentStepIndex++;
+          setTimeout(simShowNextStep, 1000);
+        }
+      }
+      else {
+        const questionText = comp.question || `Please provide your ${comp.label}?`;
+        
+        if (comp.type === 'single') {
+          const options = Array.isArray(comp.options) ? comp.options : (comp.options ? comp.options.split(',').map(o => o.trim()) : ['Option 1', 'Option 2', 'Option 3']);
+          let optionsHtml = '<div class="preview-options-container" style="display: flex; flex-direction: column; gap: 8px; margin-top: 8px; width: 100%;">';
+          options.forEach(opt => {
+            optionsHtml += `<button class="preview-option-pill interactive-choice" style="cursor: pointer; width: 100%; transition: all 0.2s;" onmouseover="this.style.background='#f1f5f9'" onmouseout="this.style.background='#f8fafc'" onclick="simSelectSingleChoice(${comp.id}, '${escapeHtml(opt)}')">${escapeHtml(opt)}</button>`;
+          });
+          optionsHtml += '</div>';
+          appendBotMessage(questionText, optionsHtml);
+        } 
+        else if (comp.type === 'multiple') {
+          const options = Array.isArray(comp.options) ? comp.options : (comp.options ? comp.options.split(',').map(o => o.trim()) : ['Option 1', 'Option 2', 'Option 3']);
+          let optionsHtml = `<div class="preview-options-container" id="multichoice-${comp.id}" style="display: flex; flex-direction: column; gap: 8px; margin-top: 8px; width: 100%;">`;
+          options.forEach((opt, idx) => {
+            optionsHtml += `
+              <div class="interactive-multichoice-row" style="display: flex; align-items: center; gap: 8px;">
+                <input type="checkbox" id="chk-${comp.id}-${idx}" value="${escapeHtml(opt)}" style="cursor: pointer; width: 16px; height: 16px;">
+                <label for="chk-${comp.id}-${idx}" style="font-size: 13px; font-weight: 500; cursor: pointer; color: #475569; margin: 0; text-transform: none;">${escapeHtml(opt)}</label>
+              </div>`;
+          });
+          optionsHtml += `
+            <button class="widget-send-btn" style="margin-top: 8px; width: 100%; border-radius: 8px; background: #6366f1; color: white !important; font-weight: 600; padding: 8px; border: none; cursor: pointer;" onclick="simSubmitMultipleChoice(${comp.id})">Submit Choices</button>
+          </div>`;
+          appendBotMessage(questionText, optionsHtml);
+        }
+        else if (comp.type === 'website') {
+          const btnLabel = comp.buttonLabel || 'Visit Page';
+          const websiteHtml = `
+            <div style="margin-top: 8px; width: 100%;">
+              <a href="${comp.redirectUrl || '#'}" target="_blank" class="preview-option-pill" style="display: block; text-align: center; text-decoration: none; background: #6366f1; color: white !important; border: none; cursor: pointer; font-weight: 600;" onclick="simClickWebsite(${comp.id})">🔗 ${btnLabel}</a>
+            </div>`;
+          appendBotMessage(questionText, websiteHtml);
+        }
+        else {
+          appendBotMessage(questionText);
+        }
+      }
+    }
+
+    function appendBotMessage(text, extraHtml = '') {
+      const feed = document.getElementById('livePreviewFeed');
+      if (!feed) return;
+      
+      const now = new Date();
+      let hours = now.getHours();
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const ampm = hours >= 12 ? 'PM' : 'AM';
+      hours = hours % 12;
+      hours = hours ? hours : 12;
+      const timeStr = `${hours}:${minutes} ${ampm}`;
+      
+      const botHtml = `
+        <div class="widget-msg-row" style="margin-top: 8px;">
+          <div class="widget-msg-avatar">🤖</div>
+          <div class="widget-msg-bubble-container">
+            <div class="widget-msg-sender">Super Admin</div>
+            <div class="widget-msg-bubble">
+              <div class="preview-text">${text}</div>
+              ${extraHtml}
+            </div>
+            <div class="widget-msg-time">${timeStr}</div>
+          </div>
+        </div>
+      `;
+      
+      feed.insertAdjacentHTML('beforeend', botHtml);
+      feed.scrollTop = feed.scrollHeight;
+    }
+
+    function appendUserMessage(text) {
+      const feed = document.getElementById('livePreviewFeed');
+      if (!feed) return;
+      
+      const now = new Date();
+      let hours = now.getHours();
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const ampm = hours >= 12 ? 'PM' : 'AM';
+      hours = hours % 12;
+      hours = hours ? hours : 12;
+      const timeStr = `${hours}:${minutes} ${ampm}`;
+      
+      const userHtml = `
+        <div class="widget-msg-row user-msg" style="align-self: flex-end; max-width: 85%; margin-top: 8px;">
+          <div class="widget-msg-bubble-container" style="align-items: flex-end; display: flex; flex-direction: column; gap: 4px;">
+            <div class="widget-msg-sender" style="margin-right: 2px; font-size: 11px; font-weight: 600; color: #64748b;">You</div>
+            <div class="widget-msg-bubble" style="background: #db2777; color: white; border-radius: 12px 0px 12px 12px; border: none; padding: 10px 14px; font-size: 12.5px; line-height: 1.4; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);">
+              ${text}
+            </div>
+            <div class="widget-msg-time" style="font-size: 9px; color: #94a3b8; margin-top: 2px; margin-right: 4px;">${timeStr}</div>
+          </div>
+        </div>
+      `;
+      
+      feed.insertAdjacentHTML('beforeend', userHtml);
+      feed.scrollTop = feed.scrollHeight;
+    }
+
+    function simSelectSingleChoice(compId, choice) {
+      const comp = flowComponents.find(c => c.id === compId);
+      if (!comp) return;
+      
+      simAnswers[comp.label] = choice;
+      appendUserMessage(choice);
+      
+      const activeChoices = document.querySelectorAll('#livePreviewFeed .interactive-choice');
+      activeChoices.forEach(btn => {
+        btn.disabled = true;
+        btn.style.opacity = '0.5';
+        btn.style.cursor = 'not-allowed';
+      });
+
+      // Check for choice-based conditional branching destination
+      let branched = false;
+      if (comp.options && comp.destinations) {
+        const optionsArr = Array.isArray(comp.options) ? comp.options : comp.options.split(',').map(o => o.trim());
+        const destsArr = Array.isArray(comp.destinations) ? comp.destinations : comp.destinations.split(',');
+        const optIndex = optionsArr.indexOf(choice);
+        
+        if (optIndex !== -1 && destsArr[optIndex]) {
+          const targetId = String(destsArr[optIndex]).trim();
+          if (targetId === 'end') {
+            simCurrentStepIndex = flowComponents.length;
+            branched = true;
+          } else {
+            const targetStep = flowComponents.find(c => String(c.id) === targetId || c.label.trim().toLowerCase() === targetId.toLowerCase());
+            if (targetStep) {
+              simCurrentStepIndex = flowComponents.indexOf(targetStep);
+              branched = true;
+            }
+          }
+        }
+      }
+      
+      if (!branched) {
+        if (comp.nextStepId) {
+          if (comp.nextStepId === 'end') {
+            simCurrentStepIndex = flowComponents.length;
+          } else {
+            const targetStep = flowComponents.find(c => String(c.id) === String(comp.nextStepId));
+            if (targetStep) {
+              simCurrentStepIndex = flowComponents.indexOf(targetStep);
+            } else {
+              simCurrentStepIndex++;
+            }
+          }
+        } else {
+          simCurrentStepIndex++;
+        }
+      }
+      
+      setTimeout(simShowNextStep, 800);
+    }
+
+    function simSubmitMultipleChoice(compId) {
+      const comp = flowComponents.find(c => c.id === compId);
+      if (!comp) return;
+      
+      const checkedBoxes = document.querySelectorAll(`#multichoice-${compId} input[type="checkbox"]:checked`);
+      const selected = Array.from(checkedBoxes).map(cb => cb.value);
+      
+      if (selected.length === 0) {
+        showToast('⚠️ Please select at least one option', 'warning');
+        return;
+      }
+      
+      const joinedStr = selected.join(', ');
+      simAnswers[comp.label] = joinedStr;
+      appendUserMessage(joinedStr);
+      
+      const container = document.getElementById(`multichoice-${compId}`);
+      if (container) {
+        const inputs = container.querySelectorAll('input, button');
+        inputs.forEach(el => {
+          el.disabled = true;
+          el.style.opacity = '0.5';
+          el.style.cursor = 'not-allowed';
+        });
+      }
+
+      // Check for choice-based conditional branching destination for selected choices
+      let branched = false;
+      if (comp.options && comp.destinations) {
+        const optionsArr = Array.isArray(comp.options) ? comp.options : comp.options.split(',').map(o => o.trim());
+        const destsArr = Array.isArray(comp.destinations) ? comp.destinations : comp.destinations.split(',');
+        
+        // Find the first selected choice that has a valid destination
+        for (const choice of selected) {
+          const optIndex = optionsArr.indexOf(choice);
+          if (optIndex !== -1 && destsArr[optIndex]) {
+            const targetId = String(destsArr[optIndex]).trim();
+            if (targetId === 'end') {
+              simCurrentStepIndex = flowComponents.length;
+              branched = true;
+              break;
+            } else {
+              const targetStep = flowComponents.find(c => String(c.id) === targetId || c.label.trim().toLowerCase() === targetId.toLowerCase());
+              if (targetStep) {
+                simCurrentStepIndex = flowComponents.indexOf(targetStep);
+                branched = true;
+                break;
+              }
+            }
+          }
+        }
+      }
+      
+      if (!branched) {
+        if (comp.nextStepId) {
+          if (comp.nextStepId === 'end') {
+            simCurrentStepIndex = flowComponents.length;
+          } else {
+            const targetStep = flowComponents.find(c => String(c.id) === String(comp.nextStepId));
+            if (targetStep) {
+              simCurrentStepIndex = flowComponents.indexOf(targetStep);
+            } else {
+              simCurrentStepIndex++;
+            }
+          }
+        } else {
+          simCurrentStepIndex++;
+        }
+      }
+      
+      setTimeout(simShowNextStep, 800);
+    }
+
+    function simClickWebsite(compId) {
+      const comp = flowComponents.find(c => c.id === compId);
+      if (!comp) return;
+      
+      appendUserMessage(`Clicked: ${comp.buttonLabel || 'Visit Page'}`);
+      
+      if (comp.nextStepId) {
+        if (comp.nextStepId === 'end') {
+          simCurrentStepIndex = flowComponents.length;
+        } else {
+          const targetStep = flowComponents.find(c => String(c.id) === String(comp.nextStepId));
+          if (targetStep) {
+            simCurrentStepIndex = flowComponents.indexOf(targetStep);
+          } else {
+            simCurrentStepIndex++;
+          }
+        }
+      } else {
+        simCurrentStepIndex++;
+      }
+      setTimeout(simShowNextStep, 800);
+    }
+
+    function saveFlowState() {
+      const selectedBotId = localStorage.getItem('selectedFlowBotId') || 'default';
+      localStorage.setItem('chatbotFlow_' + selectedBotId, JSON.stringify(flowComponents));
+      if (typeof renderLivePreview === 'function') {
+        renderLivePreview();
+      }
+    }
+
+    function saveFlow() {
+      if (flowComponents.length === 0) {
+        showToast('⚠️ Add components to your flow first', 'warning');
+        return;
+      }
+      
+      const selectedBotId = localStorage.getItem('selectedFlowBotId') || 'default';
+      // Save locally to localStorage
+      localStorage.setItem('chatbotFlow_' + selectedBotId, JSON.stringify(flowComponents));
+      
+
+      
+      // Save to server database via API
+      fetch('/api/flow', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          botId: localStorage.getItem('selectedFlowBotId') || 'default',
+          components: flowComponents
+        })
+      })
+      .then(res => {
+        if (!res.ok) throw new Error('Server returned error');
+        return res.json();
+      })
+      .then(data => {
+        showToast('✅ Flow saved and database updated!', 'success');
+      })
+      .catch(err => {
+        console.error('Failed to save flow to server:', err);
+        showToast('⚠️ Saved locally, but server update failed', 'warning');
+      });
+    }
+
+    function importFlow(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const loadedFlow = JSON.parse(e.target.result);
+          if (!Array.isArray(loadedFlow)) {
+            throw new Error('Flow configuration must be a JSON array.');
+          }
+          
+          flowComponents = loadedFlow;
+          normalizeFlowComponents();
+          componentIdCounter = flowComponents.length > 0 ? Math.max(...flowComponents.map(c => c.id)) + 1 : 1;
+          
+          const selectedBotId = localStorage.getItem('selectedFlowBotId') || 'default';
+          // Save to localStorage
+          localStorage.setItem('chatbotFlow_' + selectedBotId, JSON.stringify(flowComponents));
+          
+          // Re-render editor canvas and simulation preview
+          renderFlowCards();
+          if (typeof initPreviewSimulation === 'function') {
+            initPreviewSimulation();
+          }
+          
+          // Save to server database via API
+          fetch('/api/flow', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              botId: localStorage.getItem('selectedFlowBotId') || 'default',
+              components: flowComponents
+            })
+          })
+          .then(res => {
+            if (!res.ok) throw new Error('Server returned error');
+            return res.json();
+          })
+          .then(data => {
+            showToast('📂 Flow imported and saved to server!', 'success');
+          })
+          .catch(err => {
+            console.error('Failed to save imported flow to server:', err);
+            showToast('⚠️ Imported locally, but server update failed', 'warning');
+          });
+        } catch (err) {
+          console.error(err);
+          showToast('❌ Invalid flow configuration file.', 'warning');
+        }
+      };
+      reader.readAsText(file);
+      // Reset input value so same file can be selected again
+      event.target.value = '';
+    }
+
+    function dismissBanner() {
+      document.querySelector('.getting-started').style.display = 'none';
+      localStorage.setItem('bannerDismissed', 'true');
+      openCreateBotModal();
+    }
+
+    // Create Bot modal controls
+    function openCreateBotModal() {
+      document.getElementById('modal-bot-name').value = '';
+      document.getElementById('modal-bot-domain').value = '';
+      document.getElementById('createBotModal').classList.add('show');
+    }
+
+    function closeCreateBotModal() {
+      document.getElementById('createBotModal').classList.remove('show');
+    }
+
+    async function submitCreateBot() {
+      const name = document.getElementById('modal-bot-name').value.trim();
+      const domain = document.getElementById('modal-bot-domain').value.trim();
+      
+      if (!name || !domain) {
+        alert('Please enter both Bot Name and Domain Name');
+        return;
+      }
+      
+      const clientId = sessionStorage.getItem('clientId') || 'default';
+      const userRole = sessionStorage.getItem('userRole') || 'client';
+      
+      // Frontend Plan checking
+      if (userRole === 'client' && clientId !== 'default') {
+        try {
+          const profileRes = await fetch(`/api/client/profile?clientId=${encodeURIComponent(clientId)}`);
+          const profile = await profileRes.json();
+          if (profile.success) {
+            const limit = profile.planLimit === 'Unlimited' ? Infinity : parseInt(profile.planLimit);
+            const activeCount = parseInt(profile.activeBotsCount);
+            if (activeCount >= limit) {
+              alert("You have reached the maximum bot limit available in your current plan. Please upgrade your plan or disable an existing bot before creating a new one.");
+              return;
+            }
+          }
+        } catch (e) {
+          console.error("Plan checking failed:", e);
+        }
+      }
+      
+      try {
+        const res = await fetch('/api/bots', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, domain, clientId, type: 'flow' })
+        });
+        const data = await res.json();
+        if (res.ok && data.success) {
+          alert('Flow Builder bot "' + name + '" created successfully!');
+          closeCreateBotModal();
+          localStorage.setItem('selectedFlowBotId', data.bot_id);
+          window.location.reload();
+        } else {
+          alert(data.message || 'Failed to create bot: ' + (data.error || 'Unknown error'));
+        }
+      } catch (e) {
+        console.error('Error creating bot:', e);
+        alert('Failed to create bot');
+      }
+    }
+
+    function showToast(message, type = 'info') {
+      const toast = document.createElement('div');
+      toast.style.cssText = `
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        background: ${type === 'success' ? '#10b981' : type === 'warning' ? '#f59e0b' : '#6366f1'};
+        color: white;
+        padding: 16px 24px;
+        border-radius: 12px;
+        font-size: 14px;
+        font-weight: 600;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        z-index: 10000;
+        animation: slideIn 0.3s ease;
+      `;
+      toast.textContent = message;
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 3000);
+    }
+
+    // Load saved flow on page load
+    window.addEventListener('DOMContentLoaded', async () => {
+      await renderSidebarAndTopbar();
+      await initializeDomainSelector();
+      await loadDefaultApiKey();
+      
+      // Initialize theme from localStorage
+      const savedTheme = localStorage.getItem('adminTheme');
+      if (savedTheme === 'dark') {
+        document.body.classList.add('dark-theme');
+        const btn = document.getElementById('themeToggleBtn');
+        if (btn) btn.innerHTML = '☀️';
+      }
+
+      // Fetch flow from server
+      const selectedBotId = localStorage.getItem('selectedFlowBotId') || 'default';
+      try {
+        const flowRes = await fetch('/api/flow?botId=' + selectedBotId);
+        if (flowRes.ok) {
+          const serverFlow = await flowRes.json();
+          if (serverFlow && serverFlow.length > 0) {
+            flowComponents = serverFlow;
+            normalizeFlowComponents();
+            componentIdCounter = Math.max(...flowComponents.map(c => c.id)) + 1;
+            renderFlowCards();
+            localStorage.setItem('chatbotFlow_' + selectedBotId, JSON.stringify(flowComponents));
+          } else {
+             // For new or default bots, check if there's a locally saved copy for this bot
+             const savedFlow = localStorage.getItem('chatbotFlow_' + selectedBotId);
+             if (savedFlow) {
+               flowComponents = JSON.parse(savedFlow);
+               normalizeFlowComponents();
+               componentIdCounter = flowComponents.length > 0 ? Math.max(...flowComponents.map(c => c.id)) + 1 : 1;
+               renderFlowCards();
+             } else {
+               // For new bots, clear the canvas
+               flowComponents = [];
+               componentIdCounter = 1;
+               renderFlowCards();
+               localStorage.setItem('chatbotFlow_' + selectedBotId, JSON.stringify([]));
+             }
+          }
+        }
+      } catch (err) {
+        console.error('Failed to load flow from server:', err);
+        // Fallback to localStorage (bot-specific)
+        const savedFlow = localStorage.getItem('chatbotFlow_' + selectedBotId);
+        if (savedFlow) {
+          flowComponents = JSON.parse(savedFlow);
+          normalizeFlowComponents();
+          componentIdCounter = Math.max(...flowComponents.map(c => c.id)) + 1;
+          renderFlowCards();
+        }
+      }
+      
+      if (typeof renderLivePreview === 'function') {
+        renderLivePreview();
+      }
+
+      const bannerDismissed = localStorage.getItem('bannerDismissed');
+      if (bannerDismissed === 'true') {
+        document.querySelector('.getting-started').style.display = 'none';
+      }
+    });
+  </script>
+  <!-- Create Bot Modal -->
+  <div class="modal" id="createBotModal">
+    <div class="modal-content" style="max-width: 450px;">
+      <div class="modal-header">
+        <h3 id="modal-title">Create New Flow Builder Bot</h3>
+        <span class="modal-close" onclick="closeCreateBotModal()">✕</span>
+      </div>
+      <div class="modal-body">
+        <div class="form-group" style="margin-bottom: 16px;">
+          <label class="form-label" style="font-weight:600; margin-bottom:6px; display:block; color: #475569;">Bot Name</label>
+          <input type="text" id="modal-bot-name" placeholder="e.g. My Flow Assistant" style="width:100%; padding:10px 12px; border:1.5px solid #cbd5e1; border-radius:8px; outline:none; font-size:14px; background: white; color: #1e293b;">
+        </div>
+        <div class="form-group" style="margin-bottom: 16px;">
+          <label class="form-label" style="font-weight:600; margin-bottom:6px; display:block; color: #475569;">Domain Name</label>
+          <input type="text" id="modal-bot-domain" placeholder="e.g. mywebsite.com" style="width:100%; padding:10px 12px; border:1.5px solid #cbd5e1; border-radius:8px; outline:none; font-size:14px; background: white; color: #1e293b;">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-submit btn-outline" onclick="closeCreateBotModal()" style="padding: 8px 16px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 13px; font-weight:600; cursor:pointer; background: white; color: #475569;">Cancel</button>
+        <button class="btn-submit" onclick="submitCreateBot()" style="padding: 8px 16px; background: #6366f1; color: white; border: none; border-radius: 6px; font-size: 13px; font-weight:600; cursor:pointer;">Create</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Embed Script Modal -->
+  <div class="modal" id="embedScriptModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>📜 Embed Script Code</h3>
+        <span class="modal-close" onclick="closeEmbedScriptModal()">✕</span>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: 13px; color: #64748b; margin-bottom: 16px;">
+          Copy this script and paste it into your website's HTML, just before the closing &lt;/body&gt; tag:
+        </p>
+        <textarea id="scriptCodeTextarea" class="form-textarea" rows="8" readonly style="width: 100%; font-family: 'Courier New', monospace; font-size: 13px; background: #1e293b; color: #e2e8f0; border: 1px solid #334155; padding: 12px; border-radius: 8px; resize: none; outline: none;"></textarea>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-submit btn-outline" onclick="closeEmbedScriptModal()" style="padding: 8px 16px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 13px; font-weight:600; cursor:pointer; background: white; color: #475569;">Cancel</button>
+        <button class="btn-submit" onclick="copyScriptToClipboard()" style="padding: 8px 16px; background: #6366f1; color: white; border: none; border-radius: 6px; font-size: 13px; font-weight:600; cursor:pointer;">
+          <span>📋</span> Copy Code
+        </button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

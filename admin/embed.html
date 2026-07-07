@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Embed Code - AI Chatbot</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #f8f9fc;
+      color: #1e293b;
+      display: flex !important;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    
+    /* ============ SIDEBAR ============ */
+    .sidebar {
+      width: 260px;
+      background: #1e1b4b;
+      color: #e2e8f0;
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      z-index: 100;
+      box-shadow: 4px 0 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .sidebar-header {
+      padding: 24px 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    .brand-text h2 {
+      font-size: 16px;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 2px;
+    }
+
+    .brand-text span {
+      font-size: 11px;
+      color: #94a3b8;
+    }
+
+    .sidebar-nav {
+      flex: 1;
+      padding: 20px 0;
+      overflow-y: auto;
+    }
+
+    .nav-section {
+      padding: 8px 20px;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #64748b;
+      font-weight: 600;
+      margin-top: 16px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 20px;
+      cursor: pointer;
+      font-size: 14px;
+      color: #cbd5e1;
+      transition: all 0.2s;
+      border-left: 3px solid transparent;
+      text-decoration: none;
+    }
+
+    .nav-item:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: white;
+    }
+
+    .nav-item.active {
+      background: rgba(99, 102, 241, 0.15);
+      color: white;
+      border-left-color: #6366f1;
+      font-weight: 500;
+    }
+
+    .nav-item .icon {
+      font-size: 18px;
+      width: 24px;
+      text-align: center;
+    }
+
+    .nav-item .badge {
+      margin-left: auto;
+      background: #6366f1;
+      color: white;
+      font-size: 10px;
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-weight: 600;
+    }
+
+    .sidebar-footer {
+      padding: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 11px;
+      color: #64748b;
+      text-align: center;
+    }
+
+    /* ============ MAIN CONTENT ============ */
+    .main-content {
+      flex: 1;
+      margin-left: 260px;
+      min-height: 100vh;
+      display: flex !important;
+      flex-direction: column !important;
+      width: auto !important;
+      background: #f8f9fc !important;
+    }
+
+    /* Top Bar */
+    .topbar {
+      background: white;
+      padding: 16px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #e2e8f0;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+
+    .topbar-left h1 {
+      font-size: 20px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .domain-selector {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+      transition: all 0.2s;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .domain-selector:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+    }
+
+    .status-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: #d1fae5;
+      color: #065f46;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      background: #10b981;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    .btn-logout {
+      padding: 8px 16px;
+      background: #fee2e2;
+      color: #991b1b;
+      border: none;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-logout:hover {
+      background: #fecaca;
+    }
+
+    .btn-refresh {
+      padding: 8px 16px;
+      background: #6366f1;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-refresh:hover {
+      background: #4f46e5;
+    }
+
+    /* Content Area */
+    .content {
+      padding: 32px;
+      flex: 1;
+    }
+
+    /* Embed Header Banner */
+    .embed-header {
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      color: white;
+      padding: 32px;
+      border-radius: 16px;
+      margin-bottom: 32px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      box-shadow: 0 8px 24px rgba(99, 102, 241, 0.3);
+    }
+
+    .embed-header-icon {
+      width: 64px;
+      height: 64px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      flex-shrink: 0;
+    }
+
+    .embed-header-content h2 {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .embed-header-content p {
+      font-size: 14px;
+      opacity: 0.95;
+    }
+
+    /* Code Sections */
+    .code-section {
+      background: white;
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+      border: 1px solid #e2e8f0;
+    }
+
+    .code-section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .code-section-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .code-section-number {
+      width: 28px;
+      height: 28px;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      color: white;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .code-section-title h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .btn-copy {
+      padding: 8px 16px;
+      background: #f1f5f9;
+      color: #475569;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-copy:hover {
+      background: #6366f1;
+      color: white;
+      border-color: #6366f1;
+    }
+
+    .btn-copy.copied {
+      background: #10b981;
+      color: white;
+      border-color: #10b981;
+    }
+
+    .code-block {
+      background: #1e293b;
+      color: #e2e8f0;
+      padding: 20px;
+      border-radius: 8px;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      line-height: 1.6;
+      overflow-x: auto;
+      position: relative;
+    }
+
+    .code-block code {
+      display: block;
+      white-space: pre;
+    }
+
+    .code-keyword {
+      color: #c792ea;
+    }
+
+    .code-string {
+      color: #c3e88d;
+    }
+
+    .code-function {
+      color: #82aaff;
+    }
+
+    .code-comment {
+      color: #546e7a;
+      font-style: italic;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s;
+      }
+      
+      .sidebar.mobile-open {
+        transform: translateX(0);
+      }
+      
+      .main-content {
+        margin-left: 0;
+        width: 100%;
+      }
+      
+      .content {
+        padding: 20px;
+      }
+      
+      .embed-header {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <div class="brand">
+        <div class="brand-icon">🤖</div>
+        <div class="brand-text">
+          <h2>AI Chatbot</h2>
+          <span>Admin Panel v3.0</span>
+        </div>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section">MAIN</div>
+      <a href="/admin/dashboard.html" class="nav-item">
+        <span class="icon">📊</span>
+        <span>Dashboard</span>
+      </a>
+      <a href="/admin/dashboard.html" class="nav-item">
+        <span class="icon">👥</span>
+        <span>Users</span>
+      </a>
+      <a href="/admin/dashboard.html" class="nav-item">
+        <span class="icon">💬</span>
+        <span>Chats</span>
+      </a>
+      <a href="/admin/dashboard.html" class="nav-item">
+        <span class="icon">📝</span>
+        <span>Leads</span>
+      </a>
+      <a href="/admin/dashboard.html" class="nav-item">
+        <span class="icon">📈</span>
+        <span>Analytics</span>
+      </a>
+
+      <div class="nav-section">SETTINGS</div>
+      <a href="/admin/knowledge.html" class="nav-item">
+        <span class="icon">🧠</span>
+        <span>AI Knowledge Base</span>
+      </a>
+      <a href="/admin/flowbuilder.html" class="nav-item">
+        <span class="icon">🔄</span>
+        <span>Flow Builder</span>
+      </a>
+      <a href="/admin/dashboard.html" class="nav-item">
+        <span class="icon">🤖</span>
+        <span>Bot Configuration</span>
+      </a>
+      <a href="/admin/dashboard.html" class="nav-item">
+        <span class="icon">📧</span>
+        <span>Email Broadcast</span>
+      </a>
+      <a href="/admin/settings.html" class="nav-item">
+        <span class="icon">⚙️</span>
+        <span>Settings</span>
+      </a>
+      <a href="/admin/embed.html" class="nav-item active">
+        <span class="icon">📋</span>
+        <span>Embed Code</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      © 2024 AI Chatbot. All rights reserved.
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <!-- Top Bar -->
+    <div class="topbar">
+      <div class="topbar-left">
+        <h1>Embed Code</h1>
+      </div>
+      <div class="topbar-right">
+        <div class="domain-selector">
+          <span>🌐</span>
+          <span>All Domains</span>
+          <span>▼</span>
+        </div>
+        <div class="status-badge">
+          <span class="status-dot"></span>
+          <span>Server Online</span>
+        </div>
+        <button class="btn-logout" onclick="window.location.href='/admin/login.html'">Logout</button>
+        <button class="btn-refresh" onclick="location.reload()">🔄 Refresh</button>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+      <!-- Embed Header Banner -->
+      <div class="embed-header">
+        <div class="embed-header-icon">📋</div>
+        <div class="embed-header-content">
+          <h2>Embed on Your Website</h2>
+          <p>Choose a bot and get the code to go live</p>
+        </div>
+      </div>
+
+      <!-- 1. Universal Script Tag -->
+      <div class="code-section">
+        <div class="code-section-header">
+          <div class="code-section-title">
+            <div class="code-section-number">1</div>
+            <h3>Universal Script Tag (HTML / PHP)</h3>
+          </div>
+          <button class="btn-copy" onclick="copyCode('code1', this)">Copy</button>
+        </div>
+        <div class="code-block">
+          <code id="code1"><span class="code-keyword">&lt;script</span> <span class="code-function">src</span>=<span class="code-string">"https://ai-chatbot-widget-production-f496.up.railway.app/widget/chatbot.js"</span> <span class="code-function">data-server</span>=<span class="code-string">"https://ai-chatbot-widget-production-f496.up.railway.app"</span><span class="code-keyword">&gt;&lt;/script&gt;</span></code>
+        </div>
+      </div>
+
+      <!-- 2. WordPress (functions.php) -->
+      <div class="code-section">
+        <div class="code-section-header">
+          <div class="code-section-title">
+            <div class="code-section-number">2</div>
+            <h3>WordPress (functions.php)</h3>
+          </div>
+          <button class="btn-copy" onclick="copyCode('code2', this)">Copy</button>
+        </div>
+        <div class="code-block">
+          <code id="code2"><span class="code-keyword">function</span> <span class="code-function">add_chatbot_widget</span>() {
+  <span class="code-keyword">echo</span> <span class="code-string">'&lt;script src="https://ai-chatbot-widget-production-f496.up.railway.app/widget/chatbot.js" data-server="https://ai-chatbot-widget-production-f496.up.railway.app"&gt;&lt;/script&gt;'</span>;
+}
+<span class="code-function">add_action</span>(<span class="code-string">'wp_footer'</span>, <span class="code-string">'add_chatbot_widget'</span>);</code>
+        </div>
+      </div>
+
+      <!-- 3. Laravel (Blade Template) -->
+      <div class="code-section">
+        <div class="code-section-header">
+          <div class="code-section-title">
+            <div class="code-section-number">3</div>
+            <h3>Laravel (Blade Template)</h3>
+          </div>
+          <button class="btn-copy" onclick="copyCode('code3', this)">Copy</button>
+        </div>
+        <div class="code-block">
+          <code id="code3"><span class="code-comment">{{-- Add before &lt;/body&gt; in your layout file --}}</span>
+<span class="code-keyword">&lt;script</span> <span class="code-function">src</span>=<span class="code-string">"https://ai-chatbot-widget-production-f496.up.railway.app/widget/chatbot.js"</span> <span class="code-function">data-server</span>=<span class="code-string">"https://ai-chatbot-widget-production-f496.up.railway.app"</span><span class="code-keyword">&gt;&lt;/script&gt;</span></code>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function copyCode(elementId, button) {
+      const codeElement = document.getElementById(elementId);
+      const text = codeElement.textContent;
+      
+      // Create temporary textarea
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      
+      // Select and copy
+      textarea.select();
+      document.execCommand('copy');
+      
+      // Remove textarea
+      document.body.removeChild(textarea);
+      
+      // Update button
+      const originalText = button.textContent;
+      button.textContent = '✓ Copied';
+      button.classList.add('copied');
+      
+      // Reset button after 2 seconds
+      setTimeout(() => {
+        button.textContent = originalText;
+        button.classList.remove('copied');
+      }, 2000);
+      
+      // Show toast
+      showToast('✓ Code copied to clipboard!');
+    }
+    
+    function showToast(message) {
+      const toast = document.createElement('div');
+      toast.style.cssText = `
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        background: #10b981;
+        color: white;
+        padding: 16px 24px;
+        border-radius: 12px;
+        font-size: 14px;
+        font-weight: 600;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        z-index: 10000;
+        animation: slideIn 0.3s ease;
+      `;
+      toast.textContent = message;
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 2000);
+    }
+  </script>
+</body>
+</html>
