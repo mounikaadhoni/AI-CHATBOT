@@ -9,7 +9,7 @@
   "showBranding": true,
   "maxHistory": 50,
   "enableAI": true,
-  "aiModel": "gpt-4-turbo",
+  "aiModel": "gemini-2.5-flash",
   "systemPrompt": "You are a helpful customer support assistant. Be concise, friendly, and professional. Answer questions accurately.",
   "suggestedQuestions": [
     "How can I contact support?",
