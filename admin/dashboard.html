@@ -3673,14 +3673,16 @@
       }
 
       try {
-        alert("clientId = " + clientId);
         const res = await fetch('/api/bots', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ name, domain, clientId, type: wizardBotType })
         });
 
+
         const data = await res.json();
+        console.log(data);
+        alert(JSON.stringify(data));
         if (res.ok && data.success) {
           wizardCreatedBotId = data.bot_id;
           wizardCreatedApiKey = data.api_key;
