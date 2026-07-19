@@ -507,13 +507,22 @@ try {
 }
 
 let razorpayInstance = null;
-if (Razorpay && process.env.RAZORPAY_KEY_ID && process.env.RAZORPAY_KEY_SECRET) {
+
+if (
+  Razorpay &&
+  process.env.RAZORPAY_KEY_ID &&
+  process.env.RAZORPAY_KEY_SECRET
+) {
   razorpayInstance = new Razorpay({
     key_id: process.env.RAZORPAY_KEY_ID,
-    key_secret: process.env.RAZORPAY_KEY_SECRET
+    key_secret: process.env.RAZORPAY_KEY_SECRET,
   });
-  console.log('✅ Razorpay configured');
+
+  console.log("✅ Razorpay configured");
+} else {
+  console.log("❌ Razorpay keys not found");
 }
+
 
 // ---- Payment Endpoints -------------------------------------
 app.get('/api/razorpay-key', (req, res) => {
@@ -521,6 +530,9 @@ app.get('/api/razorpay-key', (req, res) => {
 });
 
 app.post('/api/payment/create-order', async (req, res) => {
+  console.log("Razorpay Instance:", razorpayInstance);
+  console.log("KEY ID:", process.env.RAZORPAY_KEY_ID);
+  console.log("SECRET:", process.env.RAZORPAY_KEY_SECRET);
   if (!razorpayInstance) return res.status(500).json({ error: 'Razorpay not configured' });
 
   const { plan_id } = req.body;
@@ -1170,13 +1182,24 @@ function searchKnowledgeBase(query, botId = 'default', threshold = 0.30) {
 
     let bestMatch = null;
     let bestScore = 0;
+    console.log("User Query:", query);
 
     for (const item of allKnowledge) {
       const score = cosineSimilarity(query, item.content);
+      console.log("Score:", score);
+      console.log("Content:", item.content.substring(0, 100));
       if (score > bestScore && score >= threshold) {
         bestScore = score;
         bestMatch = item;
       }
+    }
+    console.log("Knowledge Count:", allKnowledge.length);
+
+    if (bestMatch) {
+      console.log("Best Score:", bestScore);
+      console.log("Matched:", bestMatch.content);
+    } else {
+      console.log("No Match");
     }
 
     return bestMatch ? {
