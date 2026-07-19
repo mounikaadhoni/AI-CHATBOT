@@ -6,16 +6,16 @@ require('dotenv').config({
   path: require('path').join(__dirname, '../.env')
 });
 console.log("GEMINI KEY:", process.env.GEMINI_API_KEY);
- 
-const express    = require('express');
-const cors       = require('cors');
-const path       = require('path');
-const fs         = require('fs');
-const OpenAI     = require('openai');
+
+const express = require('express');
+const cors = require('cors');
+const path = require('path');
+const fs = require('fs');
+const OpenAI = require('openai');
 const nodemailer = require('nodemailer');
 const { GoogleGenerativeAI } = require('@google/generative-ai');
 
-const app  = express();
+const app = express();
 const PORT = process.env.PORT || 4000;
 
 // ---- Middleware --------------------------------------------
@@ -86,8 +86,8 @@ function getEmailConfig() {
   const config = loadConfig();
   const emailCfg = config.emailNotifications || {};
   return {
-    enabled: process.env.EMAIL_ENABLED !== undefined 
-      ? (process.env.EMAIL_ENABLED === 'true') 
+    enabled: process.env.EMAIL_ENABLED !== undefined
+      ? (process.env.EMAIL_ENABLED === 'true')
       : (emailCfg.enabled !== false), // default to true if not explicitly false
     smtpHost: process.env.SMTP_HOST || emailCfg.smtpHost || 'smtp.resend.com',
     smtpPort: process.env.SMTP_PORT ? Number(process.env.SMTP_PORT) : (emailCfg.smtpPort || 587),
@@ -112,11 +112,11 @@ try {
       timestamp  DATETIME DEFAULT CURRENT_TIMESTAMP
     )
   `);
-  try { db.exec(`ALTER TABLE chat_history ADD COLUMN file_data TEXT DEFAULT ''`); } catch (e) {}
-  try { db.exec(`ALTER TABLE chat_history ADD COLUMN file_name TEXT DEFAULT ''`); } catch (e) {}
-  try { db.exec(`ALTER TABLE chat_history ADD COLUMN file_type TEXT DEFAULT ''`); } catch (e) {}
-  try { db.exec(`ALTER TABLE chat_history ADD COLUMN source TEXT DEFAULT ''`); } catch (e) {}
-  try { db.exec(`ALTER TABLE chat_history ADD COLUMN response_ms INTEGER DEFAULT 0`); } catch (e) {}
+  try { db.exec(`ALTER TABLE chat_history ADD COLUMN file_data TEXT DEFAULT ''`); } catch (e) { }
+  try { db.exec(`ALTER TABLE chat_history ADD COLUMN file_name TEXT DEFAULT ''`); } catch (e) { }
+  try { db.exec(`ALTER TABLE chat_history ADD COLUMN file_type TEXT DEFAULT ''`); } catch (e) { }
+  try { db.exec(`ALTER TABLE chat_history ADD COLUMN source TEXT DEFAULT ''`); } catch (e) { }
+  try { db.exec(`ALTER TABLE chat_history ADD COLUMN response_ms INTEGER DEFAULT 0`); } catch (e) { }
 
   // Leads table
   db.exec(`
@@ -157,7 +157,7 @@ try {
     db.exec(`ALTER TABLE sessions ADD COLUMN widget_version TEXT DEFAULT ''`);
     db.exec(`ALTER TABLE sessions ADD COLUMN last_user_msg_at DATETIME`);
     db.exec(`ALTER TABLE sessions ADD COLUMN abandoned INTEGER DEFAULT 0`);
-  } catch (e) {}
+  } catch (e) { }
 
   // Bots table for multi-tenant
   db.exec(`
@@ -173,9 +173,9 @@ try {
     )
   `);
   // Migrations for bots table
-  try { db.exec(`ALTER TABLE bots ADD COLUMN client_id TEXT DEFAULT 'default'`); } catch (e) {}
-  try { db.exec(`ALTER TABLE bots ADD COLUMN status TEXT DEFAULT 'active'`); } catch (e) {}
-  try { db.exec(`ALTER TABLE bots ADD COLUMN type TEXT DEFAULT 'ai'`); } catch (e) {}
+  try { db.exec(`ALTER TABLE bots ADD COLUMN client_id TEXT DEFAULT 'default'`); } catch (e) { }
+  try { db.exec(`ALTER TABLE bots ADD COLUMN status TEXT DEFAULT 'active'`); } catch (e) { }
+  try { db.exec(`ALTER TABLE bots ADD COLUMN type TEXT DEFAULT 'ai'`); } catch (e) { }
 
   // Complaints table
   db.exec(`
@@ -192,7 +192,7 @@ try {
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     )
   `);
-  try { db.exec(`ALTER TABLE complaints ADD COLUMN phone TEXT DEFAULT ''`); } catch (e) {}
+  try { db.exec(`ALTER TABLE complaints ADD COLUMN phone TEXT DEFAULT ''`); } catch (e) { }
 
   // Knowledge Base table for structured data storage
   db.exec(`
@@ -208,12 +208,12 @@ try {
     )
   `);
   // Migrations for knowledge_base table
-  try { db.exec(`ALTER TABLE knowledge_base ADD COLUMN bot_id TEXT DEFAULT 'default'`); } catch (e) {}
+  try { db.exec(`ALTER TABLE knowledge_base ADD COLUMN bot_id TEXT DEFAULT 'default'`); } catch (e) { }
 
   // Create index for faster searches
   try {
     db.exec(`CREATE INDEX IF NOT EXISTS idx_kb_source ON knowledge_base(source_type, source_reference)`);
-  } catch (e) {}
+  } catch (e) { }
 
 
   // Flows table for flow builder components
@@ -238,11 +238,11 @@ try {
       status TEXT DEFAULT 'active'
     )
   `);
-  try { db.exec(`ALTER TABLE clients ADD COLUMN plain_password TEXT DEFAULT ''`); } catch (e) {}
-    try { db.exec(`ALTER TABLE clients ADD COLUMN phone TEXT DEFAULT ''`); } catch (e) {}
-  try { db.exec(`ALTER TABLE clients ADD COLUMN plan_name TEXT DEFAULT 'Basic'`); } catch (e) {}
-  try { db.exec(`ALTER TABLE clients ADD COLUMN days_left INTEGER DEFAULT 30`); } catch (e) {}
-  try { db.exec(`ALTER TABLE clients ADD COLUMN is_deleted INTEGER DEFAULT 0`); } catch (e) {}
+  try { db.exec(`ALTER TABLE clients ADD COLUMN plain_password TEXT DEFAULT ''`); } catch (e) { }
+  try { db.exec(`ALTER TABLE clients ADD COLUMN phone TEXT DEFAULT ''`); } catch (e) { }
+  try { db.exec(`ALTER TABLE clients ADD COLUMN plan_name TEXT DEFAULT 'Basic'`); } catch (e) { }
+  try { db.exec(`ALTER TABLE clients ADD COLUMN days_left INTEGER DEFAULT 30`); } catch (e) { }
+  try { db.exec(`ALTER TABLE clients ADD COLUMN is_deleted INTEGER DEFAULT 0`); } catch (e) { }
 
   // Seed default clients if table is empty
   const count = db.prepare('SELECT COUNT(*) as count FROM clients').get().count;
@@ -250,7 +250,7 @@ try {
     console.log('Seeding default clients data...');
     const crypto = require('crypto');
     const hashPassword = (pass) => crypto.createHash('sha256').update(pass).digest('hex');
-    
+
     const defaultClients = [
       {
         client_id: 'cli_1',
@@ -406,7 +406,7 @@ function resolvePlanByName(planName) {
     try {
       const plan = db.prepare('SELECT * FROM plans WHERE LOWER(name) = ?').get(searchName);
       if (plan) return plan;
-      
+
       const cleanName = searchName.split(/[-—(]/)[0].trim();
       if (cleanName) {
         const partialPlan = db.prepare('SELECT * FROM plans WHERE LOWER(name) = ? OR LOWER(name) LIKE ?').get(cleanName, cleanName + '%');
@@ -421,7 +421,7 @@ function resolvePlanByName(planName) {
   const cleanSearch = searchName.split(/[-—(]/)[0].trim();
   const partialFound = fallbackPlans.find(p => p.name.toLowerCase() === cleanSearch);
   if (partialFound) return partialFound;
-  
+
   if (searchName === 'placement') {
     return { id: 4, name: 'Placement', price: 9999 };
   }
@@ -522,10 +522,10 @@ app.get('/api/razorpay-key', (req, res) => {
 
 app.post('/api/payment/create-order', async (req, res) => {
   if (!razorpayInstance) return res.status(500).json({ error: 'Razorpay not configured' });
-  
+
   const { plan_id } = req.body;
   let amount = 99900; // default 999 INR in paise (fallback)
-  
+
   if (db && plan_id) {
     try {
       const plan = db.prepare('SELECT price FROM plans WHERE id = ?').get(plan_id);
@@ -539,7 +539,7 @@ app.post('/api/payment/create-order', async (req, res) => {
     if (plan_id == 2) amount = 199900;
     if (plan_id == 3) amount = 299900;
   }
-  
+
   try {
     const order = await razorpayInstance.orders.create({
       amount: amount,
@@ -631,7 +631,7 @@ async function getGeminiResponse(userMessage, conversationHistory = []) {
 
   try {
     console.log('🤖 Calling Gemini AI (gemini-2.5-flash) for response...');
-    
+
     // Build context from conversation history
     let contextPrompt = '';
     if (conversationHistory.length > 0) {
@@ -659,7 +659,7 @@ User message: ${userMessage}`;
     const result = await geminiModel.generateContent(prompt);
     const response = await result.response;
     const text = response.text();
-    
+
     console.log('✅ Gemini AI response received');
     return text;
   } catch (error) {
@@ -677,7 +677,7 @@ async function getGeminiResponseWithContext(userMessage, knowledgeContext, conve
 
   try {
     console.log('🧠 RAG: Calling Gemini AI with knowledge context...');
-    
+
     // Build context from conversation history
     let historyPrompt = '';
     if (conversationHistory.length > 0) {
@@ -714,7 +714,7 @@ Generate a natural, intelligent answer:`;
     const result = await geminiModel.generateContent(prompt);
     const response = await result.response;
     const text = response.text();
-    
+
     console.log('✅ RAG: Generated natural answer from knowledge context');
     return text;
   } catch (error) {
@@ -778,7 +778,7 @@ function getBotConfig(botId) {
 function restrictDomain(req, res, next) {
   const botId = req.body?.botId || req.query?.botId || 'default';
   const config = getBotConfig(botId);
-  
+
   if (config.status === 'disabled') {
     return res.status(403).json({ error: 'This bot has been disabled.' });
   }
@@ -892,7 +892,7 @@ async function sendWelcomeEmail(client, plainPassword, req) {
     const status = client.status || 'COD_PENDING';
 
     const isCod = status.includes('COD');
-    const paymentModeHtml = isCod 
+    const paymentModeHtml = isCod
       ? `<strong>Payment Mode:</strong> Cash on Delivery (COD)<br><span style="color:#6b7280; font-size:13px;">Our team will reach out to you shortly for the payment collection.</span>`
       : `<strong>Payment Mode:</strong> Pre-paid / Active<br><span style="color:#6b7280; font-size:13px;">Thank you for your subscription!</span>`;
 
@@ -1096,7 +1096,7 @@ async function sendWelcomeEmail(client, plainPassword, req) {
 function checkApiKey(req, res, next) {
   const botId = req.body?.botId || req.query?.botId || 'default';
   const config = getBotConfig(botId);
-  
+
   if (config.status === 'disabled') {
     return res.status(403).json({ error: 'This bot has been disabled.' });
   }
@@ -1149,15 +1149,15 @@ function semanticFaqMatch(query, faqs, threshold = 0.25) {
 // ---- Enhanced Knowledge Base Search --------------------
 function searchKnowledgeBase(query, botId = 'default', threshold = 0.30) {
   if (!db) return null;
-  
+
   try {
     const allKnowledge = db.prepare('SELECT * FROM knowledge_base WHERE bot_id = ? ORDER BY created_at DESC').all(botId || 'default');
-    
+
     if (!allKnowledge || allKnowledge.length === 0) return null;
-    
+
     let bestMatch = null;
     let bestScore = 0;
-    
+
     for (const item of allKnowledge) {
       const score = cosineSimilarity(query, item.content);
       if (score > bestScore && score >= threshold) {
@@ -1165,12 +1165,12 @@ function searchKnowledgeBase(query, botId = 'default', threshold = 0.30) {
         bestMatch = item;
       }
     }
-    
-    return bestMatch ? { 
-      content: bestMatch.content, 
+
+    return bestMatch ? {
+      content: bestMatch.content,
       source: bestMatch.source_type,
       reference: bestMatch.source_reference,
-      score: bestScore 
+      score: bestScore
     } : null;
   } catch (err) {
     console.error('Knowledge base search error:', err.message);
@@ -1194,14 +1194,14 @@ function saveBotConfig(botId, config) {
 
 // ---- Knowledge Base Management Functions --------------------
 function addToKnowledgeBase(content, sourceType, sourceReference, metadata = {}, botId = 'default') {
-  console.log('📝 addToKnowledgeBase called:', { 
-    sourceType, 
-    sourceReference, 
+  console.log('📝 addToKnowledgeBase called:', {
+    sourceType,
+    sourceReference,
     contentLength: content.length,
     botId,
-    hasDb: !!db 
+    hasDb: !!db
   });
-  
+
   if (!db) {
     console.error('❌ Database not available - cannot save to knowledge base');
     // Store in memory as fallback
@@ -1218,7 +1218,7 @@ function addToKnowledgeBase(content, sourceType, sourceReference, metadata = {},
     console.log('✅ Saved to memory fallback. Total entries:', global.memoryKnowledgeBase.length);
     return true;
   }
-  
+
   try {
     const result = db.prepare(
       'INSERT INTO knowledge_base (content, source_type, source_reference, metadata, bot_id) VALUES (?, ?, ?, ?, ?)'
@@ -1233,7 +1233,7 @@ function addToKnowledgeBase(content, sourceType, sourceReference, metadata = {},
 
 function clearKnowledgeBySource(sourceType, sourceReference, botId = 'default') {
   console.log('🗑️ clearKnowledgeBySource called:', { sourceType, sourceReference, botId, hasDb: !!db });
-  
+
   if (!db) {
     // Clear from memory fallback
     if (global.memoryKnowledgeBase) {
@@ -1246,7 +1246,7 @@ function clearKnowledgeBySource(sourceType, sourceReference, botId = 'default') 
     }
     return true;
   }
-  
+
   try {
     const result = db.prepare('DELETE FROM knowledge_base WHERE source_type = ? AND source_reference = ? AND bot_id = ?')
       .run(sourceType, sourceReference, botId);
@@ -1301,7 +1301,7 @@ app.get('/api/flow', (req, res) => {
           return res.status(403).json({ error: 'disabled_bot', message: 'This chatbot is currently disabled.' });
         }
       }
-      
+
       const row = db.prepare('SELECT components FROM flows WHERE bot_id = ?').get(botId);
       if (row) {
         return res.json(JSON.parse(row.components));
@@ -1338,7 +1338,7 @@ app.post('/api/flow', (req, res) => {
 // GET /api/config — Widget loads config on init
 app.get('/api/config', (req, res) => {
   const { botId, apiKey, hostname } = req.query;
-  
+
   let config;
   if (db && botId && botId !== 'default') {
     try {
@@ -1346,7 +1346,7 @@ app.get('/api/config', (req, res) => {
       if (!bot) {
         return res.status(404).json({ error: 'not_found', message: 'Bot not found' });
       }
-      
+
       // 1. Status Check
       if (bot.status === 'disabled') {
         return res.status(403).json({ error: 'disabled_bot', message: 'This chatbot is currently disabled.' });
@@ -1516,13 +1516,13 @@ app.post('/api/chat', restrictDomain, checkApiKey, rateLimit, async (req, res) =
   const kbMatch = searchKnowledgeBase(message, botId || 'default', 0.30);
   if (kbMatch) {
     console.log('✅ Knowledge Base match found → Using RAG (Retrieval-Augmented Generation)');
-    
+
     // 🧠 SMART RAG: Send knowledge + question to Gemini for natural answer
     if (geminiModel && config.enableAI !== false) {
       try {
         const history = getHistory(sessionId, 10);
         const ragReply = await getGeminiResponseWithContext(message, kbMatch.content, history);
-        
+
         if (ragReply && ragReply.trim()) {
           console.log('✅ RAG: Generated natural answer from knowledge base');
           saveMessage(sessionId, 'assistant', ragReply, null, {
@@ -1535,7 +1535,7 @@ app.post('/api/chat', restrictDomain, checkApiKey, rateLimit, async (req, res) =
         console.error('⚠️ RAG failed, falling back to direct KB answer:', err.message);
       }
     }
-    
+
     // Fallback: Return direct KB content if RAG fails or AI disabled
     console.log('⚠️ Returning direct KB content (RAG unavailable)');
     const reply = kbMatch.content;
@@ -1554,7 +1554,7 @@ app.post('/api/chat', restrictDomain, checkApiKey, rateLimit, async (req, res) =
       const result = semanticFaqMatch(message, config.faqs, 0.30);
       if (result) faqMatch = result.faq;
     }
-    
+
     // Keyword FAQ matching (fallback)
     if (!faqMatch) {
       faqMatch = config.faqs.find(f =>
@@ -1566,18 +1566,18 @@ app.post('/api/chat', restrictDomain, checkApiKey, rateLimit, async (req, res) =
 
   if (faqMatch) {
     console.log('✅ FAQ match found → Using RAG for natural answer');
-    
+
     // 🧠 SMART RAG: Send FAQ + question to Gemini for natural answer
     if (geminiModel && config.enableAI !== false) {
       try {
         const history = getHistory(sessionId, 10);
         const ragReply = await getGeminiResponseWithContext(message, faqMatch.answer, history);
-        
+
         if (ragReply && ragReply.trim()) {
           console.log('✅ RAG: Generated natural answer from FAQ');
-          saveMessage(sessionId, 'assistant', ragReply, null, { 
-            source: 'rag_faq', 
-            responseMs: Date.now() - startTime 
+          saveMessage(sessionId, 'assistant', ragReply, null, {
+            source: 'rag_faq',
+            responseMs: Date.now() - startTime
           });
           return res.json({ reply: ragReply, source: 'rag_faq' });
         }
@@ -1585,7 +1585,7 @@ app.post('/api/chat', restrictDomain, checkApiKey, rateLimit, async (req, res) =
         console.error('⚠️ RAG failed, falling back to direct FAQ answer:', err.message);
       }
     }
-    
+
     // Fallback: Return direct FAQ answer if RAG fails or AI disabled
     console.log('⚠️ Returning direct FAQ answer (RAG unavailable)');
     const responseMs = Date.now() - startTime;
@@ -1595,32 +1595,32 @@ app.post('/api/chat', restrictDomain, checkApiKey, rateLimit, async (req, res) =
 
   // 🚀 PRIORITY 3: Gemini AI (MANDATORY if enabled)
   console.log('🤖 No KB/FAQ match → Using Gemini AI...');
-  
+
   // Check if AI is enabled in config
   if (config.enableAI === false) {
     console.log('⚠️ AI is disabled in config');
     const reply = "I couldn't find an answer. Please contact support.";
     saveAssistantMessage(sessionId, reply, 'disabled', Date.now() - startTime);
-    return res.json({ 
+    return res.json({
       reply,
-      source: 'disabled' 
+      source: 'disabled'
     });
   }
-  
+
   if (!geminiModel) {
     console.error('❌ Gemini AI not initialized! Check GEMINI_API_KEY in .env');
     const reply = "I'm currently unable to process your request. Please try again later.";
     saveAssistantMessage(sessionId, reply, 'error', Date.now() - startTime);
-    return res.json({ 
+    return res.json({
       reply,
-      source: 'error' 
+      source: 'error'
     });
   }
 
   try {
     const history = getHistory(sessionId, 10);
     const geminiReply = await getGeminiResponse(message, history);
-    
+
     if (geminiReply && geminiReply.trim()) {
       console.log('✅ Gemini AI response received');
       saveAssistantMessage(sessionId, geminiReply, 'gemini', Date.now() - startTime);
@@ -1629,18 +1629,18 @@ app.post('/api/chat', restrictDomain, checkApiKey, rateLimit, async (req, res) =
       console.error('❌ Gemini returned empty response');
       const reply = "I'm currently unable to process your request. Please try again later.";
       saveAssistantMessage(sessionId, reply, 'error', Date.now() - startTime);
-      return res.json({ 
+      return res.json({
         reply,
-        source: 'error' 
+        source: 'error'
       });
     }
   } catch (err) {
     console.error('❌ Gemini Error:', err.message);
     const reply = "I'm currently unable to process your request. Please try again later.";
     saveAssistantMessage(sessionId, reply, 'error', Date.now() - startTime);
-    return res.json({ 
+    return res.json({
       reply,
-      source: 'error' 
+      source: 'error'
     });
   }
 });
@@ -1651,10 +1651,10 @@ app.post('/api/lead', (req, res) => {
   if (!sessionId) return res.status(400).json({ error: 'sessionId required' });
   if (!email && !phone) return res.status(400).json({ error: 'Provide email or phone' });
 
-  const safeName  = sanitize(name  || '');
+  const safeName = sanitize(name || '');
   const safeEmail = sanitize(email || '');
   const safePhone = sanitize(phone || '');
-  const safeUrl   = sanitize(pageUrl || '');
+  const safeUrl = sanitize(pageUrl || '');
 
   // Validate email if present
   if (safeEmail) {
@@ -1684,20 +1684,20 @@ app.post('/api/knowledge/pdf', async (req, res) => {
     const pdfParse = require('pdf-parse');
     const base64 = fileData.replace(/^data:application\/pdf;base64,/, '');
     const buffer = Buffer.from(base64, 'base64');
-    const data   = await pdfParse(buffer);
-    const text   = (data.text || '').trim();
+    const data = await pdfParse(buffer);
+    const text = (data.text || '').trim();
 
     if (!text) return res.status(400).json({ error: 'No text extracted from PDF' });
 
     const safeName = fileName || 'PDF';
-    
+
     // Clear existing knowledge from this PDF
     clearKnowledgeBySource('pdf', safeName, targetBotId);
 
     // Split into meaningful chunks
     const chunks = text.split(/\n\s*\n/).filter(c => c.trim().length > 50);
     let addedToKB = 0;
-    
+
     // Add to Knowledge Base (primary storage)
     for (let i = 0; i < Math.min(chunks.length, 50); i++) {
       const chunk = chunks[i].trim().slice(0, 1000);
@@ -1723,12 +1723,12 @@ app.post('/api/knowledge/pdf', async (req, res) => {
     config.faqs = [...(config.faqs || []), ...newFaqs];
     saveBotConfig(targetBotId, config);
 
-    res.json({ 
-      success: true, 
+    res.json({
+      success: true,
       addedToKnowledgeBase: addedToKB,
-      addedToFAQs: newFaqs.length, 
+      addedToFAQs: newFaqs.length,
       totalChars: text.length,
-      pages: data.numpages 
+      pages: data.numpages
     });
   } catch (err) {
     console.error('PDF parse error:', err.message);
@@ -1774,7 +1774,7 @@ app.get('/api/leads/csv', (req, res) => {
   ];
   const csv = csvRows.map(r => r.map(v => `"${(v || '').replace(/"/g, '""')}"`).join(',')).join('\n');
   res.setHeader('Content-Type', 'text/csv');
-  res.setHeader('Content-Disposition', `attachment; filename="leads-${new Date().toISOString().slice(0,10)}.csv"`);
+  res.setHeader('Content-Disposition', `attachment; filename="leads-${new Date().toISOString().slice(0, 10)}.csv"`);
   res.send(csv);
 });
 
@@ -1833,7 +1833,7 @@ app.delete('/api/session/:sessionId', (req, res) => {
       db.prepare('DELETE FROM sessions WHERE session_id = ?').run(sessionId);
       try {
         db.prepare('DELETE FROM users WHERE session_id = ?').run(sessionId);
-      } catch (e) {}
+      } catch (e) { }
     }
     if (memoryStore[sessionId]) {
       delete memoryStore[sessionId];
@@ -1856,7 +1856,7 @@ app.delete('/api/sessions', (req, res) => {
       db.prepare('DELETE FROM sessions').run();
       try {
         db.prepare('DELETE FROM users').run();
-      } catch (e) {}
+      } catch (e) { }
     }
     const keys = Object.keys(memoryStore);
     for (const key of keys) {
@@ -1873,11 +1873,11 @@ app.delete('/api/sessions', (req, res) => {
 // PUT /api/config — Admin: update config
 app.put('/api/config', (req, res) => {
   try {
-    const current  = loadConfig();
-    
+    const current = loadConfig();
+
     // Enforce mutual exclusivity of AI Chatbot and Flow Builder modes
     let newConfig = { ...req.body };
-    
+
     if (newConfig.enableAI !== undefined || newConfig.primaryMode !== undefined) {
       if (newConfig.primaryMode === 'flow_builder') {
         newConfig.enableAI = false;
@@ -1889,8 +1889,8 @@ app.put('/api/config', (req, res) => {
         newConfig.primaryMode = 'flow_builder';
       }
     }
-    
-    const updated  = { ...current, ...newConfig };
+
+    const updated = { ...current, ...newConfig };
     saveConfig(updated);
     res.json({ success: true, config: updated });
   } catch (err) {
@@ -1918,16 +1918,16 @@ app.post('/api/knowledge/url', async (req, res) => {
     }
 
     const urlLabel = new URL(url).hostname;
-    
+
     // Clear existing knowledge from this URL
     clearKnowledgeBySource('url', urlLabel, targetBotId);
 
     // Split text into meaningful chunks
     const chunks = text.match(/.{1,800}(?:\s|$)/g) || [];
     const usefulChunks = chunks.filter(c => c.trim().length > 100);
-    
+
     let addedToKB = 0;
-    
+
     // Add to Knowledge Base (primary storage)
     for (let i = 0; i < Math.min(usefulChunks.length, 30); i++) {
       const chunk = usefulChunks[i].trim();
@@ -1953,12 +1953,12 @@ app.post('/api/knowledge/url', async (req, res) => {
     config.faqs = [...(config.faqs || []), ...newFaqs];
     saveBotConfig(targetBotId, config);
 
-    res.json({ 
-      success: true, 
+    res.json({
+      success: true,
       addedToKnowledgeBase: addedToKB,
-      addedToFAQs: newFaqs.length, 
-      totalChars: text.length, 
-      url 
+      addedToFAQs: newFaqs.length,
+      totalChars: text.length,
+      url
     });
   } catch (err) {
     res.status(500).json({ error: 'Scrape failed: ' + err.message });
@@ -1975,7 +1975,7 @@ app.post('/api/knowledge/text', (req, res) => {
 
   const usefulChunks = content.match(/.{1,800}(?:\s|$)/g) || [];
   let addedToKB = 0;
-  
+
   for (let i = 0; i < usefulChunks.length; i++) {
     const chunk = usefulChunks[i].trim();
     if (chunk.length > 10) {
@@ -1997,13 +1997,13 @@ app.post('/api/knowledge/text', (req, res) => {
 function getPlanLimit(planName) {
   const name = (planName || '').toLowerCase().trim();
   if (name.includes('unlimited')) return Infinity;
-  
+
   // Extract number of bots dynamically from plan name if present, e.g. "Enterprise (10 bots)" or "5 bots plan"
   const match = name.match(/(\d+)\s*bot/);
   if (match) {
     return parseInt(match[1], 10);
   }
-  
+
   if (name.includes('premium')) return 5;
   if (name.includes('standard')) return 3;
   if (name.includes('single') || name.includes('basic') || name.includes('trial')) return 1;
@@ -2058,31 +2058,51 @@ app.get('/api/bots', (req, res) => {
 app.post('/api/bots', (req, res) => {
   const { name, domain, clientId, type } = req.body;
   if (!name || !domain) return res.status(400).json({ error: 'Bot name and Domain name are required' });
-  
+
   if (db && clientId && clientId !== 'default') {
     // 1. Fetch client plan
     const client = db.prepare('SELECT plan_name FROM clients WHERE client_id = ?').get(clientId);
     if (!client) {
       return res.status(400).json({ error: 'Client not found' });
     }
-    
+
     // 2. Count current active bots for this client
     const activeBotsCount = db.prepare("SELECT COUNT(*) as count FROM bots WHERE client_id = ? AND status = 'active'").get(clientId).count;
-    
+
     // 3. Check plan limit
     const limit = getPlanLimit(client.plan_name);
     if (activeBotsCount >= limit) {
-      return res.status(400).json({ 
+      return res.status(400).json({
         error: 'limit_reached',
-        message: 'You have reached the maximum bot limit available in your current plan. Please upgrade your plan or disable an existing bot before creating a new one.' 
+        message: 'You have reached the maximum bot limit available in your current plan. Please upgrade your plan or disable an existing bot before creating a new one.'
       });
     }
   }
 
   const bot_id = 'bot_' + require('crypto').randomBytes(6).toString('hex');
   const api_key = 'key_' + require('crypto').randomBytes(20).toString('hex');
+  // Check if domain already exists
+  if (db) {
+    const bots = db.prepare("SELECT config FROM bots").all();
+
+    const domainExists = bots.some(bot => {
+      try {
+        const cfg = JSON.parse(bot.config);
+        return cfg.domain &&
+          cfg.domain.toLowerCase().trim() === domain.toLowerCase().trim();
+      } catch {
+        return false;
+      }
+    });
+
+    if (domainExists) {
+      return res.status(400).json({
+        error: "Domain already exists"
+      });
+    }
+  }
   const defaultConfig = JSON.stringify({ botName: name, themeColor: '#4F46E5', domain: domain || '' });
-  
+
   if (db) {
     db.prepare('INSERT INTO bots (bot_id, name, api_key, config, client_id, status, type) VALUES (?, ?, ?, ?, ?, ?, ?)')
       .run(bot_id, name, api_key, defaultConfig, clientId || 'default', 'active', type || 'ai');
@@ -2232,7 +2252,7 @@ app.post('/api/knowledge/faq', (req, res) => {
 app.get('/api/knowledge', (req, res) => {
   if (!db) return res.json([]);
   const botId = req.query.botId || 'default';
-  
+
   try {
     const entries = db.prepare(`
       SELECT id, content, source_type, source_reference, metadata, created_at 
@@ -2240,7 +2260,7 @@ app.get('/api/knowledge', (req, res) => {
       WHERE bot_id = ?
       ORDER BY created_at DESC
     `).all(botId);
-    
+
     res.json(entries.map(e => ({
       ...e,
       metadata: JSON.parse(e.metadata || '{}')
@@ -2254,7 +2274,7 @@ app.get('/api/knowledge', (req, res) => {
 app.get('/api/knowledge/stats', (req, res) => {
   if (!db) return res.json({});
   const botId = req.query.botId || 'default';
-  
+
   try {
     const total = db.prepare('SELECT COUNT(*) as count FROM knowledge_base WHERE bot_id = ?').get(botId).count;
     const bySource = db.prepare(`
@@ -2263,7 +2283,7 @@ app.get('/api/knowledge/stats', (req, res) => {
       WHERE bot_id = ?
       GROUP BY source_type
     `).all(botId);
-    
+
     const sources = db.prepare(`
       SELECT DISTINCT source_reference, source_type, COUNT(*) as entries
       FROM knowledge_base 
@@ -2271,7 +2291,7 @@ app.get('/api/knowledge/stats', (req, res) => {
       GROUP BY source_reference, source_type
       ORDER BY entries DESC
     `).all(botId);
-    
+
     res.json({ total, bySource, sources });
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -2281,7 +2301,7 @@ app.get('/api/knowledge/stats', (req, res) => {
 // DELETE /api/knowledge/:id — Delete specific knowledge entry
 app.delete('/api/knowledge/:id', (req, res) => {
   if (!db) return res.status(500).json({ error: 'Database not available' });
-  
+
   try {
     db.prepare('DELETE FROM knowledge_base WHERE id = ?').run(req.params.id);
     res.json({ success: true });
@@ -2299,10 +2319,10 @@ app.delete('/api/knowledge', (req, res) => {
     }
     return res.json({ success: true, message: 'Memory database cleared' });
   }
-  
+
   try {
     db.prepare('DELETE FROM knowledge_base WHERE bot_id = ?').run(botId);
-    
+
     // Also clear FAQs in config
     const config = getBotConfig(botId);
     config.faqs = [];
@@ -2318,12 +2338,12 @@ app.delete('/api/knowledge', (req, res) => {
 app.delete('/api/knowledge/source/:type/:reference', (req, res) => {
   if (!db) return res.status(500).json({ error: 'Database not available' });
   const botId = req.query.botId || req.body?.botId || 'default';
-  
+
   try {
     const { type, reference } = req.params;
     const result = db.prepare('DELETE FROM knowledge_base WHERE source_type = ? AND source_reference = ? AND bot_id = ?')
       .run(type, decodeURIComponent(reference), botId);
-    
+
     // Also clean up FAQs in config
     const config = getBotConfig(botId);
     if (config.faqs) {
@@ -2341,37 +2361,37 @@ app.delete('/api/knowledge/source/:type/:reference', (req, res) => {
 // POST /api/knowledge/save-all — Save all knowledge base data at once
 app.post('/api/knowledge/save-all', async (req, res) => {
   const { websiteUrl, textContent, domain, timestamp } = req.body;
-  
+
   if (!websiteUrl && !textContent) {
     return res.status(400).json({ error: 'No data provided to save' });
   }
-  
+
   let savedCount = 0;
   const errors = [];
-  
+
   try {
     // Save website URL if provided
     if (websiteUrl && /^https?:\/\//.test(websiteUrl)) {
       try {
         const axios = require('axios');
         const cheerio = require('cheerio');
-        
+
         const response = await axios.get(websiteUrl, { timeout: 10000 });
         const $ = cheerio.load(response.data);
-        
+
         // Remove unwanted elements
         $('script, style, nav, footer, header, iframe, noscript').remove();
-        
+
         const text = $('body').text().replace(/\s+/g, ' ').trim();
         const urlLabel = new URL(websiteUrl).hostname;
-        
+
         // Clear existing knowledge from this URL
         clearKnowledgeBySource('url', urlLabel);
-        
+
         // Split into chunks
         const chunks = text.match(/.{1,800}/g) || [];
         const usefulChunks = chunks.filter(c => c.trim().length > 100);
-        
+
         // Add to knowledge base
         for (let i = 0; i < Math.min(usefulChunks.length, 30); i++) {
           const chunk = usefulChunks[i].trim();
@@ -2389,16 +2409,16 @@ app.post('/api/knowledge/save-all', async (req, res) => {
         errors.push(`URL Error: ${urlError.message}`);
       }
     }
-    
+
     // Save text content if provided
     if (textContent && textContent.length > 20) {
       try {
         // Split text into chunks
         const chunks = textContent.match(/.{1,800}/g) || [textContent];
-        
+
         // Clear existing manual text entries
         clearKnowledgeBySource('manual_text', 'admin_input');
-        
+
         // Add each chunk to knowledge base
         for (let i = 0; i < chunks.length; i++) {
           const chunk = chunks[i].trim();
@@ -2416,16 +2436,16 @@ app.post('/api/knowledge/save-all', async (req, res) => {
         errors.push(`Text Error: ${textError.message}`);
       }
     }
-    
+
     if (savedCount > 0) {
-      res.json({ 
-        success: true, 
+      res.json({
+        success: true,
         savedCount,
         message: `Successfully saved ${savedCount} knowledge entries`,
         errors: errors.length > 0 ? errors : undefined
       });
     } else {
-      res.status(400).json({ 
+      res.status(400).json({
         error: 'Failed to save any data',
         details: errors
       });
@@ -2440,10 +2460,10 @@ app.post('/api/knowledge/save-all', async (req, res) => {
 app.post('/api/knowledge/search', (req, res) => {
   const { query, threshold } = req.body;
   if (!query) return res.status(400).json({ error: 'query required' });
-  
+
   const botId = req.body.botId || 'default';
   const result = searchKnowledgeBase(query, botId, threshold || 0.30);
-  
+
   if (result) {
     res.json({ found: true, ...result });
   } else {
@@ -2454,10 +2474,10 @@ app.post('/api/knowledge/search', (req, res) => {
 // PUT /api/knowledge/:id — Update knowledge entry
 app.put('/api/knowledge/:id', (req, res) => {
   if (!db) return res.status(500).json({ error: 'Database not available' });
-  
+
   const { content } = req.body;
   if (!content) return res.status(400).json({ error: 'content required' });
-  
+
   try {
     db.prepare('UPDATE knowledge_base SET content = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?')
       .run(sanitize(content), req.params.id);
@@ -2477,13 +2497,13 @@ app.post('/api/complaint', (req, res) => {
   if (!sessionId || !message) {
     return res.status(400).json({ error: 'sessionId and message required' });
   }
-  const safeEmail    = sanitize(email || '');
-  const safeName     = sanitize(name || '');
-  const safePhone    = sanitize(phone || '');
+  const safeEmail = sanitize(email || '');
+  const safeName = sanitize(name || '');
+  const safePhone = sanitize(phone || '');
   const safeCategory = sanitize(category || 'other');
-  const safeSubject  = sanitize(subject || '');
-  const safeMessage  = sanitize(message);
-  const safeUrl      = sanitize(pageUrl || '');
+  const safeSubject = sanitize(subject || '');
+  const safeMessage = sanitize(message);
+  const safeUrl = sanitize(pageUrl || '');
 
   if (db) {
     db.prepare(
@@ -2560,7 +2580,7 @@ app.post('/api/payment/verify', async (req, res) => {
     .createHmac('sha256', process.env.RAZORPAY_KEY_SECRET)
     .update(razorpay_order_id + "|" + razorpay_payment_id)
     .digest('hex');
-    
+
   if (generated_signature !== razorpay_signature) {
     console.error('❌ Payment verification failed: Invalid signature.');
     return res.status(400).json({ error: 'Invalid payment signature' });
@@ -2635,8 +2655,8 @@ app.post('/api/payment/verify', async (req, res) => {
       // Send welcome email with credentials
       const emailResult = await sendWelcomeEmail({ company_name, email, plan_name: planName, status: 'active' }, password, req);
 
-      res.json({ 
-        success: true, 
+      res.json({
+        success: true,
         clientId: clientId,
         message: 'Registration successful! Check your email for login credentials.',
         emailSent: emailResult ? emailResult.success : false
@@ -2645,7 +2665,7 @@ app.post('/api/payment/verify', async (req, res) => {
       // Memory fallback
       const plan = resolvePlanById(plan_id);
       const planName = plan.name;
-      
+
       if (!global.memoryClients) global.memoryClients = [];
       const clientId = 'cli_' + Date.now();
       global.memoryClients.push({
@@ -2657,13 +2677,13 @@ app.post('/api/payment/verify', async (req, res) => {
         plan_name: planName,
         created_at: new Date().toISOString()
       });
-      
+
       const emailResult = await sendWelcomeEmail({ company_name, email, plan_name: planName, status: 'active' }, password, req);
-      
-      res.json({ 
-        success: true, 
+
+      res.json({
+        success: true,
         clientId,
-        emailSent: emailResult ? emailResult.success : false 
+        emailSent: emailResult ? emailResult.success : false
       });
     }
   } catch (error) {
@@ -2730,8 +2750,8 @@ app.post('/api/payment/simulate-success', async (req, res) => {
       // Send welcome email with credentials
       const emailResult = await sendWelcomeEmail({ company_name, email, plan_name: planName, status: 'active' }, password, req);
 
-      res.json({ 
-        success: true, 
+      res.json({
+        success: true,
         clientId: clientId,
         message: '[SIMULATION SUCCESS] Registration successful! Check your email for login credentials.',
         emailSent: emailResult ? emailResult.success : false
@@ -2740,7 +2760,7 @@ app.post('/api/payment/simulate-success', async (req, res) => {
       // Memory fallback
       const plan = resolvePlanById(plan_id);
       const planName = plan.name;
-      
+
       if (!global.memoryClients) global.memoryClients = [];
       const clientId = 'cli_' + Date.now();
       global.memoryClients.push({
@@ -2752,14 +2772,14 @@ app.post('/api/payment/simulate-success', async (req, res) => {
         plan_name: planName,
         created_at: new Date().toISOString()
       });
-      
+
       const emailResult = await sendWelcomeEmail({ company_name, email, plan_name: planName, status: 'active' }, password, req);
-      
-      res.json({ 
-        success: true, 
+
+      res.json({
+        success: true,
         clientId,
         message: '[SIMULATION SUCCESS] Memory registration successful!',
-        emailSent: emailResult ? emailResult.success : false 
+        emailSent: emailResult ? emailResult.success : false
       });
     }
   } catch (error) {
@@ -2801,8 +2821,8 @@ app.post('/api/login', async (req, res) => {
 
       if (client) {
         console.log(`✅ Client logged in: ${client.email}`);
-        res.json({ 
-          success: true, 
+        res.json({
+          success: true,
           clientId: client.client_id,
           companyName: client.company_name,
           planId: client.plan_id
@@ -2840,7 +2860,7 @@ app.get('/api/superadmin/stats', (req, res) => {
       const totalClients = db.prepare('SELECT COUNT(*) as count FROM clients WHERE is_deleted = 0').get().count;
       const activeClients = db.prepare('SELECT COUNT(*) as count FROM clients WHERE is_deleted = 0').get().count;
       const clientsList = db.prepare('SELECT plan_name FROM clients WHERE is_deleted = 0').all();
-      
+
       const plans = db.prepare('SELECT name, price FROM plans').all();
       const planPriceMap = {};
       plans.forEach(p => {
@@ -2930,7 +2950,7 @@ app.post('/api/superadmin/clients', async (req, res) => {
   const clientId = 'cli_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
   const crypto = require('crypto');
   const hashedPassword = crypto.createHash('sha256').update(password).digest('hex');
-  
+
   let planInfo;
   if (plan_id !== undefined && plan_id !== '') {
     planInfo = resolvePlanById(plan_id);
@@ -2955,12 +2975,12 @@ app.post('/api/superadmin/clients', async (req, res) => {
         INSERT INTO clients (client_id, company_name, email, password, plan_id, plan_name, plain_password, days_left, status, is_deleted)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 0)
       `).run(clientId, company_name, email, hashedPassword, planId, planName, password, finalDaysLeft, finalStatus);
-      
+
       // Send welcome email and await result
       const emailResult = await sendWelcomeEmail({ company_name, email, plan_name: planName, status: finalStatus }, password, req);
-      
-      res.json({ 
-        success: true, 
+
+      res.json({
+        success: true,
         message: 'Client onboarded successfully',
         emailSent: emailResult ? emailResult.success : false,
         emailError: emailResult && !emailResult.success ? emailResult.error : null
@@ -2986,12 +3006,12 @@ app.post('/api/superadmin/clients', async (req, res) => {
       is_deleted: 0,
       created_at: new Date().toISOString()
     });
-    
+
     // Send welcome email and await result
     const emailResult = await sendWelcomeEmail({ company_name, email, plan_name: planName, status: finalStatus }, password, req);
-    
-    res.json({ 
-      success: true, 
+
+    res.json({
+      success: true,
       message: 'Client onboarded successfully',
       emailSent: emailResult ? emailResult.success : false,
       emailError: emailResult && !emailResult.success ? emailResult.error : null
@@ -3002,12 +3022,12 @@ app.post('/api/superadmin/clients', async (req, res) => {
 // PUT /api/superadmin/clients/:clientId — Update client info
 app.put('/api/superadmin/clients/:clientId', (req, res) => {
   const { company_name, email, password, plan_name, plan_id, days_left, status } = req.body;
-  
+
   if (db) {
     try {
       const client = db.prepare('SELECT * FROM clients WHERE client_id = ?').get(req.params.clientId);
       if (!client) return res.status(404).json({ error: 'Client not found' });
-      
+
       let hashedPassword = client.password;
       let plainPassword = client.plain_password;
       if (password && password !== client.plain_password) {
@@ -3015,7 +3035,7 @@ app.put('/api/superadmin/clients/:clientId', (req, res) => {
         hashedPassword = crypto.createHash('sha256').update(password).digest('hex');
         plainPassword = password;
       }
-      
+
       let planInfo;
       if (plan_id !== undefined && plan_id !== '') {
         planInfo = resolvePlanById(plan_id);
@@ -3026,7 +3046,7 @@ app.put('/api/superadmin/clients/:clientId', (req, res) => {
       }
       const planId = planInfo.id;
       const planName = planInfo.name;
-      
+
       db.prepare(`
         UPDATE clients
         SET company_name = ?, email = ?, password = ?, plan_id = ?, plan_name = ?, plain_password = ?, days_left = ?, status = ?
@@ -3042,7 +3062,7 @@ app.put('/api/superadmin/clients/:clientId', (req, res) => {
         status || client.status,
         req.params.clientId
       );
-      
+
       res.json({ success: true, message: 'Client updated successfully' });
     } catch (err) {
       res.status(500).json({ error: err.message });
