@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -231,6 +232,7 @@
         opacity: 0;
         transform: translateY(-10px);
       }
+
       to {
         opacity: 1;
         transform: translateY(0);
@@ -295,8 +297,15 @@
     }
 
     @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.5; }
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.5;
+      }
     }
 
     .btn-logout {
@@ -334,6 +343,7 @@
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
+
     .super-admin-badge span {
       display: inline-block;
     }
@@ -343,7 +353,8 @@
       height: 36px;
       border-radius: 50%;
       border: 2px solid #000000;
-      background-color: #eff6ff; /* light blue */
+      background-color: #eff6ff;
+      /* light blue */
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -353,6 +364,7 @@
       padding: 0;
       outline: none;
     }
+
     .theme-toggle-btn:hover {
       transform: scale(1.05);
       background-color: #e2e8f0;
@@ -459,10 +471,25 @@
       font-size: 20px;
     }
 
-    .stat-icon.purple { background: #ede9fe; color: #7c3aed; }
-    .stat-icon.green { background: #d1fae5; color: #059669; }
-    .stat-icon.blue { background: #dbeafe; color: #2563eb; }
-    .stat-icon.orange { background: #fed7aa; color: #ea580c; }
+    .stat-icon.purple {
+      background: #ede9fe;
+      color: #7c3aed;
+    }
+
+    .stat-icon.green {
+      background: #d1fae5;
+      color: #059669;
+    }
+
+    .stat-icon.blue {
+      background: #dbeafe;
+      color: #2563eb;
+    }
+
+    .stat-icon.orange {
+      background: #fed7aa;
+      color: #ea580c;
+    }
 
     .stat-value {
       font-size: 36px;
@@ -538,7 +565,7 @@
       font-weight: 600;
       margin-top: 8px;
     }
-    
+
     /* Section Header */
     .section-header {
       display: flex;
@@ -546,13 +573,13 @@
       align-items: center;
       margin-bottom: 24px;
     }
-    
+
     .section-header h2 {
       font-size: 24px;
       font-weight: 700;
       color: #1e293b;
     }
-    
+
     /* User Management Header */
     .user-management-header {
       display: flex;
@@ -560,19 +587,19 @@
       align-items: center;
       margin-bottom: 24px;
     }
-    
+
     .user-management-header h2 {
       font-size: 24px;
       font-weight: 700;
       color: #1e293b;
     }
-    
+
     .user-filters {
       display: flex;
       gap: 12px;
       align-items: center;
     }
-    
+
     .domain-filter {
       padding: 10px 16px;
       border: 1px solid #e2e8f0;
@@ -584,11 +611,11 @@
       outline: none;
       font-family: inherit;
     }
-    
+
     .domain-filter:focus {
       border-color: #6366f1;
     }
-    
+
     .search-input {
       padding: 10px 16px;
       border: 1px solid #e2e8f0;
@@ -600,15 +627,15 @@
       font-family: inherit;
       min-width: 250px;
     }
-    
+
     .search-input:focus {
       border-color: #6366f1;
     }
-    
+
     .search-input::placeholder {
       color: #94a3b8;
     }
-    
+
     .btn-primary {
       padding: 10px 20px;
       background: linear-gradient(135deg, #6366f1, #8b5cf6);
@@ -620,7 +647,7 @@
       cursor: pointer;
       transition: all 0.2s;
     }
-    
+
     .btn-primary:hover {
       transform: translateY(-2px);
       box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
@@ -647,7 +674,7 @@
       transform: translateY(-2px);
       box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
     }
-    
+
     /* Data Table */
     .data-table {
       background: white;
@@ -655,16 +682,16 @@
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
       overflow: hidden;
     }
-    
+
     .data-table table {
       width: 100%;
       border-collapse: collapse;
     }
-    
+
     .data-table thead {
       background: #f8f9fc;
     }
-    
+
     .data-table th {
       padding: 16px 20px;
       text-align: left;
@@ -674,93 +701,163 @@
       text-transform: uppercase;
       letter-spacing: 1px;
     }
-    
+
     .data-table td {
       padding: 16px 20px;
       border-top: 1px solid #f1f5f9;
       font-size: 14px;
       color: #334155;
     }
-    
+
     .data-table tbody tr:hover {
       background: #f8f9fc;
     }
 
     /* ============ TOAST ============ */
     .toast {
-      position: fixed; bottom: 24px; right: 24px;
-      background: #1a1a2e; color: white;
-      padding: 14px 24px; border-radius: 10px;
-      font-size: 14px; box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #1a1a2e;
+      color: white;
+      padding: 14px 24px;
+      border-radius: 10px;
+      font-size: 14px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
       z-index: 10000;
-      display: flex; align-items: center; gap: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
       animation: toastIn 0.3s ease;
     }
+
     @keyframes toastIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     /* ============ FORMS & PANELS ============ */
-    .form-group { margin-bottom: 18px; }
-    .form-group label {
-      display: block; font-size: 13px;
-      font-weight: 600; color: #475569; margin-bottom: 6px;
+    .form-group {
+      margin-bottom: 18px;
     }
+
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: #475569;
+      margin-bottom: 6px;
+    }
+
     .form-group input,
     .form-group textarea,
     .form-group select {
-      width: 100%; padding: 10px 14px;
-      border: 1.5px solid #e2e8f0; border-radius: 10px;
-      font-size: 14px; font-family: inherit;
-      outline: none; transition: border-color 0.2s;
+      width: 100%;
+      padding: 10px 14px;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 10px;
+      font-size: 14px;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s;
       background: #f8fafc;
     }
+
     .form-group input:focus,
     .form-group textarea:focus {
-      border-color: #6366f1; background: white;
+      border-color: #6366f1;
+      background: white;
     }
+
     .form-group input::placeholder,
     .form-group textarea::placeholder {
       color: #94a3b8;
       opacity: 1;
     }
-    .form-group textarea { resize: vertical; min-height: 80px; }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-    
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
     .toggle-row {
-      display: flex; align-items: center;
+      display: flex;
+      align-items: center;
       justify-content: space-between;
       padding: 12px 0;
       border-bottom: 1px solid #f1f5f9;
     }
-    .toggle-row:last-child { border-bottom: none; }
-    .toggle-row .toggle-label { font-size: 14px; font-weight: 600; color: #1e293b; }
-    .toggle-row .toggle-desc { font-size: 12px; color: #64748b; margin-top: 2px; }
-    
+
+    .toggle-row:last-child {
+      border-bottom: none;
+    }
+
+    .toggle-row .toggle-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: #1e293b;
+    }
+
+    .toggle-row .toggle-desc {
+      font-size: 12px;
+      color: #64748b;
+      margin-top: 2px;
+    }
+
     .toggle-switch {
-      width: 44px; height: 24px; border-radius: 12px;
-      background: #cbd5e1; position: relative;
-      cursor: pointer; transition: background 0.2s;
+      width: 44px;
+      height: 24px;
+      border-radius: 12px;
+      background: #cbd5e1;
+      position: relative;
+      cursor: pointer;
+      transition: background 0.2s;
       flex-shrink: 0;
     }
-    .toggle-switch.on { background: #6366f1; }
-    .toggle-switch::after {
-      content: ''; position: absolute;
-      width: 20px; height: 20px; border-radius: 50%;
-      background: white; top: 2px; left: 2px;
-      transition: left 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+
+    .toggle-switch.on {
+      background: #6366f1;
     }
-    .toggle-switch.on::after { left: 22px; }
+
+    .toggle-switch::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: white;
+      top: 2px;
+      left: 2px;
+      transition: left 0.2s;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    }
+
+    .toggle-switch.on::after {
+      left: 22px;
+    }
 
     .card {
       background: white;
       border-radius: 12px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
       margin-bottom: 24px;
       overflow: hidden;
       border: 1px solid #e2e8f0;
     }
+
     .card-header {
       padding: 18px 24px;
       border-bottom: 1px solid #f1f5f9;
@@ -768,8 +865,16 @@
       align-items: center;
       justify-content: space-between;
     }
-    .card-header h2 { font-size: 16px; font-weight: 700; color: #0f172a; }
-    .card-body { padding: 24px; }
+
+    .card-header h2 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .card-body {
+      padding: 24px;
+    }
 
     .code-block {
       background: #0f172a;
@@ -783,14 +888,24 @@
       margin-top: 8px;
       line-height: 1.6;
     }
+
     .copy-btn {
-      position: absolute; top: 10px; right: 10px;
-      background: rgba(255,255,255,0.1);
-      color: #cbd5e1; border: none;
-      padding: 5px 12px; border-radius: 6px;
-      font-size: 11px; cursor: pointer;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      color: #cbd5e1;
+      border: none;
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-size: 11px;
+      cursor: pointer;
     }
-    .copy-btn:hover { background: rgba(255,255,255,0.2); color: white; }
+
+    .copy-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+    }
 
     /* Primary Mode Card Selector Styles */
     .mode-card {
@@ -804,19 +919,23 @@
       flex-direction: column;
       gap: 8px;
     }
+
     .mode-card:hover {
       border-color: #6366f1;
       background: white;
     }
+
     .mode-card.active {
       border-color: #6366f1;
       background: rgba(99, 102, 241, 0.05);
     }
+
     .mode-card-header {
       display: flex;
       align-items: center;
       gap: 12px;
     }
+
     .mode-radio {
       width: 18px;
       height: 18px;
@@ -828,9 +947,11 @@
       position: relative;
       flex-shrink: 0;
     }
+
     .mode-card.active .mode-radio {
       border-color: #6366f1;
     }
+
     .mode-card.active .mode-radio::after {
       content: '';
       width: 10px;
@@ -839,14 +960,17 @@
       background: #6366f1;
       position: absolute;
     }
+
     .mode-icon {
       font-size: 20px;
     }
+
     .mode-title {
       font-weight: 700;
       font-size: 14px;
       color: #0f172a;
     }
+
     .mode-desc {
       font-size: 12px;
       color: #64748b;
@@ -890,6 +1014,7 @@
         transform: translateY(20px);
         opacity: 0;
       }
+
       to {
         transform: translateY(0);
         opacity: 1;
@@ -935,7 +1060,7 @@
       justify-content: flex-end;
       gap: 12px;
     }
-    
+
     /* Super Admin layout overrides */
     body.superadmin-view,
     body.superadmin-view .main-content,
@@ -1113,7 +1238,7 @@
       font-size: 13.5px;
       line-height: 1.5;
       font-weight: 500;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
     }
 
     .message-wrapper.user .message-bubble {
@@ -1166,6 +1291,7 @@
       background-color: #0f172a !important;
       color: #f1f5f9 !important;
     }
+
     body.dark-theme h1,
     body.dark-theme h2,
     body.dark-theme h3,
@@ -1173,14 +1299,17 @@
     body.dark-theme .brand-text h2 {
       color: #ffffff !important;
     }
+
     body.dark-theme p,
     body.dark-theme .page-header-text p {
       color: #94a3b8 !important;
     }
+
     body.dark-theme .topbar {
       background: #0f172a !important;
       border-bottom-color: #1e293b !important;
     }
+
     body.dark-theme .card,
     body.dark-theme .stat-card,
     body.dark-theme .data-table,
@@ -1197,45 +1326,57 @@
       border-color: #334155 !important;
       color: #f1f5f9 !important;
     }
+
     body.dark-theme .session-item {
       background: #1e293b !important;
       border-color: #334155 !important;
     }
+
     body.dark-theme .session-item:hover {
       background: #334155 !important;
     }
+
     body.dark-theme .session-item.active {
       background: #312e81 !important;
       border-color: #4f46e5 !important;
     }
+
     body.dark-theme .session-title {
       color: #f1f5f9 !important;
     }
+
     body.dark-theme .session-msg-count {
       color: #cbd5e1 !important;
     }
+
     body.dark-theme .message-wrapper.assistant .message-bubble {
       background: #334155 !important;
       color: #f1f5f9 !important;
     }
+
     body.dark-theme .empty-thread-state h3 {
       color: #f1f5f9 !important;
     }
+
     body.dark-theme .empty-thread-state p {
       color: #94a3b8 !important;
     }
+
     body.dark-theme table {
       color: #f1f5f9 !important;
     }
+
     body.dark-theme th {
       background-color: #334155 !important;
       color: #f1f5f9 !important;
       border-bottom-color: #475569 !important;
     }
+
     body.dark-theme td {
       border-bottom-color: #334155 !important;
       color: #e2e8f0 !important;
     }
+
     body.dark-theme input[type="text"],
     body.dark-theme input[type="email"],
     body.dark-theme input[type="number"],
@@ -1246,31 +1387,37 @@
       border-color: #334155 !important;
       color: #f1f5f9 !important;
     }
+
     body.dark-theme input::placeholder,
     body.dark-theme textarea::placeholder {
       color: #475569 !important;
     }
+
     body.dark-theme .theme-toggle-btn {
       background-color: #1e293b !important;
       border-color: #ffffff !important;
       color: #ffffff !important;
     }
+
     body.dark-theme .btn-refresh-chats {
       background-color: #0f172a !important;
       border-color: #334155 !important;
       color: #cbd5e1 !important;
     }
+
     body.dark-theme .btn-refresh-chats:hover {
       background-color: #1e293b !important;
     }
+
     body.dark-theme .modal-header,
     body.dark-theme .modal-footer {
       border-color: #334155 !important;
     }
+
     body.dark-theme .btn-delete-session-icon {
       color: #ef4444 !important;
     }
-  
+
     /* Sidebar Toggles styles */
     .sidebar-toggle-container {
       margin-left: auto;
@@ -1280,6 +1427,7 @@
       padding: 2px;
       cursor: pointer;
     }
+
     .sidebar-switch {
       position: relative;
       width: 38px;
@@ -1288,9 +1436,11 @@
       border-radius: 10px;
       transition: all 0.3s;
     }
+
     .sidebar-switch.active {
       background: #6366f1;
     }
+
     .sidebar-switch::after {
       content: '';
       position: absolute;
@@ -1302,11 +1452,13 @@
       border-radius: 50%;
       transition: all 0.3s;
     }
+
     .sidebar-switch.active::after {
       left: 20px;
     }
   </style>
 </head>
+
 <body>
   <!-- Sidebar -->
   <!-- Sidebar (will be rendered dynamically) -->
@@ -1418,44 +1570,44 @@
     const selectedDomain = document.getElementById('selectedDomain');
 
     // Toggle dropdown
-    domainSelector.addEventListener('click', function(e) {
+    domainSelector.addEventListener('click', function (e) {
       e.stopPropagation();
       dropdownMenu.classList.toggle('show');
     });
 
     // Close dropdown when clicking outside
-    document.addEventListener('click', function() {
+    document.addEventListener('click', function () {
       dropdownMenu.classList.remove('show');
     });
 
     // Handle domain selection
     document.querySelectorAll('.dropdown-item').forEach(item => {
-      item.addEventListener('click', function(e) {
+      item.addEventListener('click', function (e) {
         e.stopPropagation();
-        
+
         // Remove active class from all items
         document.querySelectorAll('.dropdown-item').forEach(i => {
           i.classList.remove('active');
           const check = i.querySelector('.check');
           if (check) check.remove();
         });
-        
+
         // Add active class to selected item
         this.classList.add('active');
-        
+
         // Add check mark
         const check = document.createElement('span');
         check.className = 'check';
         check.textContent = '✓';
         this.appendChild(check);
-        
+
         // Update selected domain text
         const domainText = this.querySelector('span:nth-child(2)').textContent;
         selectedDomain.textContent = domainText;
-        
+
         // Close dropdown
         dropdownMenu.classList.remove('show');
-        
+
         // Reload stats for selected domain
         loadStats();
       });
@@ -1466,7 +1618,7 @@
       try {
         const response = await fetch('/api/stats');
         const data = await response.json();
-        
+
         const setTxt = (id, val) => {
           const el = document.getElementById(id);
           if (el) el.textContent = val;
@@ -1476,7 +1628,7 @@
         setTxt('totalMessages', data.totalChats || 0);
         setTxt('totalSessions', data.totalSessions || 0);
         setTxt('activeNow', data.activeSessions || 0);
-        
+
         setTxt('userCount', data.totalUsers || 0);
         setTxt('chatCount', data.totalChats || 0);
 
@@ -1517,7 +1669,7 @@
     }
 
     // Navigation click delegation for dynamic sidebar nav items
-    document.body.addEventListener('click', function(e) {
+    document.body.addEventListener('click', function (e) {
       const navItem = e.target.closest('.nav-item');
       if (!navItem) return;
 
@@ -1528,20 +1680,20 @@
       const urlParts = href.split('?');
       const path = urlParts[0];
       const search = urlParts[1] || '';
-      
+
       if (path.endsWith('/admin/dashboard.html')) {
         const params = new URLSearchParams(search);
         const page = params.get('page');
         if (page) {
           e.preventDefault();
-          
+
           // Remove active class from all nav items and add to clicked
           document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
           navItem.classList.add('active');
-          
+
           // Show the section
           showSection(page);
-          
+
           // Update URL query parameter without reload
           history.pushState(null, '', href);
         }
@@ -1553,7 +1705,7 @@
       const urlParams = new URLSearchParams(window.location.search);
       const page = urlParams.get('page') || 'dashboard';
       showSection(page);
-      
+
       document.querySelectorAll('.nav-item').forEach(nav => {
         const href = nav.getAttribute('href');
         if (href && href.includes(`page=${page}`)) {
@@ -1570,9 +1722,9 @@
         window.location.href = '/admin/login.html';
         return;
       }
-      
+
       await renderSidebarAndTopbar();
-      
+
       // Initialize theme from localStorage
       const savedTheme = localStorage.getItem('adminTheme');
       if (savedTheme === 'dark') {
@@ -1580,13 +1732,13 @@
         const btn = document.getElementById('themeToggleBtn');
         if (btn) btn.innerHTML = '☀️';
       }
-      
+
       const userRole = sessionStorage.getItem('userRole') || 'client';
       if (userRole === 'admin') {
         showSection('chats');
         return;
       }
-      
+
       // Client initialization
       initializeDomainSelector().then(() => {
         const urlParams = new URLSearchParams(window.location.search);
@@ -1598,11 +1750,11 @@
         }
       });
       setInterval(loadStats, 30000);
-      
+
       const urlParams = new URLSearchParams(window.location.search);
       const page = urlParams.get('page') || 'dashboard';
       showSection(page);
-      
+
       document.querySelectorAll('.nav-item').forEach(nav => {
         const href = nav.getAttribute('href');
         if (href && href.includes(`page=${page}`)) {
@@ -1612,12 +1764,12 @@
         }
       });
     });
-    
+
     // Function to show different sections
     function showSection(section) {
       const contentArea = document.querySelector('.content');
       const topbarTitle = document.querySelector('.topbar-left h1');
-      
+
       if (section === 'dashboard') {
         topbarTitle.textContent = 'Dashboard';
         contentArea.innerHTML = `
@@ -2098,7 +2250,7 @@
 
           <button class="btn btn-primary" onclick="saveSettings()" style="margin-top:4px; margin-bottom: 40px; padding: 12px 30px; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);">Save All Settings</button>
         `;
-        
+
         // Link color input and color text field
         const colorInput = document.getElementById('cfg-themeColor');
         const colorText = document.getElementById('cfg-themeColorText');
@@ -2167,7 +2319,7 @@
 
         const res = await fetch('/api/leads');
         const leads = await res.json();
-        
+
         // Update sidebar count too
         document.getElementById('leadCount').textContent = leads.length || 0;
 
@@ -2205,12 +2357,12 @@
     function formatDate(dateStr) {
       if (!dateStr) return '-';
       const d = new Date(dateStr);
-      return d.toLocaleDateString('en-IN', { 
-        day: '2-digit', 
-        month: 'short', 
-        year: 'numeric', 
-        hour: '2-digit', 
-        minute: '2-digit' 
+      return d.toLocaleDateString('en-IN', {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
       });
     }
 
@@ -2232,7 +2384,7 @@
       try {
         const res = await fetch('/api/analytics');
         const data = await res.json();
-        
+
         const setTxt = (id, val) => {
           const el = document.getElementById(id);
           if (el) el.textContent = val;
@@ -2240,7 +2392,7 @@
 
         const elAvgResponse = document.getElementById('stat-avg-response');
         if (elAvgResponse) elAvgResponse.innerHTML = `${data.avgResponseMs || 0}<span style="font-size:16px;opacity:0.8;">ms</span>`;
-        
+
         setTxt('stat-leads', data.totalLeads || 0);
         setTxt('stat-conversion', `${data.conversionRate || 0}%`);
 
@@ -2251,7 +2403,7 @@
         const total = (data.sourceBreakdown || []).reduce((a, s) => a + s.count, 0);
         const breakdownDiv = document.getElementById('source-breakdown-content');
         if (!breakdownDiv) return;
-        
+
         if (total === 0 || !data.sourceBreakdown || data.sourceBreakdown.length === 0) {
           breakdownDiv.innerHTML = `<div style="color: #94a3b8; font-size: 14px; text-align: center; padding: 40px; width: 100%;">No analytical data available yet.</div>`;
           return;
@@ -2259,23 +2411,23 @@
 
         const content = (data.sourceBreakdown || []).map(s => {
           const pct = total > 0 ? ((s.count / total) * 100).toFixed(1) : 0;
-          const colors = { 
-            faq: '#10B981', 
+          const colors = {
+            faq: '#10B981',
             'FAQ Match': '#10B981',
-            rag_faq: '#10B981', 
-            gemini: '#4F46E5', 
-            rag_knowledge_base: '#6366F1', 
-            knowledge_base: '#8B5CF6', 
+            rag_faq: '#10B981',
+            gemini: '#4F46E5',
+            rag_knowledge_base: '#6366F1',
+            knowledge_base: '#8B5CF6',
             error: '#EF4444',
             fallback: '#888'
           };
-          const labels = { 
-            faq: '📚 FAQ Match', 
+          const labels = {
+            faq: '📚 FAQ Match',
             'FAQ Match': '📚 FAQ Match',
-            rag_faq: '📚 FAQ RAG', 
-            gemini: '🤖 Gemini AI Response', 
-            rag_knowledge_base: '🧠 Knowledge Base RAG', 
-            knowledge_base: '📖 Direct KB Response', 
+            rag_faq: '📚 FAQ RAG',
+            gemini: '🤖 Gemini AI Response',
+            rag_knowledge_base: '🧠 Knowledge Base RAG',
+            knowledge_base: '📖 Direct KB Response',
             error: '⚠️ Error',
             fallback: 'fallback'
           };
@@ -2292,8 +2444,8 @@
           `;
         }).join('');
         breakdownDiv.innerHTML = `<div style="width: 100%;">${content}</div>`;
-      } catch (e) { 
-        console.error('Failed to load analytics:', e); 
+      } catch (e) {
+        console.error('Failed to load analytics:', e);
       }
     }
 
@@ -2304,8 +2456,8 @@
 
         const clientId = sessionStorage.getItem('clientId') || 'default';
         const userRole = sessionStorage.getItem('userRole') || 'client';
-        const url = (userRole === 'client' && clientId !== 'default') 
-          ? `/api/bots?clientId=${encodeURIComponent(clientId)}` 
+        const url = (userRole === 'client' && clientId !== 'default')
+          ? `/api/bots?clientId=${encodeURIComponent(clientId)}`
           : '/api/bots';
         const res = await fetch(url);
         const bots = await res.json();
@@ -2332,8 +2484,8 @@
 
           const botTypeLabel = b.type === 'flow' ? 'Flow Builder' : 'AI Chatbot';
           const typeBadgeColor = b.type === 'flow' ? '#8b5cf6' : '#6366f1';
-          const statusBadge = b.status === 'active' 
-            ? `<span style="background: #d1fae5; color: #065f46; padding: 4px 8px; border-radius: 12px; font-size: 11px; font-weight: 600;">ACTIVE</span>` 
+          const statusBadge = b.status === 'active'
+            ? `<span style="background: #d1fae5; color: #065f46; padding: 4px 8px; border-radius: 12px; font-size: 11px; font-weight: 600;">ACTIVE</span>`
             : `<span style="background: #fee2e2; color: #991b1b; padding: 4px 8px; border-radius: 12px; font-size: 11px; font-weight: 600;">DISABLED</span>`;
 
           const toggleText = b.status === 'active' ? 'Disable' : 'Enable';
@@ -2440,7 +2592,7 @@
         return;
       }
       const reader = new FileReader();
-      reader.onload = async function(e) {
+      reader.onload = async function (e) {
         const base64 = e.target.result;
         try {
           const res = await fetch('/api/logo', {
@@ -2489,7 +2641,7 @@
     function copyBotEmbed(botId, apiKey) {
       const origin = window.location.origin;
       const embedCode = `<script src="${origin}/widget/chatbot.js" data-server="${origin}" data-bot-id="${botId}" data-api-key="${apiKey}" async></` + 'script>';
-      
+
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(embedCode).then(() => {
           alert('Embed code copied to clipboard!\n\n' + embedCode);
@@ -2524,11 +2676,11 @@
         setVal('cfg-botName', config.botName || '');
         setVal('cfg-companyName', config.companyName || '');
         setVal('cfg-welcomeMessage', config.welcomeMessage || '');
-        
+
         const themeColor = config.themeColor || '#4F46E5';
         setVal('cfg-themeColor', themeColor);
         setVal('cfg-themeColorText', themeColor.toUpperCase());
-        
+
         setVal('cfg-aiModel', config.aiModel || 'gpt-3.5-turbo');
         setVal('cfg-systemPrompt', config.systemPrompt || '');
         setVal('cfg-placeholder', config.placeholder || '');
@@ -2538,7 +2690,7 @@
         setVal('cfg-emailCaptureTitle', config.emailCaptureTitle || '');
         setVal('cfg-emailCaptureSubtitle', config.emailCaptureSubtitle || '');
         setVal('cfg-introMessage', config.introMessage || '');
-        
+
         const emailCapToggle = document.getElementById('toggle-emailCapture');
         if (emailCapToggle) emailCapToggle.classList.toggle('on', !!config.emailCapture);
 
@@ -2657,14 +2809,14 @@
       try {
         const res = await fetch('/api/bots');
         allBots = await res.json();
-        
+
         const configRes = await fetch('/api/config/full');
         const config = await configRes.json();
         const defaultApiKey = config.apiKey || '';
-        
+
         const savedBotId = localStorage.getItem('selectedBotId') || 'default';
         currentBotId = savedBotId;
-        
+
         if (currentBotId === 'default') {
           currentApiKey = defaultApiKey;
           currentBotName = 'All Domains';
@@ -2712,33 +2864,33 @@
 
         // Rebind click events
         document.querySelectorAll('.dropdown-item').forEach(item => {
-          item.addEventListener('click', function(e) {
+          item.addEventListener('click', function (e) {
             e.stopPropagation();
-            
+
             document.querySelectorAll('.dropdown-item').forEach(i => {
               i.classList.remove('active');
               const check = i.querySelector('.check');
               if (check) check.remove();
             });
-            
+
             this.classList.add('active');
-            
+
             const check = document.createElement('span');
             check.className = 'check';
             check.textContent = '✓';
             this.appendChild(check);
-            
+
             currentBotId = this.getAttribute('data-bot-id');
             currentApiKey = this.getAttribute('data-api-key');
             currentBotName = this.getAttribute('data-name');
-            
+
             localStorage.setItem('selectedBotId', currentBotId);
-            
+
             const selectedDomain = document.getElementById('selectedDomain');
             selectedDomain.textContent = currentBotId === 'default' ? 'All Domains' : `${currentBotName} (no domain)`;
-            
+
             dropdownMenu.classList.remove('show');
-            
+
             // Refresh content based on current view
             const topbarTitle = document.querySelector('.topbar-left h1').textContent.trim();
             if (topbarTitle === 'Embed Code') {
@@ -2859,10 +3011,10 @@
     function escapeHtml(str) {
       if (typeof str !== 'string') return '';
       return str.replace(/&/g, '&amp;')
-                .replace(/</g, '&lt;')
-                .replace(/>/g, '&gt;')
-                .replace(/"/g, '&quot;')
-                .replace(/'/g, '&#039;');
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
     }
 
     function showToast(msg) {
@@ -2881,11 +3033,11 @@
     }
 
     // Render sidebar and topbar based on role
-        async function renderSidebarAndTopbar() {
+    async function renderSidebarAndTopbar() {
       const userRole = sessionStorage.getItem('userRole') || 'client';
       const sidebarEl = document.querySelector('.sidebar');
       const topbarEl = document.querySelector('.topbar');
-      
+
       let config = { enableAI: false, primaryMode: 'ai_chatbot' };
       if (userRole === 'admin') {
         try {
@@ -2897,14 +3049,14 @@
           console.error('Failed to fetch config for sidebar:', err);
         }
       }
-      
+
       if (userRole === 'admin') {
         // Apply white background for admin
         document.body.classList.add('superadmin-view');
-        
+
         const isAIActive = config.enableAI !== false;
         const isFlowActive = config.primaryMode === 'flow_builder';
-        
+
         if (sidebarEl) {
           sidebarEl.innerHTML = `
             <div class="sidebar-header">
@@ -2983,7 +3135,7 @@
           mainContent.style.backgroundColor = '#f8f9fc';
           mainContent.style.setProperty('background', '#f8f9fc', 'important');
         }
-        
+
         if (sidebarEl) {
           sidebarEl.innerHTML = `
             <div class="sidebar-header">
@@ -3069,12 +3221,12 @@
         event.stopPropagation();
         event.preventDefault();
       }
-      
+
       const switchEl = document.getElementById(type === 'ai' ? 'sidebarToggleAI' : 'sidebarToggleFlow');
       if (!switchEl) return;
-      
+
       const isActive = !switchEl.classList.contains('active');
-      
+
       try {
         let payload = {};
         if (type === 'ai') {
@@ -3084,20 +3236,20 @@
           payload = { primaryMode: isActive ? 'flow_builder' : 'ai_chatbot' };
           showToast(isActive ? '✅ Flow Builder Mode active' : '✅ AI Chatbot Mode active', 'success');
         }
-        
+
         const res = await fetch('/api/config', {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
         });
-        
+
         if (res.ok) {
           const resData = await res.json();
           const updatedConfig = resData.config;
-          
+
           const aiSwitch = document.getElementById('sidebarToggleAI');
           const flowSwitch = document.getElementById('sidebarToggleFlow');
-          
+
           if (aiSwitch) {
             aiSwitch.classList.toggle('active', updatedConfig.enableAI !== false);
           }
@@ -3105,7 +3257,7 @@
             flowSwitch.classList.toggle('active', updatedConfig.primaryMode === 'flow_builder');
           }
         }
-        
+
         if (typeof loadSettings === 'function') {
           loadSettings();
         }
@@ -3114,7 +3266,7 @@
       }
     }
 
-function toggleMobileMenu() {
+    function toggleMobileMenu() {
       const sidebar = document.querySelector('.sidebar');
       sidebar.classList.toggle('mobile-open');
     }
@@ -3134,11 +3286,11 @@ function toggleMobileMenu() {
         const userRole = sessionStorage.getItem('userRole') || 'client';
         const res = await fetch('/api/sessions');
         const sessions = await res.json();
-        
+
         if (userRole === 'admin') {
           const sessionsList = document.getElementById('chats-sessions-list');
           if (!sessionsList) return;
-          
+
           if (sessions.length === 0) {
             sessionsList.innerHTML = `
               <div style="text-align: center; padding: 40px; color: #94a3b8;">
@@ -3148,7 +3300,7 @@ function toggleMobileMenu() {
             `;
             return;
           }
-          
+
           sessionsList.innerHTML = sessions.map(s => {
             const identifier = s.email ? s.email : `Anonymous (${s.session_id.substring(0, 8)})`;
             const lastUpdated = formatDate(s.updated_at || s.created_at);
@@ -3171,7 +3323,7 @@ function toggleMobileMenu() {
         } else {
           const tbody = document.getElementById('chats-table-body');
           if (!tbody) return;
-          
+
           if (sessions.length === 0) {
             tbody.innerHTML = `
               <tr>
@@ -3183,7 +3335,7 @@ function toggleMobileMenu() {
             `;
             return;
           }
-          
+
           tbody.innerHTML = sessions.map(s => {
             const identifier = s.email ? s.email : `Anonymous (${s.session_id.substring(0, 8)})`;
             const lastUpdated = formatDate(s.updated_at || s.created_at);
@@ -3209,20 +3361,20 @@ function toggleMobileMenu() {
       const modal = document.getElementById('chat-history-modal');
       const titleEl = document.getElementById('chat-history-title');
       const messagesEl = document.getElementById('chat-history-messages');
-      
+
       titleEl.textContent = `Conversation with ${title}`;
       messagesEl.innerHTML = '<div style="text-align: center; color: #64748b; padding: 20px;">Loading messages...</div>';
       modal.classList.add('show');
-      
+
       try {
         const res = await fetch(`/api/session/${sessionId}`);
         const history = await res.json();
-        
+
         if (history.length === 0) {
           messagesEl.innerHTML = '<div style="text-align: center; color: #64748b; padding: 20px;">No messages in this session</div>';
           return;
         }
-        
+
         messagesEl.innerHTML = history.map(msg => {
           const isUser = msg.role === 'user' || msg.sender === 'user';
           const bg = isUser ? '#6366f1' : '#e2e8f0';
@@ -3230,7 +3382,7 @@ function toggleMobileMenu() {
           const align = isUser ? 'flex-end' : 'flex-start';
           const time = formatBotDate(msg.timestamp || msg.created_at);
           const contentText = msg.content || msg.message || '';
-          
+
           let fileHtml = '';
           if (msg.file_data && msg.file_name) {
             fileHtml = `
@@ -3240,7 +3392,7 @@ function toggleMobileMenu() {
               </div>
             `;
           }
-          
+
           return `
             <div style="display: flex; flex-direction: column; align-items: ${align}; width: 100%;">
               <div style="background: ${bg}; color: ${color}; padding: 10px 14px; border-radius: 12px; max-width: 80%; word-break: break-word; line-height: 1.5; font-size: 13px; font-weight: 500; box-shadow: 0 1px 2px rgba(0,0,0,0.05);">
@@ -3251,7 +3403,7 @@ function toggleMobileMenu() {
             </div>
           `;
         }).join('');
-        
+
         // Scroll to bottom
         messagesEl.scrollTop = messagesEl.scrollHeight;
       } catch (err) {
@@ -3259,7 +3411,7 @@ function toggleMobileMenu() {
         messagesEl.innerHTML = '<div style="text-align: center; color: #ef4444; padding: 20px;">Error loading conversation history.</div>';
       }
     }
-    
+
     // Select specific chat session in dual pane (for admin)
     async function selectChatSession(sessionId, title) {
       // Toggle active class in left pane list
@@ -3294,7 +3446,7 @@ function toggleMobileMenu() {
       try {
         const res = await fetch(`/api/session/${sessionId}`);
         const history = await res.json();
-        
+
         const messagesViewport = document.getElementById('thread-messages-viewport');
         if (!messagesViewport) return;
 
@@ -3308,7 +3460,7 @@ function toggleMobileMenu() {
           const alignClass = isUser ? 'user' : 'assistant';
           const time = formatBotDate(msg.timestamp || msg.created_at);
           const contentText = msg.content || msg.message || '';
-          
+
           // Render any file if attached
           let fileHtml = '';
           if (msg.file_data && msg.file_name) {
@@ -3319,7 +3471,7 @@ function toggleMobileMenu() {
               </div>
             `;
           }
-          
+
           return `
             <div class="message-wrapper ${alignClass}">
               <div class="message-bubble">
@@ -3347,23 +3499,23 @@ function toggleMobileMenu() {
       if (!confirm(`Are you sure you want to delete the chat history for "${identifier}"?`)) {
         return;
       }
-      
+
       try {
         const res = await fetch(`/api/session/${sessionId}`, {
           method: 'DELETE'
         });
         const result = await res.json();
-        
+
         if (result.success) {
           showToast('Chat session deleted successfully');
-          
+
           // Re-load the sessions list
           await loadChats();
-          
+
           // If the deleted session was currently open, reset the thread pane
           const activeItem = document.querySelector('.session-item.active');
           const activeSessionId = activeItem ? activeItem.getAttribute('data-session-id') : null;
-          
+
           if (!activeSessionId || activeSessionId === sessionId) {
             const threadPane = document.getElementById('chats-thread-pane');
             if (threadPane) {
@@ -3390,19 +3542,19 @@ function toggleMobileMenu() {
       if (!confirm('⚠️ WARNING: Are you sure you want to delete ALL chat sessions? This will permanently erase all chat histories!')) {
         return;
       }
-      
+
       try {
         const res = await fetch('/api/sessions', {
           method: 'DELETE'
         });
         const result = await res.json();
-        
+
         if (result.success) {
           showToast('All chat sessions deleted');
-          
+
           // Re-load the sessions list (should show empty state)
           await loadChats();
-          
+
           // Reset the thread pane to empty state
           const threadPane = document.getElementById('chats-thread-pane');
           if (threadPane) {
@@ -3436,7 +3588,7 @@ function toggleMobileMenu() {
         console.error('Failed to download file:', err);
       }
     }
-    
+
     function closeChatHistoryModal() {
       document.getElementById('chat-history-modal').classList.remove('show');
     }
@@ -3454,16 +3606,16 @@ function toggleMobileMenu() {
       document.getElementById('wizard-bot-name').value = '';
       document.getElementById('wizard-bot-domain').value = '';
       setWizardBotType('ai');
-      
+
       // Reset views
       document.getElementById('wizard-step-1').style.display = 'block';
       document.getElementById('wizard-step-2').style.display = 'none';
       document.getElementById('wizard-step-3').style.display = 'none';
       document.getElementById('wizard-script-reveal-btn').style.display = 'none';
-      
+
       document.getElementById('wizard-title').textContent = 'Create a New Bot';
       document.getElementById('wizard-step-indicator').textContent = 'Step 1 of 3';
-      
+
       // Open modal
       document.getElementById('create-bot-modal').classList.add('show');
     }
@@ -3476,7 +3628,7 @@ function toggleMobileMenu() {
       wizardBotType = type;
       const cardAi = document.getElementById('wizard-type-ai');
       const cardFlow = document.getElementById('wizard-type-flow');
-      
+
       if (type === 'ai') {
         cardAi.style.border = '2px solid #6366f1';
         cardAi.style.background = '#f8fafc';
@@ -3493,15 +3645,15 @@ function toggleMobileMenu() {
     async function submitWizardCreateBot() {
       const name = document.getElementById('wizard-bot-name').value.trim();
       const domain = document.getElementById('wizard-bot-domain').value.trim();
-      
+
       if (!name || !domain) {
         alert('Please enter both Bot Name and Domain Name.');
         return;
       }
-      
+
       const clientId = sessionStorage.getItem('clientId') || 'default';
       const userRole = sessionStorage.getItem('userRole') || 'client';
-      
+
       // Perform Frontend Plan checking to alert early if we can
       if (userRole === 'client' && clientId !== 'default') {
         try {
@@ -3519,24 +3671,25 @@ function toggleMobileMenu() {
           console.error("Plan checking failed:", e);
         }
       }
-      
+
       try {
+        alert("clientId = " + clientId);
         const res = await fetch('/api/bots', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ name, domain, clientId, type: wizardBotType })
         });
-        
+
         const data = await res.json();
         if (res.ok && data.success) {
           wizardCreatedBotId = data.bot_id;
           wizardCreatedApiKey = data.api_key;
-          
+
           // Move to step 2
           document.getElementById('wizard-step-1').style.display = 'none';
           document.getElementById('wizard-step-2').style.display = 'block';
           document.getElementById('wizard-step-indicator').textContent = 'Step 2 of 3';
-          
+
           if (wizardBotType === 'ai') {
             document.getElementById('wizard-title').textContent = 'Train AI Chatbot';
             document.getElementById('wizard-ai-training-view').style.display = 'block';
@@ -3553,7 +3706,7 @@ function toggleMobileMenu() {
             // For Flow Builder, reveal Script button immediately
             document.getElementById('wizard-script-reveal-btn').style.display = 'block';
           }
-          
+
           // Refresh lists
           loadBots();
           updateActiveBotsSummary();
@@ -3572,24 +3725,24 @@ function toggleMobileMenu() {
       const tabText = document.getElementById('train-tab-text');
       const tabUrl = document.getElementById('train-tab-url');
       const tabPdf = document.getElementById('train-tab-pdf');
-      
+
       const inputText = document.getElementById('train-source-text-input');
       const inputUrl = document.getElementById('train-source-url-input');
       const inputPdf = document.getElementById('train-source-pdf-input');
-      
+
       // Update tabs styles
       const activeStyle = { background: '#6366f1', color: 'white' };
       const inactiveStyle = { background: '#f1f5f9', color: '#475569' };
-      
+
       const setStyle = (el, style) => {
         el.style.background = style.background;
         el.style.color = style.color;
       };
-      
+
       setStyle(tabText, source === 'text' ? activeStyle : inactiveStyle);
       setStyle(tabUrl, source === 'url' ? activeStyle : inactiveStyle);
       setStyle(tabPdf, source === 'pdf' ? activeStyle : inactiveStyle);
-      
+
       // Show/hide input fields
       inputText.style.display = source === 'text' ? 'block' : 'none';
       inputUrl.style.display = source === 'url' ? 'block' : 'none';
@@ -3599,10 +3752,10 @@ function toggleMobileMenu() {
     async function submitWizardTraining() {
       const btnIcon = document.getElementById('train-btn-icon');
       const btnText = document.getElementById('train-btn-text');
-      
+
       btnIcon.textContent = '⏳';
       btnText.textContent = 'Training AI...';
-      
+
       try {
         if (wizardTrainSource === 'text') {
           const content = document.getElementById('wizard-train-text').value.trim();
@@ -3623,7 +3776,7 @@ function toggleMobileMenu() {
           } else {
             alert(data.error || 'Training failed');
           }
-        } 
+        }
         else if (wizardTrainSource === 'url') {
           const url = document.getElementById('wizard-train-url').value.trim();
           if (!url) {
@@ -3643,7 +3796,7 @@ function toggleMobileMenu() {
           } else {
             alert(data.error || 'Training from URL failed');
           }
-        } 
+        }
         else if (wizardTrainSource === 'pdf') {
           const fileInput = document.getElementById('wizard-train-pdf');
           const file = fileInput.files[0];
@@ -3652,18 +3805,18 @@ function toggleMobileMenu() {
             btnIcon.textContent = '⚡'; btnText.textContent = 'Train AI Bot';
             return;
           }
-          
+
           const reader = new FileReader();
-          reader.onload = async function(e) {
+          reader.onload = async function (e) {
             try {
               const fileData = e.target.result;
               const res = await fetch('/api/knowledge/pdf', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ 
-                  fileName: file.name, 
-                  fileData, 
-                  botId: wizardCreatedBotId 
+                body: JSON.stringify({
+                  fileName: file.name,
+                  fileData,
+                  botId: wizardCreatedBotId
                 })
               });
               const data = await res.json();
@@ -3700,10 +3853,10 @@ function toggleMobileMenu() {
       document.getElementById('wizard-step-3').style.display = 'block';
       document.getElementById('wizard-title').textContent = 'Get Embed Code';
       document.getElementById('wizard-step-indicator').textContent = 'Step 3 of 3';
-      
+
       const origin = window.location.origin;
       const embedCode = `<script src="${origin}/widget/chatbot.js" data-server="${origin}" data-bot-id="${wizardCreatedBotId}" data-api-key="${wizardCreatedApiKey}" async></` + 'script>';
-      
+
       document.getElementById('wizard-script-code').textContent = embedCode;
     }
 
@@ -3726,7 +3879,7 @@ function toggleMobileMenu() {
     async function updateActiveBotsSummary() {
       const summaryEl = document.getElementById('active-bots-summary');
       if (!summaryEl) return;
-      
+
       const clientId = sessionStorage.getItem('clientId') || 'default';
       const userRole = sessionStorage.getItem('userRole') || 'client';
       if (userRole === 'client' && clientId !== 'default') {
@@ -3752,7 +3905,8 @@ function toggleMobileMenu() {
         <h3 id="chat-history-title">Conversation</h3>
         <span class="modal-close" onclick="closeChatHistoryModal()">&times;</span>
       </div>
-      <div id="chat-history-messages" style="flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; background: #f8fafc;">
+      <div id="chat-history-messages"
+        style="flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; background: #f8fafc;">
         <!-- Loaded dynamically -->
       </div>
       <div class="modal-footer">
@@ -3775,29 +3929,39 @@ function toggleMobileMenu() {
             Configure the core properties of your new bot.
           </p>
           <div class="form-group" style="margin-bottom: 16px;">
-            <label style="display: block; font-size: 13px; font-weight: 600; color: #374151; margin-bottom: 6px;">Bot Name</label>
-            <input type="text" id="wizard-bot-name" placeholder="e.g. Sales Assistant" style="width: 100%; padding: 10px 14px; border: 1px solid #e2e8f0; border-radius: 8px;">
+            <label style="display: block; font-size: 13px; font-weight: 600; color: #374151; margin-bottom: 6px;">Bot
+              Name</label>
+            <input type="text" id="wizard-bot-name" placeholder="e.g. Sales Assistant"
+              style="width: 100%; padding: 10px 14px; border: 1px solid #e2e8f0; border-radius: 8px;">
           </div>
           <div class="form-group" style="margin-bottom: 16px;">
-            <label style="display: block; font-size: 13px; font-weight: 600; color: #374151; margin-bottom: 6px;">Domain Name</label>
-            <input type="text" id="wizard-bot-domain" placeholder="e.g. example.com" style="width: 100%; padding: 10px 14px; border: 1px solid #e2e8f0; border-radius: 8px;">
+            <label style="display: block; font-size: 13px; font-weight: 600; color: #374151; margin-bottom: 6px;">Domain
+              Name</label>
+            <input type="text" id="wizard-bot-domain" placeholder="e.g. example.com"
+              style="width: 100%; padding: 10px 14px; border: 1px solid #e2e8f0; border-radius: 8px;">
           </div>
           <div class="form-group" style="margin-bottom: 20px;">
-            <label style="display: block; font-size: 13px; font-weight: 600; color: #374151; margin-bottom: 8px;">Bot Type</label>
+            <label style="display: block; font-size: 13px; font-weight: 600; color: #374151; margin-bottom: 8px;">Bot
+              Type</label>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
-              <div class="mode-card active" id="wizard-type-ai" onclick="setWizardBotType('ai')" style="border: 2px solid #6366f1; border-radius: 12px; padding: 16px; cursor: pointer; text-align: center; background: #f8fafc;">
+              <div class="mode-card active" id="wizard-type-ai" onclick="setWizardBotType('ai')"
+                style="border: 2px solid #6366f1; border-radius: 12px; padding: 16px; cursor: pointer; text-align: center; background: #f8fafc;">
                 <span style="font-size: 24px; display: block; margin-bottom: 8px;">🧠</span>
                 <span style="font-weight: 700; font-size: 14px; display: block;">AI Chatbot</span>
-                <span style="font-size: 12px; color: #64748b; display: block; margin-top: 4px;">Trained using PDF, URL, or Text</span>
+                <span style="font-size: 12px; color: #64748b; display: block; margin-top: 4px;">Trained using PDF, URL,
+                  or Text</span>
               </div>
-              <div class="mode-card" id="wizard-type-flow" onclick="setWizardBotType('flow')" style="border: 1px solid #e2e8f0; border-radius: 12px; padding: 16px; cursor: pointer; text-align: center; background: #ffffff;">
+              <div class="mode-card" id="wizard-type-flow" onclick="setWizardBotType('flow')"
+                style="border: 1px solid #e2e8f0; border-radius: 12px; padding: 16px; cursor: pointer; text-align: center; background: #ffffff;">
                 <span style="font-size: 24px; display: block; margin-bottom: 8px;">🔄</span>
                 <span style="font-weight: 700; font-size: 14px; display: block;">Flow Builder</span>
-                <span style="font-size: 12px; color: #64748b; display: block; margin-top: 4px;">Visual step-by-step form flows</span>
+                <span style="font-size: 12px; color: #64748b; display: block; margin-top: 4px;">Visual step-by-step form
+                  flows</span>
               </div>
             </div>
           </div>
-          <button class="btn btn-primary" onclick="submitWizardCreateBot()" style="width: 100%; padding: 12px; font-weight: 600; background: linear-gradient(135deg, #6366f1, #8b5cf6); border: none; border-radius: 8px; color: white; cursor: pointer;">
+          <button class="btn btn-primary" onclick="submitWizardCreateBot()"
+            style="width: 100%; padding: 12px; font-weight: 600; background: linear-gradient(135deg, #6366f1, #8b5cf6); border: none; border-radius: 8px; color: white; cursor: pointer;">
             Next: Create Bot &rarr;
           </button>
         </div>
@@ -3809,32 +3973,50 @@ function toggleMobileMenu() {
             <p style="font-size: 13px; color: #64748b; margin-bottom: 20px;">
               Provide information to train your AI chatbot.
             </p>
-            <div style="display: flex; gap: 8px; margin-bottom: 20px; border-bottom: 1px solid #e2e8f0; padding-bottom: 12px;">
-              <button class="tab-btn active" id="train-tab-text" onclick="setTrainSource('text')" style="flex: 1; padding: 8px; border: none; background: #6366f1; color: white; border-radius: 6px; font-weight: 600; cursor: pointer;">Instructions / Text</button>
-              <button class="tab-btn" id="train-tab-url" onclick="setTrainSource('url')" style="flex: 1; padding: 8px; border: none; background: #f1f5f9; color: #475569; border-radius: 6px; font-weight: 600; cursor: pointer;">Website URL</button>
-              <button class="tab-btn" id="train-tab-pdf" onclick="setTrainSource('pdf')" style="flex: 1; padding: 8px; border: none; background: #f1f5f9; color: #475569; border-radius: 6px; font-weight: 600; cursor: pointer;">Upload PDF</button>
+            <div
+              style="display: flex; gap: 8px; margin-bottom: 20px; border-bottom: 1px solid #e2e8f0; padding-bottom: 12px;">
+              <button class="tab-btn active" id="train-tab-text" onclick="setTrainSource('text')"
+                style="flex: 1; padding: 8px; border: none; background: #6366f1; color: white; border-radius: 6px; font-weight: 600; cursor: pointer;">Instructions
+                / Text</button>
+              <button class="tab-btn" id="train-tab-url" onclick="setTrainSource('url')"
+                style="flex: 1; padding: 8px; border: none; background: #f1f5f9; color: #475569; border-radius: 6px; font-weight: 600; cursor: pointer;">Website
+                URL</button>
+              <button class="tab-btn" id="train-tab-pdf" onclick="setTrainSource('pdf')"
+                style="flex: 1; padding: 8px; border: none; background: #f1f5f9; color: #475569; border-radius: 6px; font-weight: 600; cursor: pointer;">Upload
+                PDF</button>
             </div>
 
             <!-- Custom Text/Instructions training -->
             <div id="train-source-text-input" class="train-input-group">
-              <label style="display: block; font-size: 13px; font-weight: 600; color: #374151; margin-bottom: 6px;">Instructions or Custom Text</label>
-              <textarea id="wizard-train-text" rows="5" placeholder="Enter custom instructions or knowledge text to train the bot..." style="width: 100%; padding: 10px 14px; border: 1px solid #e2e8f0; border-radius: 8px; font-family: inherit; font-size: 13px;"></textarea>
+              <label
+                style="display: block; font-size: 13px; font-weight: 600; color: #374151; margin-bottom: 6px;">Instructions
+                or Custom Text</label>
+              <textarea id="wizard-train-text" rows="5"
+                placeholder="Enter custom instructions or knowledge text to train the bot..."
+                style="width: 100%; padding: 10px 14px; border: 1px solid #e2e8f0; border-radius: 8px; font-family: inherit; font-size: 13px;"></textarea>
             </div>
 
             <!-- Website Scrape training -->
             <div id="train-source-url-input" class="train-input-group" style="display: none;">
-              <label style="display: block; font-size: 13px; font-weight: 600; color: #374151; margin-bottom: 6px;">Website URL</label>
-              <input type="url" id="wizard-train-url" placeholder="https://example.com/about" style="width: 100%; padding: 10px 14px; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 13px;">
+              <label
+                style="display: block; font-size: 13px; font-weight: 600; color: #374151; margin-bottom: 6px;">Website
+                URL</label>
+              <input type="url" id="wizard-train-url" placeholder="https://example.com/about"
+                style="width: 100%; padding: 10px 14px; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 13px;">
             </div>
 
             <!-- PDF Upload training -->
             <div id="train-source-pdf-input" class="train-input-group" style="display: none;">
-              <label style="display: block; font-size: 13px; font-weight: 600; color: #374151; margin-bottom: 6px;">Choose PDF File</label>
-              <input type="file" id="wizard-train-pdf" accept=".pdf" style="width: 100%; padding: 8px; border: 1px dashed #cbd5e1; border-radius: 8px;">
+              <label
+                style="display: block; font-size: 13px; font-weight: 600; color: #374151; margin-bottom: 6px;">Choose
+                PDF File</label>
+              <input type="file" id="wizard-train-pdf" accept=".pdf"
+                style="width: 100%; padding: 8px; border: 1px dashed #cbd5e1; border-radius: 8px;">
             </div>
 
             <div style="margin-top: 24px; display: flex; flex-direction: column; gap: 12px;">
-              <button class="btn btn-primary" onclick="submitWizardTraining()" style="width: 100%; padding: 12px; font-weight: 600; background: linear-gradient(135deg, #10b981, #059669); border: none; border-radius: 8px; color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;">
+              <button class="btn btn-primary" onclick="submitWizardTraining()"
+                style="width: 100%; padding: 12px; font-weight: 600; background: linear-gradient(135deg, #10b981, #059669); border: none; border-radius: 8px; color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;">
                 <span id="train-btn-icon">⚡</span> <span id="train-btn-text">Train AI Bot</span>
               </button>
             </div>
@@ -3843,16 +4025,19 @@ function toggleMobileMenu() {
           <!-- Flow Builder View -->
           <div id="wizard-flow-view" style="display: none; text-align: center; padding: 20px 0;">
             <span style="font-size: 48px; display: block; margin-bottom: 16px;">🔄</span>
-            <h4 style="font-size: 18px; font-weight: 700; color: #0f172a; margin-bottom: 8px;">Manual Flow Builder Ready</h4>
+            <h4 style="font-size: 18px; font-weight: 700; color: #0f172a; margin-bottom: 8px;">Manual Flow Builder Ready
+            </h4>
             <p style="font-size: 13px; color: #64748b; margin-bottom: 24px;">
               Your flow builder bot has been created. Open the editor to build your custom form.
             </p>
-            <button class="btn btn-primary" onclick="openWizardFlowBuilder()" style="width: 100%; padding: 12px; font-weight: 600; background: linear-gradient(135deg, #6366f1, #8b5cf6); border: none; border-radius: 8px; color: white; cursor: pointer; margin-bottom: 12px;">
+            <button class="btn btn-primary" onclick="openWizardFlowBuilder()"
+              style="width: 100%; padding: 12px; font-weight: 600; background: linear-gradient(135deg, #6366f1, #8b5cf6); border: none; border-radius: 8px; color: white; cursor: pointer; margin-bottom: 12px;">
               Open Flow Builder &rarr;
             </button>
           </div>
 
-          <button id="wizard-script-reveal-btn" class="btn" onclick="revealWizardScript()" style="width: 100%; padding: 12px; font-weight: 600; background: #6366f1; border: none; border-radius: 8px; color: white; cursor: pointer; display: none; margin-top: 12px;">
+          <button id="wizard-script-reveal-btn" class="btn" onclick="revealWizardScript()"
+            style="width: 100%; padding: 12px; font-weight: 600; background: #6366f1; border: none; border-radius: 8px; color: white; cursor: pointer; display: none; margin-top: 12px;">
             Generate Embed Script &rarr;
           </button>
         </div>
@@ -3863,18 +4048,23 @@ function toggleMobileMenu() {
             Copy the script tag below and paste it before the closing <code>&lt;/body&gt;</code> tag on your website.
           </p>
           <div style="background: #0f172a; border-radius: 8px; padding: 16px; position: relative; margin-bottom: 24px;">
-            <code id="wizard-script-code" style="color: #38bdf8; font-family: monospace; font-size: 12px; word-break: break-all; white-space: pre-wrap; display: block; line-height: 1.5;"></code>
+            <code id="wizard-script-code"
+              style="color: #38bdf8; font-family: monospace; font-size: 12px; word-break: break-all; white-space: pre-wrap; display: block; line-height: 1.5;"></code>
           </div>
-          <button class="btn btn-primary" onclick="copyWizardScript()" style="width: 100%; padding: 12px; font-weight: 600; background: linear-gradient(135deg, #6366f1, #8b5cf6); border: none; border-radius: 8px; color: white; cursor: pointer;">
+          <button class="btn btn-primary" onclick="copyWizardScript()"
+            style="width: 100%; padding: 12px; font-weight: 600; background: linear-gradient(135deg, #6366f1, #8b5cf6); border: none; border-radius: 8px; color: white; cursor: pointer;">
             📋 Copy Script to Clipboard
           </button>
         </div>
       </div>
-      <div class="modal-footer" style="padding: 12px 24px; background: #f8fafc; border-top: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center;">
+      <div class="modal-footer"
+        style="padding: 12px 24px; background: #f8fafc; border-top: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center;">
         <span id="wizard-step-indicator" style="font-size: 12px; color: #64748b; font-weight: 600;">Step 1 of 3</span>
-        <button class="btn btn-secondary" onclick="closeCreateBotWizard()" style="padding: 8px 16px; border: 1px solid #cbd5e1; background: white; color: #475569; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer;">Close</button>
+        <button class="btn btn-secondary" onclick="closeCreateBotWizard()"
+          style="padding: 8px 16px; border: 1px solid #cbd5e1; background: white; color: #475569; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer;">Close</button>
       </div>
     </div>
   </div>
 </body>
+
 </html>
