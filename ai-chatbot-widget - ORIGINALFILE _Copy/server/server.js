@@ -1514,6 +1514,7 @@ app.post('/api/chat', restrictDomain, checkApiKey, rateLimit, async (req, res) =
     // 🧠 SMART RAG: Send knowledge + question to Gemini for natural answer
     if (geminiModel && config.enableAI !== false) {
       try {
+        const config = loadConfig();
         const history = getHistory(sessionId, 10);
         const ragReply = await getGeminiResponseWithContext(message, kbMatch.content, history);
 
@@ -2055,7 +2056,13 @@ app.post('/api/bots', (req, res) => {
 
   if (db && clientId && clientId !== 'default') {
     // 1. Fetch client plan
-    const client = db.prepare('SELECT plan_name FROM clients WHERE client_id = ?').get(clientId);
+    console.log("BOT API clientId:", clientId);
+
+    const client = db.prepare(
+      "SELECT * FROM clients WHERE client_id = ?"
+    ).get(clientId);
+
+    console.log("BOT API client:", client);
     if (!client) {
       return res.status(400).json({ error: 'Client not found' });
     }
@@ -2794,6 +2801,7 @@ app.post('/api/login', async (req, res) => {
       const client = db.prepare('SELECT * FROM clients WHERE email = ? AND password = ?').get(email, hashedPassword);
 
       if (client) {
+        console.log("LOGIN CLIENT:", client);
         console.log(`✅ Client logged in: ${client.email}`);
         res.json({
           success: true,
