@@ -647,6 +647,8 @@ async function getGeminiResponse(userMessage, conversationHistory = []) {
   try {
     console.log('🤖 Calling Gemini AI (gemini-2.5-flash) for response...');
 
+    const config = loadConfig();
+
     // Build context from conversation history
     let contextPrompt = '';
     if (conversationHistory.length > 0) {
@@ -657,8 +659,11 @@ async function getGeminiResponse(userMessage, conversationHistory = []) {
       contextPrompt += '\n';
     }
 
-    // Create advanced multi-language prompt
-    const prompt = `${contextPrompt}You are an advanced AI assistant like ChatGPT.
+    // Create prompt
+    const prompt = `
+${config.systemPrompt || ''}
+
+${contextPrompt}
 
 STRICT RULES:
 - Detect the language of the user automatically
@@ -669,7 +674,8 @@ STRICT RULES:
 - Do NOT give fallback responses
 - Answer intelligently like a real assistant
 
-User message: ${userMessage}`;
+User message: ${userMessage}
+`;
 
     const result = await geminiModel.generateContent(prompt);
     const response = await result.response;
@@ -679,61 +685,6 @@ User message: ${userMessage}`;
     return text;
   } catch (error) {
     console.error('❌ Gemini AI Error:', error.message);
-    return null;
-  }
-}
-
-// ---- RAG: Gemini AI with Knowledge Context -----------------
-async function getGeminiResponseWithContext(userMessage, knowledgeContext, conversationHistory = []) {
-  if (!geminiModel) {
-    console.log('⚠️ Gemini API not configured');
-    return null;
-  }
-
-  try {
-    console.log('🧠 RAG: Calling Gemini AI with knowledge context...');
-
-    // Build context from conversation history
-    let historyPrompt = '';
-    if (conversationHistory.length > 0) {
-      historyPrompt = 'Previous conversation:\n';
-      conversationHistory.slice(-4).forEach(msg => {
-        historyPrompt += `${msg.role === 'user' ? 'User' : 'Assistant'}: ${msg.content}\n`;
-      });
-      historyPrompt += '\n';
-    }
-
-    // Create SMART RAG prompt
-    const prompt = `${historyPrompt}You are an intelligent AI assistant like ChatGPT, Gemini, or Copilot.
-
-KNOWLEDGE BASE:
-${knowledgeContext}
-
-USER QUESTION:
-${userMessage}
-
-STRICT RULES:
-1. Use the knowledge above to answer the user's question
-2. Answer NATURALLY and in a HUMAN-LIKE way
-3. Do NOT copy raw text chunks directly
-4. Detect the user's language automatically
-5. Respond ONLY in the SAME language as the user
-6. Support ALL languages (Telugu, English, Hindi, Tamil, Spanish, French, etc.)
-7. Give clear, accurate, well-explained answers
-8. If the knowledge doesn't fully answer the question, use your general knowledge to supplement
-9. Be conversational and helpful like ChatGPT
-10. Do NOT say "based on the knowledge" or "according to the document"
-
-Generate a natural, intelligent answer:`;
-
-    const result = await geminiModel.generateContent(prompt);
-    const response = await result.response;
-    const text = response.text();
-
-    console.log('✅ RAG: Generated natural answer from knowledge context');
-    return text;
-  } catch (error) {
-    console.error('❌ RAG Gemini Error:', error.message);
     return null;
   }
 }
