@@ -1,12 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Flow Builder</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       background: #f8f9fc;
@@ -15,7 +22,7 @@
       min-height: 100vh;
       overflow-x: hidden;
     }
-    
+
     /* Sidebar */
     .sidebar {
       width: 280px;
@@ -30,15 +37,18 @@
       z-index: 100;
       box-shadow: 4px 0 12px rgba(0, 0, 0, 0.1);
     }
+
     .sidebar-header {
       padding: 20px;
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
+
     .brand {
       display: flex;
       align-items: center;
       gap: 12px;
     }
+
     .brand-icon {
       width: 40px;
       height: 40px;
@@ -49,20 +59,24 @@
       justify-content: center;
       font-size: 20px;
     }
+
     .brand-text h2 {
       font-size: 15px;
       font-weight: 700;
       color: white;
     }
+
     .brand-text span {
       font-size: 11px;
       color: #94a3b8;
     }
+
     .sidebar-nav {
       flex: 1;
       padding: 20px 0;
       overflow-y: auto;
     }
+
     .nav-section {
       padding: 8px 20px;
       font-size: 10px;
@@ -72,6 +86,7 @@
       font-weight: 600;
       margin-top: 16px;
     }
+
     .nav-item {
       display: flex;
       align-items: center;
@@ -84,22 +99,25 @@
       border-left: 3px solid transparent;
       text-decoration: none;
     }
+
     .nav-item:hover {
       background: rgba(255, 255, 255, 0.05);
       color: white;
     }
+
     .nav-item.active {
       background: rgba(99, 102, 241, 0.15);
       color: white;
       border-left-color: #6366f1;
       font-weight: 500;
     }
+
     .nav-item .icon {
       font-size: 16px;
       width: 20px;
       text-align: center;
     }
-    
+
     .nav-item .badge {
       margin-left: auto;
       background: #6366f1;
@@ -109,7 +127,7 @@
       border-radius: 12px;
       font-weight: 600;
     }
-    
+
     /* Main Content */
     .main-content {
       flex: 1;
@@ -122,23 +140,24 @@
       background: #f8f9fc !important;
       overflow: hidden !important;
     }
-    
+
     /* Responsive: Mobile/Tablet */
     @media (max-width: 768px) {
       .sidebar {
         transform: translateX(-100%);
         transition: transform 0.3s;
       }
-      
+
       .sidebar.mobile-open {
         transform: translateX(0);
       }
-      
+
       .main-content {
         margin-left: 0;
         width: 100%;
       }
     }
+
     .topbar {
       background: white;
       padding: 12px 32px;
@@ -150,11 +169,13 @@
       top: 0;
       z-index: 50;
     }
+
     .topbar-left {
       display: flex;
       align-items: center;
       gap: 12px;
     }
+
     .mobile-menu-btn {
       display: none;
       width: 40px;
@@ -167,16 +188,19 @@
       align-items: center;
       justify-content: center;
     }
+
     @media (max-width: 768px) {
       .mobile-menu-btn {
         display: flex;
       }
     }
+
     .topbar-right {
       display: flex;
       align-items: center;
       gap: 12px;
     }
+
     .page-header {
       background: #f8f9fc;
       padding: 24px 24px 0 24px;
@@ -185,6 +209,7 @@
       align-items: center;
       justify-content: space-between;
     }
+
     .btn-domain {
       display: flex;
       align-items: center;
@@ -198,6 +223,7 @@
       font-weight: 600;
       cursor: pointer;
     }
+
     .btn-status {
       padding: 8px 16px;
       background: #d1fae5;
@@ -207,6 +233,7 @@
       font-size: 12px;
       font-weight: 600;
     }
+
     .btn-logout {
       display: inline-flex;
       align-items: center;
@@ -221,7 +248,7 @@
       cursor: pointer;
       transition: all 0.2s ease;
     }
-    
+
     .super-admin-badge {
       display: inline-flex;
       align-items: center;
@@ -236,6 +263,7 @@
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
+
     .super-admin-badge span {
       display: inline-block;
     }
@@ -245,7 +273,8 @@
       height: 36px;
       border-radius: 50%;
       border: 2px solid #000000;
-      background-color: #eff6ff; /* light blue */
+      background-color: #eff6ff;
+      /* light blue */
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -255,10 +284,12 @@
       padding: 0;
       outline: none;
     }
+
     .theme-toggle-btn:hover {
       transform: scale(1.05);
       background-color: #e2e8f0;
     }
+
     .btn-refresh {
       padding: 8px 20px;
       background: linear-gradient(135deg, #6366f1, #8b5cf6);
@@ -269,8 +300,9 @@
       font-weight: 600;
       cursor: pointer;
     }
-    
-    .btn-preview, .btn-save {
+
+    .btn-preview,
+    .btn-save {
       padding: 10px 20px;
       border: none;
       border-radius: 8px;
@@ -282,26 +314,30 @@
       align-items: center;
       gap: 8px;
     }
+
     .btn-preview {
       background: white;
       color: #6366f1;
       border: 2px solid #6366f1;
     }
+
     .btn-preview:hover {
       background: #6366f1;
       color: white;
       transform: translateY(-2px);
       box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
     }
+
     .btn-save {
       background: linear-gradient(135deg, #6366f1, #8b5cf6);
       color: white;
     }
+
     .btn-save:hover {
       transform: translateY(-2px);
       box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
     }
-    
+
     /* 3-Column Flow Builder Layout */
     .flow-builder-container {
       display: flex;
@@ -314,7 +350,7 @@
       overflow: hidden;
       box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
     }
-    
+
     /* Left Panel: Components */
     .components-panel {
       width: 280px;
@@ -326,6 +362,7 @@
       flex-direction: column;
       flex-shrink: 0;
     }
+
     .panel-title {
       font-size: 11px;
       font-weight: 700;
@@ -334,18 +371,21 @@
       text-transform: uppercase;
       letter-spacing: 1px;
     }
+
     .component-list {
       display: flex;
       flex-direction: column;
       gap: 10px;
     }
+
     .component-pill {
       display: flex;
       align-items: center;
       gap: 12px;
       background: white;
       border: 1.5px solid #e2e8f0;
-      border-radius: 9999px; /* Rounded pill */
+      border-radius: 9999px;
+      /* Rounded pill */
       padding: 10px 20px;
       cursor: pointer;
       transition: all 0.2s ease;
@@ -353,18 +393,20 @@
       font-weight: 500;
       color: #475569;
     }
+
     .component-pill:hover {
       border-color: #6366f1;
       background: #f5f3ff;
       color: #6366f1;
       transform: translateX(4px);
     }
+
     .component-pill .icon {
       font-size: 16px;
       width: 20px;
       text-align: center;
     }
-    
+
     /* Middle Panel: Sequence */
     .flow-sequence-panel {
       flex: 1;
@@ -376,7 +418,7 @@
       flex-direction: column;
       height: 100%;
     }
-    
+
     /* Right Panel: Live Preview */
     .live-preview-panel {
       width: 380px;
@@ -387,7 +429,7 @@
       flex-direction: column;
       flex-shrink: 0;
     }
-    
+
     .live-preview-container {
       flex: 1;
       display: flex;
@@ -403,8 +445,15 @@
     }
 
     @keyframes bubblePop {
-      from { transform: scale(0.9); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
+      from {
+        transform: scale(0.9);
+        opacity: 0;
+      }
+
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
     }
 
     /* Live Preview Floating Button States */
@@ -426,15 +475,17 @@
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       z-index: 1000;
     }
+
     .preview-floating-btn:hover {
       transform: scale(1.08) rotate(5deg);
       background: #be185d;
     }
+
     .preview-floating-btn.active {
       background: #db2777;
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
     }
-    
+
     /* Widget Mockup Wrapper */
     .preview-widget-wrapper {
       position: absolute;
@@ -455,12 +506,13 @@
       pointer-events: none;
       z-index: 999;
     }
+
     .preview-widget-wrapper.open {
       transform: scale(1) translateY(0);
       opacity: 1;
       pointer-events: auto;
     }
-    
+
     /* Widget Header */
     .widget-header {
       background: #db2777;
@@ -471,11 +523,13 @@
       justify-content: space-between;
       border-bottom: 1px solid rgba(0, 0, 0, 0.05);
     }
+
     .widget-header-left {
       display: flex;
       align-items: center;
       gap: 10px;
     }
+
     .widget-avatar-container {
       position: relative;
       width: 36px;
@@ -484,6 +538,7 @@
       align-items: center;
       justify-content: center;
     }
+
     .widget-avatar {
       width: 36px;
       height: 36px;
@@ -494,6 +549,7 @@
       justify-content: center;
       font-size: 20px;
     }
+
     .widget-status-dot {
       position: absolute;
       bottom: 0;
@@ -504,11 +560,13 @@
       border: 2px solid #db2777;
       border-radius: 50%;
     }
+
     .widget-profile-info h4 {
       font-size: 13px;
       font-weight: 600;
       color: white;
     }
+
     .widget-header-controls {
       display: flex;
       align-items: center;
@@ -516,6 +574,7 @@
       font-size: 13px;
       color: rgba(255, 255, 255, 0.85);
     }
+
     .widget-header-controls span {
       cursor: pointer;
       width: 26px;
@@ -527,14 +586,16 @@
       justify-content: center;
       transition: background 0.2s, transform 0.1s;
     }
+
     .widget-header-controls span:hover {
       background: rgba(255, 255, 255, 0.3);
       color: white;
     }
+
     .widget-header-controls span:active {
       transform: scale(0.95);
     }
-    
+
     /* Widget Subheader */
     .widget-subheader {
       background: #f8fafc;
@@ -546,11 +607,13 @@
       font-size: 12px;
       color: #64748b;
     }
+
     .widget-lang-selector {
       display: flex;
       align-items: center;
       gap: 4px;
     }
+
     .widget-lang-select {
       border: 1px solid #cbd5e1;
       border-radius: 6px;
@@ -561,11 +624,12 @@
       outline: none;
       cursor: pointer;
     }
+
     .widget-status-text {
       font-size: 11px;
       color: #64748b;
     }
-    
+
     /* Widget Message Feed */
     .widget-chat-feed {
       flex: 1;
@@ -577,10 +641,11 @@
       gap: 14px;
       scrollbar-width: none;
     }
+
     .widget-chat-feed::-webkit-scrollbar {
       display: none;
     }
-    
+
     /* Widget Bot Bubble Layout */
     .widget-msg-row {
       display: flex;
@@ -590,6 +655,7 @@
       align-self: flex-start;
       animation: bubblePop 0.25s ease-out;
     }
+
     .widget-msg-avatar {
       width: 30px;
       height: 30px;
@@ -603,17 +669,20 @@
       flex-shrink: 0;
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
     }
+
     .widget-msg-bubble-container {
       display: flex;
       flex-direction: column;
       gap: 4px;
     }
+
     .widget-msg-sender {
       font-size: 11px;
       font-weight: 600;
       color: #64748b;
       margin-left: 2px;
     }
+
     .widget-msg-bubble {
       background: white;
       color: #1e293b;
@@ -624,13 +693,14 @@
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
       border: 1px solid #e2e8f0;
     }
+
     .widget-msg-time {
       font-size: 9px;
       color: #94a3b8;
       margin-top: 2px;
       margin-left: 4px;
     }
-    
+
     .preview-bubble-label {
       font-size: 9px;
       font-weight: 700;
@@ -639,7 +709,7 @@
       letter-spacing: 0.5px;
       margin-bottom: 4px;
     }
-    
+
     .preview-options-container {
       display: flex;
       flex-direction: column;
@@ -647,7 +717,7 @@
       margin-top: 8px;
       width: 100%;
     }
-    
+
     .preview-option-pill {
       background: #f8fafc;
       border: 1px solid #cbd5e1;
@@ -659,7 +729,7 @@
       text-align: center;
       cursor: not-allowed;
     }
-    
+
     .preview-input-field {
       width: 100%;
       background: white;
@@ -671,7 +741,7 @@
       margin-top: 8px;
       pointer-events: none;
     }
-    
+
     /* Widget Footer */
     .widget-footer {
       background: white;
@@ -682,12 +752,14 @@
       gap: 10px;
       position: relative;
     }
+
     .widget-input-row {
       display: flex;
       align-items: center;
       gap: 8px;
       width: 100%;
     }
+
     .widget-footer-btn {
       width: 34px;
       height: 44px;
@@ -703,10 +775,12 @@
       transition: all 0.2s;
       flex-shrink: 0;
     }
+
     .widget-footer-btn:hover {
       background: #f8fafc;
       border-color: #94a3b8;
     }
+
     .widget-input-box {
       flex: 1;
       border: 1.5px solid #cbd5e1;
@@ -717,6 +791,7 @@
       background: white;
       outline: none;
     }
+
     .widget-send-btn {
       width: 36px;
       height: 56px;
@@ -729,17 +804,21 @@
       cursor: pointer;
       transition: all 0.2s;
       border: none;
-      margin-right: -8px; /* Matches cut-off effect on right edge */
+      margin-right: -8px;
+      /* Matches cut-off effect on right edge */
       flex-shrink: 0;
     }
+
     .widget-send-btn:hover {
       background: #1f2937;
     }
+
     .widget-footer-tips {
       font-size: 9px;
       color: #94a3b8;
       text-align: center;
     }
+
     .widget-footer-custom-link {
       font-size: 10px;
       color: #94a3b8;
@@ -754,87 +833,105 @@
       color: #e0e0e0;
       border-color: #334155;
     }
+
     .preview-widget-wrapper.dark .widget-subheader {
       background: #16213e;
       border-bottom: 1px solid #1e293b;
       color: #94a3b8;
     }
+
     .preview-widget-wrapper.dark .widget-lang-select {
       background: #0f0f23;
       border-color: #334155;
       color: #ccc;
     }
+
     .preview-widget-wrapper.dark .widget-chat-feed {
       background: #0f0f23;
     }
+
     .preview-widget-wrapper.dark .widget-msg-bubble {
       background: #16213e;
       color: #e0e0e0;
       border-color: #1e293b;
     }
+
     .preview-widget-wrapper.dark .widget-msg-sender {
       color: #94a3b8;
     }
+
     .preview-widget-wrapper.dark .widget-msg-avatar {
       background: #16213e;
       border-color: #334155;
       color: #e0e0e0;
     }
+
     .preview-widget-wrapper.dark .preview-option-pill {
       background: #0f0f23;
       border-color: #334155;
       color: #94a3b8;
     }
+
     .preview-widget-wrapper.dark .preview-input-field {
       background: #0f0f23;
       border-color: #334155;
       color: #64748b;
     }
+
     .preview-widget-wrapper.dark .widget-footer {
       background: #1a1a2e;
       border-top: 1px solid #1e293b;
     }
+
     .preview-widget-wrapper.dark .widget-footer-btn {
       color: #94a3b8;
     }
+
     .preview-widget-wrapper.dark .widget-input-box {
       background: #0f0f23;
       color: #e0e0e0;
       border-color: #334155;
     }
+
     .preview-widget-wrapper.dark .widget-footer-tips {
       color: #475569;
     }
+
     .preview-widget-wrapper.dark .widget-footer-custom-link {
       color: #818cf8;
     }
+
     .preview-widget-wrapper.dark #previewSearchBar {
       background: #16213e !important;
       border-bottom: 1px solid #1e293b !important;
     }
+
     .preview-widget-wrapper.dark #previewSearchInput {
       background: #0f0f23 !important;
       border-color: #334155 !important;
       color: #e0e0e0 !important;
     }
-    
+
     /* Flow Cards */
     .flow-cards {
       display: flex;
       flex-direction: column;
       gap: 16px;
     }
-     .flow-card {
-       background: white;
-       border: 1px solid #e2e8f0;
-       border-radius: 12px;
-       overflow: hidden;
-       transition: all 0.2s;
-       flex-shrink: 0;
-     }
-     .flow-card:hover {
-       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-     }
+
+    .flow-card {
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      overflow: hidden;
+      transition: all 0.2s;
+      flex-shrink: 0;
+    }
+
+    .flow-card:hover {
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
     .flow-card-header {
       padding: 16px 20px;
       display: flex;
@@ -844,6 +941,7 @@
       background: #fafbfc;
       border-bottom: 1px solid #e2e8f0;
     }
+
     .flow-card-icon {
       width: 32px;
       height: 32px;
@@ -856,29 +954,36 @@
       color: white;
       flex-shrink: 0;
     }
+
     .flow-card-icon.statement {
       background: linear-gradient(135deg, #3b82f6, #06b6d4);
     }
+
     .flow-card-icon.conditional {
       background: linear-gradient(135deg, #f59e0b, #f97316);
     }
+
     .flow-card-title {
       flex: 1;
     }
+
     .flow-card-title h4 {
       font-size: 13px;
       font-weight: 600;
       color: #0f172a;
       margin-bottom: 2px;
     }
+
     .flow-card-title p {
       font-size: 11px;
       color: #64748b;
     }
+
     .flow-card-actions {
       display: flex;
       gap: 6px;
     }
+
     .flow-card-btn {
       width: 28px;
       height: 28px;
@@ -893,24 +998,30 @@
       transition: all 0.2s;
       color: #64748b;
     }
+
     .flow-card-btn:hover {
       background: #f8f9fc;
       border-color: #6366f1;
       color: #6366f1;
     }
+
     .flow-card-content {
       padding: 20px;
       display: none;
     }
+
     .flow-card.expanded .flow-card-content {
       display: block;
     }
+
     .flow-card.expanded .flow-card-header {
       background: white;
     }
+
     .form-field {
       margin-bottom: 16px;
     }
+
     .form-field label {
       display: block;
       font-size: 11px;
@@ -920,6 +1031,7 @@
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
+
     .form-field input,
     .form-field textarea {
       width: 100%;
@@ -930,17 +1042,19 @@
       font-family: inherit;
       transition: all 0.2s;
     }
+
     .form-field input:focus,
     .form-field textarea:focus {
       outline: none;
       border-color: #6366f1;
       box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
     }
+
     .form-field textarea {
       resize: vertical;
       min-height: 80px;
     }
-    
+
     /* Flowbuilder Options Editor custom styles */
     .choices-label {
       text-transform: none !important;
@@ -950,15 +1064,18 @@
       margin-bottom: 8px !important;
       display: block;
     }
+
     body.dark-theme .choices-label {
       color: #94a3b8 !important;
     }
+
     .option-row {
       display: flex;
       align-items: center;
       gap: 8px;
       margin-bottom: 8px;
     }
+
     .option-input {
       flex: 1;
       padding: 10px 14px;
@@ -970,21 +1087,25 @@
       color: #1e293b !important;
       transition: all 0.2s;
     }
+
     body.dark-theme .option-input {
       background: #0f172a !important;
       border-color: #334155 !important;
       color: #f1f5f9 !important;
     }
+
     .option-input:focus {
       border-color: #6366f1 !important;
       background: white !important;
       box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
     }
+
     body.dark-theme .option-input:focus {
       border-color: #818cf8 !important;
       background: #0f172a !important;
       box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.15);
     }
+
     .delete-option-btn {
       width: 42px;
       height: 42px;
@@ -998,21 +1119,25 @@
       justify-content: center;
       transition: all 0.2s;
     }
+
     body.dark-theme .delete-option-btn {
       background: #1e293b !important;
       border-color: #334155 !important;
       color: #cbd5e1 !important;
     }
+
     .delete-option-btn:hover {
       background: #fee2e2 !important;
       border-color: #fca5a5 !important;
       color: #dc2626 !important;
     }
+
     body.dark-theme .delete-option-btn:hover {
       background: #450a0a !important;
       border-color: #991b1b !important;
       color: #ef4444 !important;
     }
+
     .add-option-btn {
       margin-top: 8px;
       padding: 10px 18px;
@@ -1028,23 +1153,26 @@
       gap: 6px;
       transition: all 0.2s;
     }
+
     body.dark-theme .add-option-btn {
       border-color: #818cf8 !important;
       background: rgba(129, 140, 248, 0.1) !important;
       color: #818cf8 !important;
     }
+
     .add-option-btn:hover {
       background: #eeebff;
       border-color: #4f46e5;
       color: #4f46e5;
       box-shadow: 0 2px 4px rgba(99, 102, 241, 0.1);
     }
+
     body.dark-theme .add-option-btn:hover {
       background: rgba(129, 140, 248, 0.15) !important;
       border-color: #a5b4fc !important;
       color: #a5b4fc !important;
     }
-    
+
     /* Getting Started Banner */
     .getting-started {
       background: linear-gradient(135deg, #4338ca, #6366f1);
@@ -1054,23 +1182,28 @@
       align-items: center;
       gap: 20px;
     }
+
     .getting-started .icon {
       font-size: 32px;
       flex-shrink: 0;
     }
+
     .getting-started-content {
       flex: 1;
     }
+
     .getting-started h3 {
       font-size: 15px;
       font-weight: 700;
       margin-bottom: 6px;
     }
+
     .getting-started p {
       font-size: 12px;
       opacity: 0.95;
       line-height: 1.5;
     }
+
     .getting-started button {
       padding: 10px 24px;
       background: rgba(255, 255, 255, 0.2);
@@ -1082,10 +1215,11 @@
       cursor: pointer;
       flex-shrink: 0;
     }
+
     .getting-started button:hover {
       background: rgba(255, 255, 255, 0.3);
     }
-    
+
     /* Preview Modal */
     .preview-modal {
       position: fixed;
@@ -1100,16 +1234,21 @@
       z-index: 10000;
       animation: fadeIn 0.3s ease;
     }
-    
+
     .preview-modal.show {
       display: flex;
     }
-    
+
     @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
     }
-    
+
     .preview-container {
       background: white;
       border-radius: 16px;
@@ -1122,10 +1261,17 @@
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
       animation: slideUp 0.3s ease;
     }
-    
+
     @keyframes slideUp {
-      from { transform: translateY(50px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
+      from {
+        transform: translateY(50px);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
     }
 
     /* Modals */
@@ -1164,6 +1310,7 @@
         transform: translateY(20px);
         opacity: 0;
       }
+
       to {
         transform: translateY(0);
         opacity: 1;
@@ -1209,7 +1356,7 @@
       justify-content: flex-end;
       gap: 12px;
     }
-    
+
     .preview-header {
       padding: 20px 24px;
       border-bottom: 1px solid #e2e8f0;
@@ -1218,13 +1365,13 @@
       justify-content: space-between;
       background: #f8f9fc;
     }
-    
+
     .preview-header h2 {
       font-size: 18px;
       font-weight: 700;
       color: #0f172a;
     }
-    
+
     .preview-close {
       width: 32px;
       height: 32px;
@@ -1239,19 +1386,19 @@
       color: #64748b;
       transition: all 0.2s;
     }
-    
+
     .preview-close:hover {
       background: #fee2e2;
       border-color: #fecaca;
       color: #991b1b;
     }
-    
+
     .preview-body {
       flex: 1;
       overflow-y: auto;
       padding: 24px;
     }
-    
+
     .preview-chatbot {
       max-width: 400px;
       margin: 0 auto;
@@ -1260,7 +1407,7 @@
       padding: 20px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
-    
+
     .preview-message {
       background: white;
       padding: 16px;
@@ -1268,7 +1415,7 @@
       margin-bottom: 16px;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     }
-    
+
     .preview-message-label {
       font-size: 11px;
       font-weight: 600;
@@ -1277,19 +1424,19 @@
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
-    
+
     .preview-message-text {
       font-size: 14px;
       color: #1e293b;
       margin-bottom: 12px;
     }
-    
+
     .preview-options {
       display: flex;
       flex-direction: column;
       gap: 8px;
     }
-    
+
     .preview-option {
       padding: 10px 16px;
       background: #f1f5f9;
@@ -1300,13 +1447,13 @@
       cursor: pointer;
       transition: all 0.2s;
     }
-    
+
     .preview-option:hover {
       background: #e0e7ff;
       border-color: #6366f1;
       color: #6366f1;
     }
-    
+
     .preview-input {
       width: 100%;
       padding: 10px 14px;
@@ -1315,12 +1462,12 @@
       font-size: 13px;
       font-family: inherit;
     }
-    
+
     .preview-input:focus {
       outline: none;
       border-color: #6366f1;
     }
-    
+
     .conditional-badge {
       display: inline-block;
       padding: 4px 10px;
@@ -1331,7 +1478,7 @@
       font-weight: 600;
       margin-top: 8px;
     }
-    
+
     .statement-badge {
       display: inline-block;
       padding: 4px 10px;
@@ -1342,7 +1489,7 @@
       font-weight: 600;
       margin-top: 8px;
     }
-    
+
     /* Super Admin layout overrides */
     body.superadmin-view,
     body.superadmin-view .main-content,
@@ -1359,6 +1506,7 @@
       background-color: #0f172a !important;
       color: #f1f5f9 !important;
     }
+
     body.dark-theme h1,
     body.dark-theme h2,
     body.dark-theme h3,
@@ -1366,14 +1514,17 @@
     body.dark-theme .brand-text h2 {
       color: #ffffff !important;
     }
+
     body.dark-theme p,
     body.dark-theme .page-header-text p {
       color: #94a3b8 !important;
     }
+
     body.dark-theme .topbar {
       background: #0f172a !important;
       border-bottom-color: #1e293b !important;
     }
+
     body.dark-theme .card,
     body.dark-theme .stat-card,
     body.dark-theme .data-table,
@@ -1390,45 +1541,57 @@
       border-color: #334155 !important;
       color: #f1f5f9 !important;
     }
+
     body.dark-theme .session-item {
       background: #1e293b !important;
       border-color: #334155 !important;
     }
+
     body.dark-theme .session-item:hover {
       background: #334155 !important;
     }
+
     body.dark-theme .session-item.active {
       background: #312e81 !important;
       border-color: #4f46e5 !important;
     }
+
     body.dark-theme .session-title {
       color: #f1f5f9 !important;
     }
+
     body.dark-theme .session-msg-count {
       color: #cbd5e1 !important;
     }
+
     body.dark-theme .message-wrapper.assistant .message-bubble {
       background: #334155 !important;
       color: #f1f5f9 !important;
     }
+
     body.dark-theme .empty-thread-state h3 {
       color: #f1f5f9 !important;
     }
+
     body.dark-theme .empty-thread-state p {
       color: #94a3b8 !important;
     }
+
     body.dark-theme table {
       color: #f1f5f9 !important;
     }
+
     body.dark-theme th {
       background-color: #334155 !important;
       color: #f1f5f9 !important;
       border-bottom-color: #475569 !important;
     }
+
     body.dark-theme td {
       border-bottom-color: #334155 !important;
       color: #e2e8f0 !important;
     }
+
     body.dark-theme input[type="text"],
     body.dark-theme input[type="email"],
     body.dark-theme input[type="number"],
@@ -1439,27 +1602,33 @@
       border-color: #334155 !important;
       color: #f1f5f9 !important;
     }
+
     body.dark-theme input::placeholder,
     body.dark-theme textarea::placeholder {
       color: #475569 !important;
     }
+
     body.dark-theme .theme-toggle-btn {
       background-color: #1e293b !important;
       border-color: #ffffff !important;
       color: #ffffff !important;
     }
+
     body.dark-theme .btn-refresh-chats {
       background-color: #0f172a !important;
       border-color: #334155 !important;
       color: #cbd5e1 !important;
     }
+
     body.dark-theme .btn-refresh-chats:hover {
       background-color: #1e293b !important;
     }
+
     body.dark-theme .modal-header,
     body.dark-theme .modal-footer {
       border-color: #334155 !important;
     }
+
     body.dark-theme .btn-delete-session-icon {
       color: #ef4444 !important;
     }
@@ -1469,34 +1638,43 @@
       background: #1e293b !important;
       border-right-color: #334155 !important;
     }
+
     body.dark-theme .component-card {
       background: #1e293b !important;
       border-color: #334155 !important;
     }
+
     body.dark-theme .component-card:hover {
       background: #312e81 !important;
       border-color: #6366f1 !important;
     }
+
     body.dark-theme .component-card .label {
       color: #cbd5e1 !important;
     }
+
     body.dark-theme .component-card:hover .label {
       color: #ffffff !important;
     }
+
     body.dark-theme .panel-title {
       color: #94a3b8 !important;
     }
+
     body.dark-theme .flow-sequence-panel {
       background: #0f172a !important;
     }
+
     body.dark-theme .sequence-title {
       color: #ffffff !important;
     }
+
     body.dark-theme .btn-preview {
       background: #1e293b !important;
       color: #818cf8 !important;
       border-color: #818cf8 !important;
     }
+
     body.dark-theme .btn-preview:hover {
       background: #818cf8 !important;
       color: white !important;
@@ -1511,6 +1689,7 @@
       padding: 2px;
       cursor: pointer;
     }
+
     .sidebar-switch {
       position: relative;
       width: 38px;
@@ -1519,9 +1698,11 @@
       border-radius: 10px;
       transition: all 0.3s;
     }
+
     .sidebar-switch.active {
       background: #6366f1;
     }
+
     .sidebar-switch::after {
       content: '';
       position: absolute;
@@ -1533,6 +1714,7 @@
       border-radius: 50%;
       transition: all 0.3s;
     }
+
     .sidebar-switch.active::after {
       left: 20px;
     }
@@ -1542,112 +1724,139 @@
       background: #1e293b !important;
       border-color: #334155 !important;
     }
+
     body.dark-theme .components-panel {
       background: #1e293b !important;
       border-right-color: #334155 !important;
     }
+
     body.dark-theme .component-pill {
       background: #1e293b !important;
       border-color: #334155 !important;
       color: #cbd5e1 !important;
     }
+
     body.dark-theme .component-pill:hover {
       border-color: #818cf8 !important;
       background: #312e81 !important;
       color: #ffffff !important;
     }
+
     body.dark-theme .component-pill .label {
       color: #cbd5e1 !important;
     }
+
     body.dark-theme .component-pill:hover .label {
       color: #ffffff !important;
     }
+
     body.dark-theme .flow-sequence-panel {
       background: #0f172a !important;
       border-right-color: #334155 !important;
     }
+
     body.dark-theme .panel-header {
       border-bottom-color: #334155 !important;
     }
+
     body.dark-theme .panel-header h3 {
       color: #ffffff !important;
     }
+
     body.dark-theme .btn-revert {
       background: #1e293b !important;
       border-color: #334155 !important;
       color: #cbd5e1 !important;
     }
+
     body.dark-theme .btn-revert:hover {
       background: #334155 !important;
       color: white !important;
     }
+
     body.dark-theme .flow-card {
       background: #1e293b !important;
       border-color: #334155 !important;
     }
+
     body.dark-theme .flow-card:hover {
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     }
+
     body.dark-theme .flow-card-header {
       background: #1e293b !important;
       border-bottom-color: #334155 !important;
     }
+
     body.dark-theme .flow-card.expanded .flow-card-header {
       background: #1e293b !important;
     }
+
     body.dark-theme .flow-card-title h4 {
       color: #ffffff !important;
     }
+
     body.dark-theme .flow-card-title p {
       color: #94a3b8 !important;
     }
+
     body.dark-theme .flow-card-btn {
       background: #0f172a !important;
       border-color: #334155 !important;
       color: #cbd5e1 !important;
     }
+
     body.dark-theme .flow-card-btn:hover {
       border-color: #818cf8 !important;
       color: #818cf8 !important;
     }
+
     body.dark-theme .form-field label {
       color: #94a3b8 !important;
     }
+
     body.dark-theme .form-field input,
     body.dark-theme .form-field textarea {
       background-color: #0f172a !important;
       border-color: #334155 !important;
       color: #f1f5f9 !important;
     }
+
     body.dark-theme .form-field input:focus,
     body.dark-theme .form-field textarea:focus {
       border-color: #818cf8 !important;
     }
-    
+
     /* Live Preview Column overrides */
     body.dark-theme .live-preview-panel {
       background: #1e293b !important;
     }
+
     body.dark-theme .live-preview-container {
       background: #0f172a !important;
       border-color: #334155 !important;
     }
+
     body.dark-theme .preview-bubble-bot {
       background: #1e293b !important;
       border-color: #334155 !important;
       color: #f1f5f9 !important;
     }
+
     body.dark-theme .preview-bubble-label {
       color: #818cf8 !important;
     }
+
     body.dark-theme .preview-text {
       color: #e2e8f0 !important;
     }
+
     body.dark-theme .preview-option-pill {
       background: #334155 !important;
       border-color: #475569 !important;
       color: #cbd5e1 !important;
     }
+
     body.dark-theme .preview-input-field {
       background: #1e293b !important;
       border-color: #334155 !important;
@@ -1659,52 +1868,63 @@
       background: #1e293b !important;
       color: #f1f5f9 !important;
     }
+
     body.dark-theme .preview-header {
       background: #0f172a !important;
       border-bottom-color: #334155 !important;
     }
+
     body.dark-theme .preview-header h2 {
       color: #ffffff !important;
     }
+
     body.dark-theme .preview-close {
       background: #1e293b !important;
       border-color: #334155 !important;
       color: #cbd5e1 !important;
     }
+
     body.dark-theme .preview-close:hover {
       background: #7f1d1d !important;
       border-color: #b91c1c !important;
       color: white !important;
     }
+
     body.dark-theme .preview-chatbot {
       background: #0f172a !important;
     }
+
     body.dark-theme .preview-message {
       background: #1e293b !important;
       border-color: #334155 !important;
     }
+
     body.dark-theme .preview-message-label {
       color: #818cf8 !important;
     }
+
     body.dark-theme .preview-message-text {
       color: #f1f5f9 !important;
     }
+
     body.dark-theme .preview-option {
       background: #334155 !important;
       border-color: #475569 !important;
       color: #cbd5e1 !important;
     }
+
     body.dark-theme .preview-option:hover {
       background: #312e81 !important;
       border-color: #818cf8 !important;
       color: #ffffff !important;
     }
+
     body.dark-theme .preview-input {
       background: #0f172a !important;
       border-color: #334155 !important;
       color: #cbd5e1 !important;
     }
-    
+
     /* Domain Selector & Dropdown styling (matching knowledge.html) */
     .domain-selector {
       display: flex;
@@ -1735,7 +1955,8 @@
     .dropdown-menu {
       position: absolute;
       top: 100%;
-      right: 0; /* Align right to avoid clipping */
+      right: 0;
+      /* Align right to avoid clipping */
       margin-top: 8px;
       background: white;
       border-radius: 12px;
@@ -1787,40 +2008,46 @@
       color: #6366f1;
       font-size: 14px;
     }
-    
+
     .dropdown-item.disabled {
       color: #94a3b8 !important;
       cursor: not-allowed !important;
       background: transparent !important;
     }
-    
+
     /* Dark Theme overrides for dropdown */
     body.dark-theme .dropdown-menu {
       background: #1e293b !important;
       border-color: #334155 !important;
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
     }
+
     body.dark-theme .dropdown-item {
       background: #1e293b !important;
       color: #cbd5e1 !important;
       border-bottom-color: #334155 !important;
     }
+
     body.dark-theme .dropdown-item:hover {
       background: #334155 !important;
       color: #ffffff !important;
     }
+
     body.dark-theme .dropdown-item.active {
       background: #312e81 !important;
       color: #818cf8 !important;
     }
+
     body.dark-theme .dropdown-item.active .check {
       color: #818cf8 !important;
     }
+
     body.dark-theme .dropdown-item.disabled {
       color: #475569 !important;
     }
   </style>
 </head>
+
 <body>
   <!-- Sidebar (will be rendered dynamically) -->
   <div class="sidebar"></div>
@@ -1838,17 +2065,21 @@
         </div>
       </div>
       <div class="page-header-right" style="display: flex; align-items: center; gap: 12px;">
-        <button class="btn-save" onclick="openCreateBotModal()" style="padding: 10px 24px; font-weight: 700; font-size: 13px; background: #6366f1; color: white; border: none; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.2s;">
+        <button class="btn-save" onclick="openCreateBotModal()"
+          style="padding: 10px 24px; font-weight: 700; font-size: 13px; background: #6366f1; color: white; border: none; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.2s;">
           <span>+</span> Create Bot
         </button>
         <input type="file" id="importFlowFile" accept=".json" style="display: none;" onchange="importFlow(event)">
-        <button class="btn-import" onclick="document.getElementById('importFlowFile').click()" style="padding: 10px 24px; font-weight: 700; font-size: 13px; background: white; border: 1px solid #cbd5e1; color: #475569; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.2s;">
+        <button class="btn-import" onclick="document.getElementById('importFlowFile').click()"
+          style="padding: 10px 24px; font-weight: 700; font-size: 13px; background: white; border: 1px solid #cbd5e1; color: #475569; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.2s;">
           <span>📂</span> Load Flow
         </button>
-        <button class="btn-preview" id="btnGenerateScript" onclick="showEmbedScriptModal()" style="padding: 10px 24px; font-weight: 700; font-size: 13px; display: flex; align-items: center; gap: 8px; border-radius: 8px; cursor: pointer; transition: all 0.2s;">
+        <button class="btn-preview" id="btnGenerateScript" onclick="showEmbedScriptModal()"
+          style="padding: 10px 24px; font-weight: 700; font-size: 13px; display: flex; align-items: center; gap: 8px; border-radius: 8px; cursor: pointer; transition: all 0.2s;">
           <span>📋</span> Generate Script
         </button>
-        <button class="btn-save" onclick="saveFlow()" style="padding: 10px 24px; font-weight: 700; font-size: 13px; background: #6366f1; color: white; border: none; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 8px;">
+        <button class="btn-save" onclick="saveFlow()"
+          style="padding: 10px 24px; font-weight: 700; font-size: 13px; background: #6366f1; color: white; border: none; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 8px;">
           <span>💾</span> Save Flow
         </button>
       </div>
@@ -1912,16 +2143,19 @@
 
       <!-- Column 2: Flow Sequence -->
       <div class="flow-sequence-panel">
-        <div class="panel-header" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid #e2e8f0; flex-shrink: 0;">
+        <div class="panel-header"
+          style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid #e2e8f0; flex-shrink: 0;">
           <h3 style="font-size: 14px; font-weight: 700; color: #1e293b;">Flow Sequence</h3>
           <div style="display: flex; gap: 8px;">
-            <button class="btn-refresh" onclick="refreshFlow()" style="padding: 6px 16px; background: white; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 12px; font-weight: 600; color: #475569; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 4px;">
+            <button class="btn-refresh" onclick="refreshFlow()"
+              style="padding: 6px 16px; background: white; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 12px; font-weight: 600; color: #475569; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 4px;">
               🔄 Refresh
             </button>
-            <button class="btn-revert" onclick="revertFlow()" style="padding: 6px 16px; background: white; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 12px; font-weight: 600; color: #475569; cursor: pointer; transition: all 0.2s;">Revert</button>
+            <button class="btn-revert" onclick="revertFlow()"
+              style="padding: 6px 16px; background: white; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 12px; font-weight: 600; color: #475569; cursor: pointer; transition: all 0.2s;">Revert</button>
           </div>
         </div>
-        
+
         <div class="flow-cards" id="flowCards" style="flex: 1; overflow-y: auto; padding-right: 4px; min-height: 0;">
           <!-- Flow cards will be added here -->
         </div>
@@ -1929,10 +2163,11 @@
 
       <!-- Column 3: Live Preview -->
       <div class="live-preview-panel">
-        <div class="panel-header" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid #e2e8f0; flex-shrink: 0;">
+        <div class="panel-header"
+          style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid #e2e8f0; flex-shrink: 0;">
           <h3 style="font-size: 14px; font-weight: 700; color: #1e293b;">Live Preview</h3>
         </div>
-        
+
         <div class="live-preview-container">
           <!-- Widget Wrapper Mockup (toggled by the FAB) -->
           <div class="preview-widget-wrapper open" id="previewWidget">
@@ -1951,12 +2186,14 @@
                 <span onclick="clearPreviewChat(); event.stopPropagation();" title="Clear chat">🗑️</span>
                 <span onclick="togglePreviewSearch(true); event.stopPropagation();" title="Search">🔍</span>
                 <span onclick="toggleWidget(false); event.stopPropagation();" title="Minimize">⬜</span>
-                <span id="btnPreviewDarkMode" onclick="togglePreviewDarkMode(); event.stopPropagation();" title="Toggle Dark Theme">🌙</span>
+                <span id="btnPreviewDarkMode" onclick="togglePreviewDarkMode(); event.stopPropagation();"
+                  title="Toggle Dark Theme">🌙</span>
                 <span onclick="exportPreviewChat(); event.stopPropagation();" title="Export chat">📥</span>
-                <span onclick="toggleWidget(false); event.stopPropagation();" title="Close" style="font-weight: bold; cursor: pointer;">✕</span>
+                <span onclick="toggleWidget(false); event.stopPropagation();" title="Close"
+                  style="font-weight: bold; cursor: pointer;">✕</span>
               </div>
             </div>
-            
+
             <!-- Widget Subheader -->
             <div class="widget-subheader">
               <div class="widget-lang-selector">
@@ -1969,27 +2206,34 @@
             </div>
 
             <!-- Widget Search Bar Mockup -->
-            <div id="previewSearchBar" style="display: none; padding: 8px 16px; background: #f1f5f9; border-bottom: 1px solid #e2e8f0; align-items: center; gap: 8px; flex-shrink: 0;">
-              <input type="text" id="previewSearchInput" placeholder="Search preview messages..." style="flex: 1; border: 1px solid #cbd5e1; border-radius: 6px; padding: 4px 8px; font-size: 11px; outline: none;" oninput="handlePreviewSearch(this.value)">
-              <span style="cursor: pointer; font-size: 12px; color: #64748b; font-weight: bold;" onclick="togglePreviewSearch(false)">✕</span>
+            <div id="previewSearchBar"
+              style="display: none; padding: 8px 16px; background: #f1f5f9; border-bottom: 1px solid #e2e8f0; align-items: center; gap: 8px; flex-shrink: 0;">
+              <input type="text" id="previewSearchInput" placeholder="Search preview messages..."
+                style="flex: 1; border: 1px solid #cbd5e1; border-radius: 6px; padding: 4px 8px; font-size: 11px; outline: none;"
+                oninput="handlePreviewSearch(this.value)">
+              <span style="cursor: pointer; font-size: 12px; color: #64748b; font-weight: bold;"
+                onclick="togglePreviewSearch(false)">✕</span>
             </div>
-            
+
             <!-- Widget Feed -->
             <div class="widget-chat-feed" id="livePreviewFeed">
               <!-- Chat bubbles rendered here by renderLivePreview() -->
             </div>
-            
+
             <!-- Widget Footer -->
             <div class="widget-footer">
               <div class="widget-input-row">
                 <div class="widget-footer-btn" title="Attachments">📎</div>
                 <div class="widget-footer-btn" title="Voice Input">🎤</div>
                 <div style="position: relative; flex: 1; display: flex; align-items: center;">
-                  <input type="text" class="widget-input-box" id="widgetInputBox" placeholder="Type your message..." onkeydown="handleWidgetKeyDown(event)" style="padding-right: 40px; width: 100%;">
-                  <button class="widget-send-btn" id="widgetSendBtn" onclick="handleWidgetSend()" style="position: absolute; right: 4px; width: 32px; height: 32px; border-radius: 50%; background: #db2777; margin: 0; display: flex; align-items: center; justify-content: center;">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" style="margin-left: 2px;">
-                      <line x1="22" y1="2" x2="11" y2="13"/>
-                      <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                  <input type="text" class="widget-input-box" id="widgetInputBox" placeholder="Type your message..."
+                    onkeydown="handleWidgetKeyDown(event)" style="padding-right: 40px; width: 100%;">
+                  <button class="widget-send-btn" id="widgetSendBtn" onclick="handleWidgetSend()"
+                    style="position: absolute; right: 4px; width: 32px; height: 32px; border-radius: 50%; background: #db2777; margin: 0; display: flex; align-items: center; justify-content: center;">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"
+                      style="margin-left: 2px;">
+                      <line x1="22" y1="2" x2="11" y2="13" />
+                      <polygon points="22 2 15 22 11 13 2 9 22 2" />
                     </svg>
                   </button>
                 </div>
@@ -1998,17 +2242,19 @@
               <div class="widget-footer-custom-link">Full Customization</div>
             </div>
           </div>
-          
+
           <!-- Floating Action Button -->
           <div class="preview-floating-btn active" id="widgetFAB" onclick="toggleWidget()">
             <!-- Default closed state icon: chat bubble -->
-            <svg id="fabChatIcon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
-              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+            <svg id="fabChatIcon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white"
+              stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
             </svg>
             <!-- Open state icon: X (hidden by default) -->
-            <svg id="fabCloseIcon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display: block;">
-              <line x1="18" y1="6" x2="6" y2="18"/>
-              <line x1="6" y1="6" x2="18" y2="18"/>
+            <svg id="fabCloseIcon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white"
+              stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display: block;">
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
             </svg>
           </div>
         </div>
@@ -2019,7 +2265,8 @@
       <div class="icon">🚀</div>
       <div class="getting-started-content">
         <h3>Getting Started</h3>
-        <p>You haven't created any bots yet. Please go to "Bot Management" to create your first chatbot for your domain.</p>
+        <p>You haven't created any bots yet. Please go to "Bot Management" to create your first chatbot for your domain.
+        </p>
       </div>
       <button onclick="dismissBanner()">Create My First Bot</button>
     </div>
@@ -2060,11 +2307,11 @@
     }
 
     // Render sidebar and topbar based on role
-        async function renderSidebarAndTopbar() {
+    async function renderSidebarAndTopbar() {
       const userRole = sessionStorage.getItem('userRole') || 'client';
       const sidebarEl = document.querySelector('.sidebar');
       const topbarEl = document.querySelector('.topbar');
-      
+
       let config = { enableAI: false, primaryMode: 'ai_chatbot' };
       if (userRole === 'admin') {
         try {
@@ -2076,14 +2323,14 @@
           console.error('Failed to fetch config for sidebar:', err);
         }
       }
-      
+
       if (userRole === 'admin') {
         // Apply white background for admin
         document.body.classList.add('superadmin-view');
-        
+
         const isAIActive = config.enableAI !== false;
         const isFlowActive = config.primaryMode === 'flow_builder';
-        
+
         if (sidebarEl) {
           sidebarEl.innerHTML = `
             <div class="sidebar-header">
@@ -2165,7 +2412,7 @@
           mainContent.style.backgroundColor = '#f8f9fc';
           mainContent.style.setProperty('background', '#f8f9fc', 'important');
         }
-        
+
         if (sidebarEl) {
           sidebarEl.innerHTML = `
             <div class="sidebar-header">
@@ -2270,19 +2517,19 @@
       try {
         const clientId = sessionStorage.getItem('clientId') || 'default';
         const userRole = sessionStorage.getItem('userRole') || 'client';
-        const url = (userRole === 'client' && clientId !== 'default') 
-          ? `/api/bots?clientId=${encodeURIComponent(clientId)}` 
+        const url = (userRole === 'client' && clientId !== 'default')
+          ? `/api/bots?clientId=${encodeURIComponent(clientId)}`
           : '/api/bots';
-        
+
         const res = await fetch(url);
         const bots = await res.json();
-        
+
         // Filter Flow Builder bots
         const flowBots = bots.filter(b => b.type === 'flow');
-        
+
         let currentBotId = localStorage.getItem('selectedFlowBotId') || 'default';
         let currentBotName = 'Select Chatbot';
-        
+
         // Find current bot
         const activeBot = flowBots.find(b => b.bot_id === currentBotId);
         if (activeBot) {
@@ -2309,16 +2556,16 @@
             currentBotName = 'Select Chatbot';
           }
         }
-        
+
         const selectedDomainEl = document.getElementById('selectedDomain');
         if (selectedDomainEl) {
           selectedDomainEl.textContent = currentBotName;
         }
-        
+
         const dropdownMenu = document.getElementById('dropdownMenu');
         if (dropdownMenu) {
           let html = '';
-          
+
           if (flowBots.length === 0) {
             html = `
               <div class="dropdown-item disabled" style="color: #94a3b8; cursor: not-allowed; padding: 12px 16px;">
@@ -2332,8 +2579,8 @@
               try {
                 const cfg = JSON.parse(bot.config || '{}');
                 botDomain = cfg.domain ? ` (${cfg.domain})` : '';
-              } catch(e) {}
-              
+              } catch (e) { }
+
               html += `
                 <div class="dropdown-item ${isSelected ? 'active' : ''}" data-bot-id="${bot.bot_id}" data-name="${bot.name}">
                   <span class="icon">🤖</span>
@@ -2343,13 +2590,13 @@
               `;
             });
           }
-          
+
           dropdownMenu.innerHTML = html;
-          
+
           // Add click events to dropdown items
           dropdownMenu.querySelectorAll('.dropdown-item').forEach(item => {
             if (item.classList.contains('disabled')) return;
-            item.addEventListener('click', function(e) {
+            item.addEventListener('click', function (e) {
               e.stopPropagation();
               const botId = this.getAttribute('data-bot-id');
               localStorage.setItem('selectedFlowBotId', botId);
@@ -2361,7 +2608,7 @@
         // Setup dropdown toggle click listener
         const domainSelector = document.getElementById('domainSelector');
         if (domainSelector) {
-          domainSelector.addEventListener('click', function(e) {
+          domainSelector.addEventListener('click', function (e) {
             e.stopPropagation();
             const menu = document.getElementById('dropdownMenu');
             if (menu) menu.classList.toggle('show');
@@ -2369,7 +2616,7 @@
         }
 
         // Close dropdown on click outside
-        document.addEventListener('click', function() {
+        document.addEventListener('click', function () {
           const menu = document.getElementById('dropdownMenu');
           if (menu) menu.classList.remove('show');
         });
@@ -2384,14 +2631,14 @@
       const botId = localStorage.getItem('selectedFlowBotId') || 'default';
       const apiKey = currentBotApiKey || defaultApiKey;
       const serverUrl = window.location.origin;
-      
+
       const snippet = `<script src="${serverUrl}/widget/chatbot.js" data-server="${serverUrl}" data-bot-id="${botId}" data-api-key="${apiKey}" async></` + 'script>';
-      
+
       const textarea = document.getElementById('scriptCodeTextarea');
       if (textarea) {
         textarea.value = snippet;
       }
-      
+
       const modal = document.getElementById('embedScriptModal');
       if (modal) {
         modal.classList.add('show');
@@ -2408,7 +2655,7 @@
     function copyScriptToClipboard() {
       const textarea = document.getElementById('scriptCodeTextarea');
       if (!textarea) return;
-      
+
       textarea.select();
       document.execCommand('copy');
       showToast('📋 Script copied to clipboard!', 'success');
@@ -2419,13 +2666,13 @@
         event.stopPropagation();
         event.preventDefault();
       }
-      
+
       const switchEl = document.getElementById(type === 'ai' ? 'sidebarToggleAI' : 'sidebarToggleFlow');
       if (!switchEl) return;
-      
+
       // Determine intent from current state (do NOT pre-toggle)
       const isActive = !switchEl.classList.contains('active');
-      
+
       try {
         let payload = {};
         if (type === 'ai') {
@@ -2435,24 +2682,24 @@
           payload = { primaryMode: isActive ? 'flow_builder' : 'ai_chatbot' };
           showToast(isActive ? '✅ Flow Builder Mode active — AI Chatbot disabled' : '✅ AI Chatbot Mode active', 'success');
         }
-        
+
         const res = await fetch('/api/config', {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
         });
-        
+
         if (res.ok) {
           const resData = await res.json();
           const updatedConfig = resData.config;
-          
+
           // Sync BOTH switches from the authoritative server response
           const aiSwitch = document.getElementById('sidebarToggleAI');
           const flowSwitch = document.getElementById('sidebarToggleFlow');
           if (aiSwitch) aiSwitch.classList.toggle('active', updatedConfig.enableAI !== false);
           if (flowSwitch) flowSwitch.classList.toggle('active', updatedConfig.primaryMode === 'flow_builder');
         }
-        
+
         if (typeof loadConfigData === 'function') {
           loadConfigData();
         }
@@ -2461,11 +2708,11 @@
       }
     }
 
-function toggleMobileMenu() {
+    function toggleMobileMenu() {
       const sidebar = document.querySelector('.sidebar');
       sidebar.classList.toggle('mobile-open');
     }
-    
+
     let flowComponents = [];
     let componentIdCounter = 1;
     let expandedCardIds = new Set();
@@ -2518,7 +2765,7 @@ function toggleMobileMenu() {
         minDaysAhead: type === 'appointment' ? 1 : undefined,
         blockedWeekdays: type === 'appointment' ? '' : undefined
       };
-      
+
       flowComponents.push(component);
       expandedCardIds.clear();
       expandedCardIds.add(component.id);
@@ -2550,7 +2797,7 @@ function toggleMobileMenu() {
 
     function renderFlowCards() {
       const container = document.getElementById('flowCards');
-      
+
       if (flowComponents.length === 0) {
         container.innerHTML = `
           <div style="text-align: center; padding: 60px 20px; color: #94a3b8;">
@@ -2564,7 +2811,7 @@ function toggleMobileMenu() {
       container.innerHTML = flowComponents.map((comp, index) => {
         let contentFields = '';
         const isExpanded = expandedCardIds.has(comp.id) || (flowComponents.length > 0 && index === 0 && expandedCardIds.size === 0);
-        
+
         const stepNameField = `
           <div class="form-field" style="margin-bottom: 12px;">
             <label style="color: #6366f1; font-weight: 700; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;">Step Name / Label (for branching references)</label>
@@ -2573,7 +2820,7 @@ function toggleMobileMenu() {
                    onchange="updateCardLabel(${comp.id}, this.value)" style="border: 1px solid #c7d2fe; background: #faf5ff;">
           </div>
         `;
-        
+
         // Statement component
         if (comp.type === 'statement') {
           contentFields = stepNameField + `
@@ -2672,13 +2919,13 @@ function toggleMobileMenu() {
             ${comp.type === 'multiple' || comp.type === 'single' ? renderOptionsEditor(comp) : ''}
           `;
         }
-        
-        const displayText = comp.statement || comp.question || 
-                           (comp.condition ? `IF ${comp.condition} ${comp.conditionValue}` : 'NOT CONFIGURED');
-        
-        const iconClass = comp.type === 'statement' ? 'statement' : 
-                         comp.type === 'conditional' ? 'conditional' : '';
-        
+
+        const displayText = comp.statement || comp.question ||
+          (comp.condition ? `IF ${comp.condition} ${comp.conditionValue}` : 'NOT CONFIGURED');
+
+        const iconClass = comp.type === 'statement' ? 'statement' :
+          comp.type === 'conditional' ? 'conditional' : '';
+
         return `
           <div class="flow-card ${isExpanded ? 'expanded' : ''}" id="card-${comp.id}">
             <div class="flow-card-header" onclick="toggleCard(${comp.id})">
@@ -2711,12 +2958,12 @@ function toggleMobileMenu() {
                     <option value="">-- Continue Sequentially --</option>
                     <option value="end" ${comp.nextStepId === 'end' ? 'selected' : ''}>🛑 End Conversation</option>
                     ${flowComponents.filter(c => c.id !== comp.id).map(targetComp => {
-                      const label = targetComp.label || 'Step';
-                      const detail = targetComp.question || targetComp.statement || (targetComp.condition ? `IF ${targetComp.condition}` : '');
-                      const truncatedDetail = detail.length > 25 ? detail.substring(0, 22) + '...' : detail;
-                      const displayText = truncatedDetail ? `${label} (${truncatedDetail})` : label;
-                      return `<option value="${targetComp.id}" ${comp.nextStepId == targetComp.id ? 'selected' : ''}>➡️ Go to: ${escapeHtml(displayText)}</option>`;
-                    }).join('')}
+          const label = targetComp.label || 'Step';
+          const detail = targetComp.question || targetComp.statement || (targetComp.condition ? `IF ${targetComp.condition}` : '');
+          const truncatedDetail = detail.length > 25 ? detail.substring(0, 22) + '...' : detail;
+          const displayText = truncatedDetail ? `${label} (${truncatedDetail})` : label;
+          return `<option value="${targetComp.id}" ${comp.nextStepId == targetComp.id ? 'selected' : ''}>➡️ Go to: ${escapeHtml(displayText)}</option>`;
+        }).join('')}
                   </select>
                 </div>
               ` : ''}
@@ -2726,7 +2973,7 @@ function toggleMobileMenu() {
       }).join('');
       renderLivePreview();
     }
- 
+
     function toggleCard(id) {
       const card = document.getElementById(`card-${id}`);
       if (!card) return;
@@ -2743,16 +2990,16 @@ function toggleMobileMenu() {
       if (!comp) return;
       const card = document.getElementById(`card-${id}`);
       if (!card) return;
-      
+
       const titleEl = card.querySelector('.flow-card-title h4');
       const descEl = card.querySelector('.flow-card-title p');
-      
+
       if (titleEl) titleEl.textContent = comp.label || '';
-      
-      let displayText = comp.statement || comp.question || 
-                         (comp.condition ? `IF ${comp.condition} ${comp.conditionValue}` : 'NOT CONFIGURED');
+
+      let displayText = comp.statement || comp.question ||
+        (comp.condition ? `IF ${comp.condition} ${comp.conditionValue}` : 'NOT CONFIGURED');
       if (descEl) descEl.textContent = displayText;
-      
+
       renderLivePreview();
     }
 
@@ -2854,10 +3101,10 @@ function toggleMobileMenu() {
         destsArr.push('');
       }
       comp.destinations = destsArr;
-      
+
       // Get all other steps to populate the target dropdown
       const otherSteps = flowComponents.filter(c => c.id !== comp.id);
-      
+
       const optionsHtml = optionsArr.map((opt, index) => {
         const selectedDest = destsArr[index] || '';
         return `
@@ -2869,16 +3116,16 @@ function toggleMobileMenu() {
               <option value="">-- Continue Sequentially --</option>
               <option value="end" ${selectedDest == 'end' ? 'selected' : ''}>🛑 End Conversation</option>
               ${otherSteps.map(targetComp => {
-                const label = targetComp.label || 'Step';
-                const detail = targetComp.question || targetComp.statement || (targetComp.condition ? `IF ${targetComp.condition}` : '');
-                const truncatedDetail = detail.length > 25 ? detail.substring(0, 22) + '...' : detail;
-                const displayText = truncatedDetail ? `${label} (${truncatedDetail})` : label;
-                return `
+          const label = targetComp.label || 'Step';
+          const detail = targetComp.question || targetComp.statement || (targetComp.condition ? `IF ${targetComp.condition}` : '');
+          const truncatedDetail = detail.length > 25 ? detail.substring(0, 22) + '...' : detail;
+          const displayText = truncatedDetail ? `${label} (${truncatedDetail})` : label;
+          return `
                   <option value="${targetComp.id}" ${selectedDest == targetComp.id ? 'selected' : ''}>
                     ➡️ Go to: ${escapeHtml(displayText)}
                   </option>
                 `;
-              }).join('')}
+        }).join('')}
             </select>
             <button class="delete-option-btn" onclick="event.stopPropagation(); deleteOption(${comp.id}, ${index})" title="Delete Option" style="flex-shrink: 0; padding: 10px; background: #f1f5f9; border: none; border-radius: 8px; cursor: pointer; height: 38px; display: flex; align-items: center; justify-content: center;">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="pointer-events: none;"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
@@ -2963,7 +3210,7 @@ function toggleMobileMenu() {
         }
       }
     }
-    
+
     function updateStatement(id, value) {
       const comp = flowComponents.find(c => c.id === id);
       if (comp) {
@@ -2981,7 +3228,7 @@ function toggleMobileMenu() {
         saveFlowState();
       }
     }
-    
+
     function updateCondition(id, value) {
       const comp = flowComponents.find(c => c.id === id);
       if (comp) {
@@ -2990,7 +3237,7 @@ function toggleMobileMenu() {
         saveFlowState();
       }
     }
-    
+
     function updateConditionValue(id, value) {
       const comp = flowComponents.find(c => c.id === id);
       if (comp) {
@@ -2999,7 +3246,7 @@ function toggleMobileMenu() {
         saveFlowState();
       }
     }
-    
+
     function updateThenAction(id, value) {
       const comp = flowComponents.find(c => c.id === id);
       if (comp) {
@@ -3007,7 +3254,7 @@ function toggleMobileMenu() {
         saveFlowState();
       }
     }
-    
+
     function updateElseAction(id, value) {
       const comp = flowComponents.find(c => c.id === id);
       if (comp) {
@@ -3015,23 +3262,23 @@ function toggleMobileMenu() {
         saveFlowState();
       }
     }
-    
+
     // Preview functionality
     function openPreview() {
       if (flowComponents.length === 0) {
         showToast('⚠️ Add components to your flow first', 'warning');
         return;
       }
-      
+
       const modal = document.getElementById('previewModal');
       const body = document.getElementById('previewBody');
-      
+
       let previewHTML = '<div class="preview-chatbot">';
-      
+
       flowComponents.forEach((comp, index) => {
         previewHTML += '<div class="preview-message">';
         previewHTML += `<div class="preview-message-label">Step ${index + 1}: ${comp.label}</div>`;
-        
+
         if (comp.type === 'statement') {
           previewHTML += `<div class="preview-message-text">${comp.statement || 'No statement configured'}</div>`;
           previewHTML += '<span class="statement-badge">💬 STATEMENT</span>';
@@ -3044,7 +3291,7 @@ function toggleMobileMenu() {
           previewHTML += '<span class="conditional-badge">🔀 CONDITIONAL LOGIC</span>';
         } else {
           previewHTML += `<div class="preview-message-text">${comp.question || 'No question configured'}</div>`;
-          
+
           if (comp.type === 'single' || comp.type === 'multiple') {
             const options = Array.isArray(comp.options) ? comp.options : (comp.options ? comp.options.split(',') : ['Option 1', 'Option 2', 'Option 3']);
             previewHTML += '<div class="preview-options">';
@@ -3070,20 +3317,20 @@ function toggleMobileMenu() {
             previewHTML += `<input type="text" class="preview-input" placeholder="User will type here..." disabled>`;
           }
         }
-        
+
         previewHTML += '</div>';
       });
-      
+
       previewHTML += '</div>';
       body.innerHTML = previewHTML;
       modal.classList.add('show');
     }
-    
+
     function closePreview() {
       const modal = document.getElementById('previewModal');
       modal.classList.remove('show');
     }
-    
+
     // Close preview on escape key
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
@@ -3091,7 +3338,7 @@ function toggleMobileMenu() {
       }
     });
 
-     function deleteCard(id) {
+    function deleteCard(id) {
       flowComponents = flowComponents.filter(c => c.id !== id);
       expandedCardIds.delete(id);
       renderFlowCards();
@@ -3174,12 +3421,12 @@ function toggleMobileMenu() {
       const chatIcon = document.getElementById('fabChatIcon');
       const closeIcon = document.getElementById('fabCloseIcon');
       if (!widget || !fab) return;
-      
+
       let toOpen = !widget.classList.contains('open');
       if (typeof forceState === 'boolean') {
         toOpen = forceState;
       }
-      
+
       if (toOpen) {
         widget.classList.add('open');
         fab.classList.add('active');
@@ -3202,19 +3449,19 @@ function toggleMobileMenu() {
     function handleWidgetSend() {
       const input = document.getElementById('widgetInputBox');
       if (!input) return;
-      
+
       const text = input.value.trim();
       if (!text) return;
-      
+
       if (simIsActive) {
         const comp = flowComponents[simCurrentStepIndex];
         if (comp) {
           simAnswers[comp.label] = text;
         }
-        
+
         appendUserMessage(text);
         input.value = '';
-        
+
         if (comp && comp.nextStepId) {
           if (comp.nextStepId === 'end') {
             simCurrentStepIndex = flowComponents.length;
@@ -3232,14 +3479,14 @@ function toggleMobileMenu() {
         setTimeout(simShowNextStep, 800);
         return;
       }
-      
+
       const feed = document.getElementById('livePreviewFeed');
       if (!feed) return;
-      
+
       if (flowComponents.length === 0 && feed.querySelector('p')) {
         feed.innerHTML = '';
       }
-      
+
       const now = new Date();
       let hours = now.getHours();
       const minutes = String(now.getMinutes()).padStart(2, '0');
@@ -3247,7 +3494,7 @@ function toggleMobileMenu() {
       hours = hours % 12;
       hours = hours ? hours : 12;
       const timeStr = `${hours}:${minutes} ${ampm}`;
-      
+
       const userBubble = `
         <div class="widget-msg-row user-msg" style="align-self: flex-end; max-width: 85%; margin-top: 8px;">
           <div class="widget-msg-bubble-container" style="align-items: flex-end; display: flex; flex-direction: column; gap: 4px;">
@@ -3259,11 +3506,11 @@ function toggleMobileMenu() {
           </div>
         </div>
       `;
-      
+
       feed.insertAdjacentHTML('beforeend', userBubble);
       input.value = '';
       feed.scrollTop = feed.scrollHeight;
-      
+
       setTimeout(() => {
         const replyHtml = `
           <div class="widget-msg-row" style="margin-top: 8px;">
@@ -3281,7 +3528,7 @@ function toggleMobileMenu() {
         feed.scrollTop = feed.scrollHeight;
       }, 1000);
     }
-    
+
     function handleWidgetKeyDown(event) {
       if (event.key === 'Enter' && !event.shiftKey) {
         event.preventDefault();
@@ -3321,13 +3568,13 @@ function toggleMobileMenu() {
         if (!textEl.hasAttribute('data-original-text')) {
           textEl.setAttribute('data-original-text', originalText);
         }
-        
+
         if (!cleanQuery) {
           textEl.innerHTML = originalText;
           bubble.closest('.widget-msg-row').style.opacity = '1';
           return;
         }
-        
+
         const textContent = textEl.textContent.toLowerCase();
         if (textContent.includes(cleanQuery)) {
           bubble.closest('.widget-msg-row').style.opacity = '1';
@@ -3358,7 +3605,7 @@ function toggleMobileMenu() {
         showToast('⚠️ No chat history to export', 'warning');
         return;
       }
-      
+
       let html = `<html><head><title>Chat Preview Export</title>
         <style>
           body { font-family: Arial, sans-serif; max-width: 600px; margin: 40px auto; padding: 20px; }
@@ -3371,7 +3618,7 @@ function toggleMobileMenu() {
         </style></head><body>
         <h1>Chat Preview Session</h1>
         <p style="color:#888;font-size:13px;">Exported on ${new Date().toLocaleString()}</p>`;
-        
+
       rows.forEach(row => {
         const isUser = row.classList.contains('user-msg');
         const sender = isUser ? 'You' : 'Super Admin';
@@ -3382,9 +3629,9 @@ function toggleMobileMenu() {
         const time = timeEl ? timeEl.textContent : '';
         html += `<div class="msg ${cls}"><strong>${sender}</strong><br>${text}<div class="time">${time}</div></div>`;
       });
-      
+
       html += `<div class="footer">Exported from Chatbot Builder Preview</div></body></html>`;
-      
+
       const blob = new Blob([html], { type: 'text/html' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
@@ -3402,12 +3649,12 @@ function toggleMobileMenu() {
     function initPreviewSimulation() {
       const feed = document.getElementById('livePreviewFeed');
       if (!feed) return;
-      
+
       feed.innerHTML = '';
       simCurrentStepIndex = 0;
       simAnswers = {};
       simIsActive = true;
-      
+
       simShowNextStep();
     }
 
@@ -3415,7 +3662,7 @@ function toggleMobileMenu() {
       if (!simIsActive) return;
       const feed = document.getElementById('livePreviewFeed');
       if (!feed) return;
-      
+
       if (flowComponents.length === 0) {
         feed.innerHTML = `
           <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; color: #94a3b8; text-align: center; padding: 20px;">
@@ -3425,25 +3672,25 @@ function toggleMobileMenu() {
         `;
         return;
       }
-      
+
       if (simCurrentStepIndex >= flowComponents.length) {
         appendBotMessage("🎉 Flow completed! Click the trash icon at the top to restart.");
         return;
       }
-      
+
       const comp = flowComponents[simCurrentStepIndex];
-      
+
       if (comp.type === 'statement') {
         appendBotMessage(comp.statement || 'Statement Message');
         simCurrentStepIndex++;
         setTimeout(simShowNextStep, 1000);
-      } 
+      }
       else if (comp.type === 'conditional') {
         let conditionMet = false;
-        
+
         const refField = (comp.condition || '').trim().toLowerCase();
         const refVal = (comp.conditionValue || '').trim().toLowerCase();
-        
+
         let answer = undefined;
         for (const [key, val] of Object.entries(simAnswers)) {
           if (key.toLowerCase() === refField) {
@@ -3451,10 +3698,10 @@ function toggleMobileMenu() {
             break;
           }
         }
-        
+
         if (answer !== undefined) {
           const ansStr = String(answer).trim().toLowerCase();
-          
+
           if (refVal.startsWith('>') || refVal.startsWith('<') || refVal.startsWith('=') || refVal.startsWith('!')) {
             try {
               const match = refVal.match(/^([><=!]+)\s*(.*)$/);
@@ -3462,7 +3709,7 @@ function toggleMobileMenu() {
                 const op = match[1];
                 const val = parseFloat(match[2]);
                 const ansNum = parseFloat(ansStr);
-                
+
                 if (!isNaN(ansNum) && !isNaN(val)) {
                   if (op === '>') conditionMet = ansNum > val;
                   else if (op === '<') conditionMet = ansNum < val;
@@ -3479,9 +3726,9 @@ function toggleMobileMenu() {
             conditionMet = ansStr === refVal || ansStr.includes(refVal);
           }
         }
-        
+
         const nextAction = conditionMet ? (comp.thenAction || '').trim() : (comp.elseAction || '').trim();
-        
+
         const targetStep = flowComponents.find(c => c.label.trim().toLowerCase() === nextAction.toLowerCase());
         if (targetStep) {
           const targetIndex = flowComponents.indexOf(targetStep);
@@ -3497,7 +3744,7 @@ function toggleMobileMenu() {
       }
       else {
         const questionText = comp.question || `Please provide your ${comp.label}?`;
-        
+
         if (comp.type === 'single') {
           const options = Array.isArray(comp.options) ? comp.options : (comp.options ? comp.options.split(',').map(o => o.trim()) : ['Option 1', 'Option 2', 'Option 3']);
           let optionsHtml = '<div class="preview-options-container" style="display: flex; flex-direction: column; gap: 8px; margin-top: 8px; width: 100%;">';
@@ -3506,7 +3753,7 @@ function toggleMobileMenu() {
           });
           optionsHtml += '</div>';
           appendBotMessage(questionText, optionsHtml);
-        } 
+        }
         else if (comp.type === 'multiple') {
           const options = Array.isArray(comp.options) ? comp.options : (comp.options ? comp.options.split(',').map(o => o.trim()) : ['Option 1', 'Option 2', 'Option 3']);
           let optionsHtml = `<div class="preview-options-container" id="multichoice-${comp.id}" style="display: flex; flex-direction: column; gap: 8px; margin-top: 8px; width: 100%;">`;
@@ -3539,7 +3786,7 @@ function toggleMobileMenu() {
     function appendBotMessage(text, extraHtml = '') {
       const feed = document.getElementById('livePreviewFeed');
       if (!feed) return;
-      
+
       const now = new Date();
       let hours = now.getHours();
       const minutes = String(now.getMinutes()).padStart(2, '0');
@@ -3547,7 +3794,7 @@ function toggleMobileMenu() {
       hours = hours % 12;
       hours = hours ? hours : 12;
       const timeStr = `${hours}:${minutes} ${ampm}`;
-      
+
       const botHtml = `
         <div class="widget-msg-row" style="margin-top: 8px;">
           <div class="widget-msg-avatar">🤖</div>
@@ -3561,7 +3808,7 @@ function toggleMobileMenu() {
           </div>
         </div>
       `;
-      
+
       feed.insertAdjacentHTML('beforeend', botHtml);
       feed.scrollTop = feed.scrollHeight;
     }
@@ -3569,7 +3816,7 @@ function toggleMobileMenu() {
     function appendUserMessage(text) {
       const feed = document.getElementById('livePreviewFeed');
       if (!feed) return;
-      
+
       const now = new Date();
       let hours = now.getHours();
       const minutes = String(now.getMinutes()).padStart(2, '0');
@@ -3577,7 +3824,7 @@ function toggleMobileMenu() {
       hours = hours % 12;
       hours = hours ? hours : 12;
       const timeStr = `${hours}:${minutes} ${ampm}`;
-      
+
       const userHtml = `
         <div class="widget-msg-row user-msg" style="align-self: flex-end; max-width: 85%; margin-top: 8px;">
           <div class="widget-msg-bubble-container" style="align-items: flex-end; display: flex; flex-direction: column; gap: 4px;">
@@ -3589,7 +3836,7 @@ function toggleMobileMenu() {
           </div>
         </div>
       `;
-      
+
       feed.insertAdjacentHTML('beforeend', userHtml);
       feed.scrollTop = feed.scrollHeight;
     }
@@ -3597,10 +3844,10 @@ function toggleMobileMenu() {
     function simSelectSingleChoice(compId, choice) {
       const comp = flowComponents.find(c => c.id === compId);
       if (!comp) return;
-      
+
       simAnswers[comp.label] = choice;
       appendUserMessage(choice);
-      
+
       const activeChoices = document.querySelectorAll('#livePreviewFeed .interactive-choice');
       activeChoices.forEach(btn => {
         btn.disabled = true;
@@ -3614,7 +3861,7 @@ function toggleMobileMenu() {
         const optionsArr = Array.isArray(comp.options) ? comp.options : comp.options.split(',').map(o => o.trim());
         const destsArr = Array.isArray(comp.destinations) ? comp.destinations : comp.destinations.split(',');
         const optIndex = optionsArr.indexOf(choice);
-        
+
         if (optIndex !== -1 && destsArr[optIndex]) {
           const targetId = String(destsArr[optIndex]).trim();
           if (targetId === 'end') {
@@ -3629,7 +3876,7 @@ function toggleMobileMenu() {
           }
         }
       }
-      
+
       if (!branched) {
         if (comp.nextStepId) {
           if (comp.nextStepId === 'end') {
@@ -3646,26 +3893,26 @@ function toggleMobileMenu() {
           simCurrentStepIndex++;
         }
       }
-      
+
       setTimeout(simShowNextStep, 800);
     }
 
     function simSubmitMultipleChoice(compId) {
       const comp = flowComponents.find(c => c.id === compId);
       if (!comp) return;
-      
+
       const checkedBoxes = document.querySelectorAll(`#multichoice-${compId} input[type="checkbox"]:checked`);
       const selected = Array.from(checkedBoxes).map(cb => cb.value);
-      
+
       if (selected.length === 0) {
         showToast('⚠️ Please select at least one option', 'warning');
         return;
       }
-      
+
       const joinedStr = selected.join(', ');
       simAnswers[comp.label] = joinedStr;
       appendUserMessage(joinedStr);
-      
+
       const container = document.getElementById(`multichoice-${compId}`);
       if (container) {
         const inputs = container.querySelectorAll('input, button');
@@ -3681,7 +3928,7 @@ function toggleMobileMenu() {
       if (comp.options && comp.destinations) {
         const optionsArr = Array.isArray(comp.options) ? comp.options : comp.options.split(',').map(o => o.trim());
         const destsArr = Array.isArray(comp.destinations) ? comp.destinations : comp.destinations.split(',');
-        
+
         // Find the first selected choice that has a valid destination
         for (const choice of selected) {
           const optIndex = optionsArr.indexOf(choice);
@@ -3702,7 +3949,7 @@ function toggleMobileMenu() {
           }
         }
       }
-      
+
       if (!branched) {
         if (comp.nextStepId) {
           if (comp.nextStepId === 'end') {
@@ -3719,16 +3966,16 @@ function toggleMobileMenu() {
           simCurrentStepIndex++;
         }
       }
-      
+
       setTimeout(simShowNextStep, 800);
     }
 
     function simClickWebsite(compId) {
       const comp = flowComponents.find(c => c.id === compId);
       if (!comp) return;
-      
+
       appendUserMessage(`Clicked: ${comp.buttonLabel || 'Visit Page'}`);
-      
+
       if (comp.nextStepId) {
         if (comp.nextStepId === 'end') {
           simCurrentStepIndex = flowComponents.length;
@@ -3759,13 +4006,13 @@ function toggleMobileMenu() {
         showToast('⚠️ Add components to your flow first', 'warning');
         return;
       }
-      
+
       const selectedBotId = localStorage.getItem('selectedFlowBotId') || 'default';
       // Save locally to localStorage
       localStorage.setItem('chatbotFlow_' + selectedBotId, JSON.stringify(flowComponents));
-      
 
-      
+
+
       // Save to server database via API
       fetch('/api/flow', {
         method: 'POST',
@@ -3775,45 +4022,45 @@ function toggleMobileMenu() {
           components: flowComponents
         })
       })
-      .then(res => {
-        if (!res.ok) throw new Error('Server returned error');
-        return res.json();
-      })
-      .then(data => {
-        showToast('✅ Flow saved and database updated!', 'success');
-      })
-      .catch(err => {
-        console.error('Failed to save flow to server:', err);
-        showToast('⚠️ Saved locally, but server update failed', 'warning');
-      });
+        .then(res => {
+          if (!res.ok) throw new Error('Server returned error');
+          return res.json();
+        })
+        .then(data => {
+          showToast('✅ Flow saved and database updated!', 'success');
+        })
+        .catch(err => {
+          console.error('Failed to save flow to server:', err);
+          showToast('⚠️ Saved locally, but server update failed', 'warning');
+        });
     }
 
     function importFlow(event) {
       const file = event.target.files[0];
       if (!file) return;
-      
+
       const reader = new FileReader();
-      reader.onload = function(e) {
+      reader.onload = function (e) {
         try {
           const loadedFlow = JSON.parse(e.target.result);
           if (!Array.isArray(loadedFlow)) {
             throw new Error('Flow configuration must be a JSON array.');
           }
-          
+
           flowComponents = loadedFlow;
           normalizeFlowComponents();
           componentIdCounter = flowComponents.length > 0 ? Math.max(...flowComponents.map(c => c.id)) + 1 : 1;
-          
+
           const selectedBotId = localStorage.getItem('selectedFlowBotId') || 'default';
           // Save to localStorage
           localStorage.setItem('chatbotFlow_' + selectedBotId, JSON.stringify(flowComponents));
-          
+
           // Re-render editor canvas and simulation preview
           renderFlowCards();
           if (typeof initPreviewSimulation === 'function') {
             initPreviewSimulation();
           }
-          
+
           // Save to server database via API
           fetch('/api/flow', {
             method: 'POST',
@@ -3823,17 +4070,17 @@ function toggleMobileMenu() {
               components: flowComponents
             })
           })
-          .then(res => {
-            if (!res.ok) throw new Error('Server returned error');
-            return res.json();
-          })
-          .then(data => {
-            showToast('📂 Flow imported and saved to server!', 'success');
-          })
-          .catch(err => {
-            console.error('Failed to save imported flow to server:', err);
-            showToast('⚠️ Imported locally, but server update failed', 'warning');
-          });
+            .then(res => {
+              if (!res.ok) throw new Error('Server returned error');
+              return res.json();
+            })
+            .then(data => {
+              showToast('📂 Flow imported and saved to server!', 'success');
+            })
+            .catch(err => {
+              console.error('Failed to save imported flow to server:', err);
+              showToast('⚠️ Imported locally, but server update failed', 'warning');
+            });
         } catch (err) {
           console.error(err);
           showToast('❌ Invalid flow configuration file.', 'warning');
@@ -3864,15 +4111,15 @@ function toggleMobileMenu() {
     async function submitCreateBot() {
       const name = document.getElementById('modal-bot-name').value.trim();
       const domain = document.getElementById('modal-bot-domain').value.trim();
-      
+
       if (!name || !domain) {
         alert('Please enter both Bot Name and Domain Name');
         return;
       }
-      
+
       const clientId = sessionStorage.getItem('clientId') || 'default';
       const userRole = sessionStorage.getItem('userRole') || 'client';
-      
+
       // Frontend Plan checking
       if (userRole === 'client' && clientId !== 'default') {
         try {
@@ -3890,7 +4137,7 @@ function toggleMobileMenu() {
           console.error("Plan checking failed:", e);
         }
       }
-      
+
       try {
         const res = await fetch('/api/bots', {
           method: 'POST',
@@ -3938,7 +4185,7 @@ function toggleMobileMenu() {
       await renderSidebarAndTopbar();
       await initializeDomainSelector();
       await loadDefaultApiKey();
-      
+
       // Initialize theme from localStorage
       const savedTheme = localStorage.getItem('adminTheme');
       if (savedTheme === 'dark') {
@@ -3960,20 +4207,20 @@ function toggleMobileMenu() {
             renderFlowCards();
             localStorage.setItem('chatbotFlow_' + selectedBotId, JSON.stringify(flowComponents));
           } else {
-             // For new or default bots, check if there's a locally saved copy for this bot
-             const savedFlow = localStorage.getItem('chatbotFlow_' + selectedBotId);
-             if (savedFlow) {
-               flowComponents = JSON.parse(savedFlow);
-               normalizeFlowComponents();
-               componentIdCounter = flowComponents.length > 0 ? Math.max(...flowComponents.map(c => c.id)) + 1 : 1;
-               renderFlowCards();
-             } else {
-               // For new bots, clear the canvas
-               flowComponents = [];
-               componentIdCounter = 1;
-               renderFlowCards();
-               localStorage.setItem('chatbotFlow_' + selectedBotId, JSON.stringify([]));
-             }
+            // For new or default bots, check if there's a locally saved copy for this bot
+            const savedFlow = localStorage.getItem('chatbotFlow_' + selectedBotId);
+            if (savedFlow) {
+              flowComponents = JSON.parse(savedFlow);
+              normalizeFlowComponents();
+              componentIdCounter = flowComponents.length > 0 ? Math.max(...flowComponents.map(c => c.id)) + 1 : 1;
+              renderFlowCards();
+            } else {
+              // For new bots, clear the canvas
+              flowComponents = [];
+              componentIdCounter = 1;
+              renderFlowCards();
+              localStorage.setItem('chatbotFlow_' + selectedBotId, JSON.stringify([]));
+            }
           }
         }
       } catch (err) {
@@ -3987,7 +4234,7 @@ function toggleMobileMenu() {
           renderFlowCards();
         }
       }
-      
+
       if (typeof renderLivePreview === 'function') {
         renderLivePreview();
       }
@@ -4007,17 +4254,23 @@ function toggleMobileMenu() {
       </div>
       <div class="modal-body">
         <div class="form-group" style="margin-bottom: 16px;">
-          <label class="form-label" style="font-weight:600; margin-bottom:6px; display:block; color: #475569;">Bot Name</label>
-          <input type="text" id="modal-bot-name" placeholder="e.g. My Flow Assistant" style="width:100%; padding:10px 12px; border:1.5px solid #cbd5e1; border-radius:8px; outline:none; font-size:14px; background: white; color: #1e293b;">
+          <label class="form-label" style="font-weight:600; margin-bottom:6px; display:block; color: #475569;">Bot
+            Name</label>
+          <input type="text" id="modal-bot-name" placeholder="e.g. My Flow Assistant"
+            style="width:100%; padding:10px 12px; border:1.5px solid #cbd5e1; border-radius:8px; outline:none; font-size:14px; background: white; color: #1e293b;">
         </div>
         <div class="form-group" style="margin-bottom: 16px;">
-          <label class="form-label" style="font-weight:600; margin-bottom:6px; display:block; color: #475569;">Domain Name</label>
-          <input type="text" id="modal-bot-domain" placeholder="e.g. mywebsite.com" style="width:100%; padding:10px 12px; border:1.5px solid #cbd5e1; border-radius:8px; outline:none; font-size:14px; background: white; color: #1e293b;">
+          <label class="form-label" style="font-weight:600; margin-bottom:6px; display:block; color: #475569;">Domain
+            Name</label>
+          <input type="text" id="modal-bot-domain" placeholder="e.g. mywebsite.com"
+            style="width:100%; padding:10px 12px; border:1.5px solid #cbd5e1; border-radius:8px; outline:none; font-size:14px; background: white; color: #1e293b;">
         </div>
       </div>
       <div class="modal-footer">
-        <button class="btn-submit btn-outline" onclick="closeCreateBotModal()" style="padding: 8px 16px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 13px; font-weight:600; cursor:pointer; background: white; color: #475569;">Cancel</button>
-        <button class="btn-submit" onclick="submitCreateBot()" style="padding: 8px 16px; background: #6366f1; color: white; border: none; border-radius: 6px; font-size: 13px; font-weight:600; cursor:pointer;">Create</button>
+        <button class="btn-submit btn-outline" onclick="closeCreateBotModal()"
+          style="padding: 8px 16px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 13px; font-weight:600; cursor:pointer; background: white; color: #475569;">Cancel</button>
+        <button class="btn-submit" onclick="submitCreateBot()"
+          style="padding: 8px 16px; background: #6366f1; color: white; border: none; border-radius: 6px; font-size: 13px; font-weight:600; cursor:pointer;">Create</button>
       </div>
     </div>
   </div>
@@ -4033,15 +4286,19 @@ function toggleMobileMenu() {
         <p style="font-size: 13px; color: #64748b; margin-bottom: 16px;">
           Copy this script and paste it into your website's HTML, just before the closing &lt;/body&gt; tag:
         </p>
-        <textarea id="scriptCodeTextarea" class="form-textarea" rows="8" readonly style="width: 100%; font-family: 'Courier New', monospace; font-size: 13px; background: #1e293b; color: #e2e8f0; border: 1px solid #334155; padding: 12px; border-radius: 8px; resize: none; outline: none;"></textarea>
+        <textarea id="scriptCodeTextarea" class="form-textarea" rows="8" readonly
+          style="width: 100%; font-family: 'Courier New', monospace; font-size: 13px; background: #1e293b; color: #e2e8f0; border: 1px solid #334155; padding: 12px; border-radius: 8px; resize: none; outline: none;"></textarea>
       </div>
       <div class="modal-footer">
-        <button class="btn-submit btn-outline" onclick="closeEmbedScriptModal()" style="padding: 8px 16px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 13px; font-weight:600; cursor:pointer; background: white; color: #475569;">Cancel</button>
-        <button class="btn-submit" onclick="copyScriptToClipboard()" style="padding: 8px 16px; background: #6366f1; color: white; border: none; border-radius: 6px; font-size: 13px; font-weight:600; cursor:pointer;">
+        <button class="btn-submit btn-outline" onclick="closeEmbedScriptModal()"
+          style="padding: 8px 16px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 13px; font-weight:600; cursor:pointer; background: white; color: #475569;">Cancel</button>
+        <button class="btn-submit" onclick="copyScriptToClipboard()"
+          style="padding: 8px 16px; background: #6366f1; color: white; border: none; border-radius: 6px; font-size: 13px; font-weight:600; cursor:pointer;">
           <span>📋</span> Copy Code
         </button>
       </div>
     </div>
   </div>
 </body>
+
 </html>

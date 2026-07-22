@@ -785,9 +785,12 @@ async function sendLeadEmail(lead) {
 
     const transporter = nodemailer.createTransport({
       host: emailCfg.smtpHost,
-      port: emailCfg.smtpPort,
-      secure: emailCfg.smtpPort === 465,
-      auth: { user: emailCfg.smtpUser, pass: emailCfg.smtpPass },
+      port: Number(emailCfg.smtpPort),
+      secure: false,
+      auth: {
+        user: emailCfg.smtpUser,
+        pass: emailCfg.smtpPass
+      },
       tls: { rejectUnauthorized: false }
     });
 
@@ -838,7 +841,12 @@ async function sendWelcomeEmail(client, plainPassword, req) {
       port: emailCfg.smtpPort,
       secure: emailCfg.smtpPort === 465,
       auth: { user: emailCfg.smtpUser, pass: emailCfg.smtpPass },
-      tls: { rejectUnauthorized: false }
+      tls: {
+        rejectUnauthorized: false
+      },
+      connectionTimeout: 10000,
+      greetingTimeout: 10000,
+      socketTimeout: 10000
     });
 
     // Resolve login URL: Use PUBLIC_URL if specified, otherwise fall back to host headers
@@ -1508,6 +1516,7 @@ app.post('/api/chat', restrictDomain, checkApiKey, rateLimit, async (req, res) =
   console.log("BOT ID:", botId);
   console.log("QUESTION:", message);
   console.log("KB MATCH:", kbMatch);
+  console.log("==============");
   if (kbMatch) {
     console.log('✅ Knowledge Base match found → Using RAG (Retrieval-Augmented Generation)');
 
@@ -2549,6 +2558,7 @@ app.put('/api/complaint/:id/status', (req, res) => {
 
 // POST /api/purchase — Landing Page: Register new client/tenant
 app.post('/api/payment/verify', async (req, res) => {
+  console.log("PAYMENT VERIFY API HIT");
   const { company_name, email, phone, password, plan_id, razorpay_payment_id, razorpay_order_id, razorpay_signature } = req.body;
 
   // Enforce Razorpay payment details are present and verify signature
@@ -2588,15 +2598,18 @@ app.post('/api/payment/verify', async (req, res) => {
     // Create clients table if not exists
     if (db) {
       db.exec(`
-        CREATE TABLE IF NOT EXISTS clients (
-          id INTEGER PRIMARY KEY AUTOINCREMENT,
-          client_id TEXT UNIQUE NOT NULL,
-          company_name TEXT NOT NULL,
-          email TEXT UNIQUE NOT NULL,
-          password TEXT NOT NULL,
-          plan_id INTEGER NOT NULL,
-          created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-          status TEXT DEFAULT 'active'
+  CREATE TABLE IF NOT EXISTS clients (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    client_id TEXT UNIQUE NOT NULL,
+    company_name TEXT NOT NULL,
+    email TEXT UNIQUE NOT NULL,
+    phone TEXT,
+    password TEXT NOT NULL,
+    plan_id INTEGER NOT NULL,
+    plan_name TEXT,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    status TEXT DEFAULT 'active'
+  )
         )
       `);
 
@@ -2634,7 +2647,9 @@ app.post('/api/payment/verify', async (req, res) => {
       }
 
       // Send welcome email with credentials
+      console.log("Before sendWelcomeEmail");
       const emailResult = await sendWelcomeEmail({ company_name, email, plan_name: planName, status: 'active' }, password, req);
+      console.log("Email Result:", emailResult);
 
       res.json({
         success: true,
