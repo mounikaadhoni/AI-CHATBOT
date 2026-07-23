@@ -839,10 +839,14 @@ async function sendWelcomeEmail(client, plainPassword, req) {
 
     console.log(`[EMAIL] Initializing SMTP transporter...`);
     const transporter = nodemailer.createTransport({
-      host: emailCfg.smtpHost,
-      port: emailCfg.smtpPort,
-      secure: emailCfg.smtpPort === 465,
-      auth: { user: emailCfg.smtpUser, pass: emailCfg.smtpPass },
+      host: "smtp.gmail.com",
+      port: 587,
+      secure: false,
+      family: 4,
+      auth: {
+        user: emailCfg.smtpUser,
+        pass: emailCfg.smtpPass
+      },
       tls: {
         rejectUnauthorized: false
       },
