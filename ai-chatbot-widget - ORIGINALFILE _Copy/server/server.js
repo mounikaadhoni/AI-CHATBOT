@@ -841,7 +841,7 @@ async function sendWelcomeEmail(client, plainPassword, req) {
     const transporter = nodemailer.createTransport({
       host: emailCfg.smtpHost,
       port: emailCfg.smtpPort,
-      secure: emailCfg.smtpPort === 465,
+      secure: emailCfg.smtpPort === 587,
       auth: { user: emailCfg.smtpUser, pass: emailCfg.smtpPass },
       tls: {
         rejectUnauthorized: false
@@ -850,6 +850,9 @@ async function sendWelcomeEmail(client, plainPassword, req) {
       greetingTimeout: 10000,
       socketTimeout: 10000
     });
+    await transporter.verify();
+    console.log("✅ SMTP Connected Successfully");
+
 
     // Resolve login URL: Use PUBLIC_URL if specified, otherwise fall back to host headers
     let loginUrl;
