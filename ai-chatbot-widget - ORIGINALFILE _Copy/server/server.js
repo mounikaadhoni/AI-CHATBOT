@@ -841,7 +841,7 @@ async function sendWelcomeEmail(client, plainPassword, req) {
     const transporter = nodemailer.createTransport({
       host: emailCfg.smtpHost,
       port: emailCfg.smtpPort,
-      secure: emailCfg.smtpPort === 587,
+      secure: emailCfg.smtpPort === 465,
       auth: { user: emailCfg.smtpUser, pass: emailCfg.smtpPass },
       tls: {
         rejectUnauthorized: false
