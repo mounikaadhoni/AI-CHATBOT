@@ -196,6 +196,8 @@ async function handlePurchase(event) {
   }
 
   try {
+    console.log("ORDER DATA:", order);
+    console.log("KEY ID:", process.env.RAZORPAY_KEY_ID);
     const orderRes = await fetch('/api/payment/create-order', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
