@@ -2588,6 +2588,10 @@ app.put('/api/complaint/:id/status', (req, res) => {
 
 // POST /api/purchase — Landing Page: Register new client/tenant
 app.post('/api/payment/verify', async (req, res) => {
+  console.log("Order ID:", razorpay_order_id);
+  console.log("Payment ID:", razorpay_payment_id);
+  console.log("Signature:", razorpay_signature);
+  console.log("Key Secret Loaded:", process.env.RAZORPAY_KEY_SECRET ? "YES" : "NO");
   console.log("PAYMENT VERIFY API HIT");
   const { company_name, email, phone, password, plan_id, razorpay_payment_id, razorpay_order_id, razorpay_signature } = req.body;
 

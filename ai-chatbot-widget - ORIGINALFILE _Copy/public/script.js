@@ -10,12 +10,12 @@ function showDashboardTab(tab) {
     btn.classList.remove('active');
   });
   event.target.classList.add('active');
-  
+
   // Hide all content
   document.getElementById('flowbuilder-content').style.display = 'none';
   document.getElementById('analytics-content').style.display = 'none';
   document.getElementById('knowledge-content').style.display = 'none';
-  
+
   // Show selected content
   if (tab === 'flowbuilder') {
     document.getElementById('flowbuilder-content').style.display = 'grid';
@@ -39,12 +39,12 @@ function scrollToDemo() {
 function toggleFaq(element) {
   const faqItem = element.parentElement;
   const isActive = faqItem.classList.contains('active');
-  
+
   // Close all FAQ items
   document.querySelectorAll('.faq-item').forEach(item => {
     item.classList.remove('active');
   });
-  
+
   // Open clicked item if it wasn't active
   if (!isActive) {
     faqItem.classList.add('active');
@@ -56,20 +56,20 @@ function openPurchaseModal(planId, plan, price) {
   selectedPlanId = planId;
   selectedPlan = plan;
   selectedPrice = price;
-  
+
   // Update Plan Name and Price in the new HTML template
   const planNameEl = document.getElementById('modalPlanName');
   if (planNameEl) planNameEl.textContent = plan + ' Plan';
-  
+
   const priceEl = document.getElementById('modalPrice');
   if (priceEl) priceEl.textContent = '₹' + price;
-  
+
   // Show Modal (uses inline styles in the new design)
   const modal = document.getElementById('purchaseModal');
   if (modal) modal.style.display = 'flex';
-  
+
   document.body.style.overflow = 'hidden';
-  
+
   // Reset fields
   const pwEl = document.getElementById('userPassword');
   if (pwEl) {
@@ -111,21 +111,21 @@ function validatePassword(password) {
 
 function updatePasswordRequirements(password) {
   const requirements = validatePassword(password);
-  
+
   // Update each requirement indicator
   updateRequirement('req-length', requirements.length);
   updateRequirement('req-uppercase', requirements.uppercase);
   updateRequirement('req-lowercase', requirements.lowercase);
   updateRequirement('req-number', requirements.number);
   updateRequirement('req-special', requirements.special);
-  
+
   return Object.values(requirements).every(val => val === true);
 }
 
 function updateRequirement(id, isValid) {
   const element = document.getElementById(id);
   const icon = element.querySelector('.req-icon');
-  
+
   if (isValid) {
     element.classList.add('valid');
     icon.textContent = '✓';
@@ -147,10 +147,10 @@ function resetPasswordValidation() {
 
 function checkPasswordRules(password) {
   return {
-    length:  password.length >= 8,
-    upper:   /[A-Z]/.test(password),
-    lower:   /[a-z]/.test(password),
-    number:  /[0-9]/.test(password),
+    length: password.length >= 8,
+    upper: /[A-Z]/.test(password),
+    lower: /[a-z]/.test(password),
+    number: /[0-9]/.test(password),
     special: /[!@#$%^&*(),.?":{}|<>_\-+=\[\]\\\/~`]/.test(password)
   };
 }
@@ -184,7 +184,7 @@ async function handlePurchase(event) {
 
   const submitBtn = document.getElementById('submitBtn');
   const loadingOverlay = document.getElementById('loading-overlay');
-  
+
   if (loadingOverlay) {
     const loadingText = loadingOverlay.querySelector('div:last-child');
     if (loadingText) loadingText.textContent = 'Initializing payment...';
@@ -202,7 +202,7 @@ async function handlePurchase(event) {
       body: JSON.stringify(pendingData)
     });
     const orderData = await orderRes.json();
-    
+
     if (orderData.error) {
       alert('Error creating order: ' + orderData.error);
       if (loadingOverlay) loadingOverlay.style.display = 'none';
@@ -231,7 +231,7 @@ async function handlePurchase(event) {
       },
       theme: { color: '#4F46E5' },
       modal: {
-        ondismiss: function() {
+        ondismiss: function () {
           // If user cancels checkout, bring them back to registration form
           document.getElementById('purchaseModal').style.display = 'flex';
           if (submitBtn) {
@@ -247,14 +247,14 @@ async function handlePurchase(event) {
           if (loadingText) loadingText.textContent = 'Verifying payment...';
           loadingOverlay.style.display = 'flex';
         }
-        
+
         const verifyPayload = {
           ...pendingData,
           razorpay_payment_id: response.razorpay_payment_id,
           razorpay_order_id: response.razorpay_order_id,
           razorpay_signature: response.razorpay_signature
         };
-        
+
         try {
           const verifyRes = await fetch('/api/payment/verify', {
             method: 'POST',
@@ -262,9 +262,9 @@ async function handlePurchase(event) {
             body: JSON.stringify(verifyPayload)
           });
           const verifyData = await verifyRes.json();
-          
+
           if (loadingOverlay) loadingOverlay.style.display = 'none';
-          
+
           if (verifyRes.ok && verifyData.success) {
             showSuccessModal(pendingData);
           } else {
@@ -275,7 +275,7 @@ async function handlePurchase(event) {
               submitBtn.innerHTML = 'Proceed to Payment 💳';
             }
           }
-        } catch(err) {
+        } catch (err) {
           console.error(err);
           if (loadingOverlay) loadingOverlay.style.display = 'none';
           alert('Error during payment verification.');
@@ -287,7 +287,7 @@ async function handlePurchase(event) {
         }
       }
     };
-    
+
     const rzp = new window.Razorpay(options);
     rzp.open();
   } catch (err) {
@@ -302,19 +302,19 @@ async function handlePurchase(event) {
 }
 
 function showSuccessModal(pendingData) {
-  
+
   // Set dynamic data
   const emailEl = document.getElementById('successEmail');
   if (emailEl) emailEl.textContent = pendingData.email;
-  
+
   const planEl = document.getElementById('successPlanName');
   if (planEl) {
     let pName = 'Basic';
     if (pendingData.plan_id == 2) pName = 'Pro';
     if (pendingData.plan_id == 3) pName = 'Premium';
-    planEl.textContent = pName + ' Plan';
+    planEl.textContent = pNahandlerme + ' Plan';
   }
-  
+
   window._pendingPurchase = null;
   document.getElementById('rzpSuccessOverlay').style.display = 'flex';
 }
@@ -333,23 +333,23 @@ function updatePasswordStrength(val) {
   const p1 = document.getElementById('pw-strength-1');
   const p2 = document.getElementById('pw-strength-2');
   const p3 = document.getElementById('pw-strength-3');
-  
+
   if (!p1 || !p2 || !p3) return;
-  
+
   const hasMinLength = val.length >= 8;
   const hasNumber = /\d/.test(val);
   const hasSpecial = /[!@#$%^&*]/.test(val);
-  
+
   let score = 0;
   if (val.length > 0) score = 1;
   if (hasMinLength) score = 2;
   if (hasMinLength && (hasNumber || hasSpecial)) score = 3;
-  
+
   // Colors: red, yellow, green
   const c1 = score >= 1 ? '#EF4444' : 'rgba(255,255,255,0.1)';
   const c2 = score >= 2 ? '#F59E0B' : 'rgba(255,255,255,0.1)';
   const c3 = score >= 3 ? '#10B981' : 'rgba(255,255,255,0.1)';
-  
+
   if (score === 3) {
     p1.style.background = '#10B981';
     p2.style.background = '#10B981';
@@ -370,25 +370,25 @@ async function loadPlansAndRender() {
     const res = await fetch('/api/plans');
     if (!res.ok) throw new Error('Failed to fetch plans');
     const plans = await res.json();
-    
+
     const grid = document.querySelector('.pricing-grid');
     if (!grid) return;
     grid.innerHTML = '';
-    
+
     plans.forEach(p => {
       const isFeatured = p.name.toLowerCase() === 'standard';
       const features = getPlanFeatures(p.name);
-      
+
       const card = document.createElement('div');
       card.className = `pricing-card${isFeatured ? ' featured' : ''}`;
-      
+
       let badgeHTML = '';
       if (isFeatured) {
         badgeHTML = '<div class="badge">MOST POPULAR</div>';
       }
-      
+
       let featuresListHTML = features.map(f => `<li>${f}</li>`).join('');
-      
+
       card.innerHTML = `
         ${badgeHTML}
         <h3>${escapeHtml(p.name)} Plan</h3>
@@ -471,7 +471,7 @@ async function simulatePaymentSuccess(event) {
 
   const submitBtn = document.getElementById('submitBtn');
   const loadingOverlay = document.getElementById('loading-overlay');
-  
+
   if (loadingOverlay) {
     const loadingText = loadingOverlay.querySelector('div:last-child');
     if (loadingText) loadingText.textContent = 'Simulating payment success...';
@@ -489,9 +489,9 @@ async function simulatePaymentSuccess(event) {
       body: JSON.stringify(pendingData)
     });
     const simulateData = await simulateRes.json();
-    
+
     if (loadingOverlay) loadingOverlay.style.display = 'none';
-    
+
     if (simulateRes.ok && simulateData.success) {
       document.getElementById('purchaseModal').style.display = 'none';
       showSuccessModal(pendingData);
@@ -502,7 +502,7 @@ async function simulatePaymentSuccess(event) {
         submitBtn.innerHTML = 'Proceed to Payment 💳';
       }
     }
-  } catch(err) {
+  } catch (err) {
     console.error(err);
     if (loadingOverlay) loadingOverlay.style.display = 'none';
     alert('Error during simulated payment.');
