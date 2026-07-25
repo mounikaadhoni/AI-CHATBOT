@@ -2607,6 +2607,14 @@ app.post('/api/payment/verify', async (req, res) => {
     .digest('hex');
 
   if (generated_signature !== razorpay_signature) {
+    console.log("========== PAYMENT VERIFY ==========");
+    console.log("Order ID:", razorpay_order_id);
+    console.log("Payment ID:", razorpay_payment_id);
+    console.log("Received Signature:", razorpay_signature);
+    console.log("Generated Signature:", generated_signature);
+    console.log("Key ID:", process.env.RAZORPAY_KEY_ID);
+    console.log("Secret Exists:", !!process.env.RAZORPAY_KEY_SECRET);
+    console.log("====================================");
     console.error('❌ Payment verification failed: Invalid signature.');
     return res.status(400).json({ error: 'Invalid payment signature' });
   }
