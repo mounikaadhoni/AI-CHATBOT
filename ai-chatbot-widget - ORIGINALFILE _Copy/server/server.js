@@ -432,7 +432,6 @@ function resolvePlanByName(planName) {
 
 // In-memory fallback
 const memoryStore = {};
-
 function saveMessage(sessionId, role, content, file, meta = {}) {
   if (db) {
     db.prepare('INSERT OR IGNORE INTO sessions (session_id) VALUES (?)').run(sessionId);
@@ -795,6 +794,8 @@ async function sendLeadEmail(lead) {
       },
       tls: { rejectUnauthorized: false }
     });
+    await transporter.verify();
+    console.log("SMTP Connection Successful");
 
     await transporter.sendMail({
       from: `"${config.companyName || 'Chatbot'}" <${emailCfg.senderEmail}>`,
@@ -825,37 +826,54 @@ async function sendLeadEmail(lead) {
 async function sendWelcomeEmail(client, plainPassword, req) {
   const companyName = client.company_name;
   const email = client.email;
-  console.log(`[EMAIL] 🚀 Triggered sendWelcomeEmail() for client: ${companyName} (${email})`);
+  console.log(`==================================================`);
+  console.log(`[EMAIL] 🚀 BEFORE sendWelcomeEmail() - Triggered for client: "${companyName}" (${email})`);
 
   try {
     const config = loadConfig();
     const emailCfg = getEmailConfig();
-    console.log(`[EMAIL] Loaded config: enabled=${emailCfg.enabled}, host=${emailCfg.smtpHost}, port=${emailCfg.smtpPort}, user=${emailCfg.smtpUser}, sender=${emailCfg.senderEmail}, admin=${emailCfg.adminEmail}`);
+    console.log(`[EMAIL] 🔍 Checking SMTP Configuration:`);
+    console.log(`  - Enabled:      ${emailCfg.enabled}`);
+    console.log(`  - SMTP Host:    ${emailCfg.smtpHost}`);
+    console.log(`  - SMTP Port:    ${emailCfg.smtpPort}`);
+    console.log(`  - SMTP User:    ${emailCfg.smtpUser}`);
+    console.log(`  - Sender Email: ${emailCfg.senderEmail}`);
+    console.log(`  - Admin Email:  ${emailCfg.adminEmail}`);
+    console.log(`  - Pass Set:     ${emailCfg.smtpPass ? 'Yes (length: ' + emailCfg.smtpPass.length + ')' : 'NO (MISSING/EMPTY)'}`);
 
-    if (!emailCfg.enabled || !emailCfg.smtpUser) {
-      console.warn("⚠️ SMTP credentials not fully configured or email notifications disabled, skipping welcome email.");
-      return { success: false, error: 'Email notifications disabled or SMTP credentials not configured' };
+    if (!emailCfg.enabled) {
+      console.warn("⚠️ [EMAIL] Email notifications are disabled in configuration (EMAIL_ENABLED=false). Skipping welcome email.");
+      return { success: false, error: 'Email notifications disabled' };
     }
 
-    console.log(`[EMAIL] Initializing SMTP transporter...`);
+    if (!emailCfg.smtpUser || !emailCfg.smtpPass) {
+      console.error("❌ [EMAIL] SMTP credentials incomplete! smtpUser or smtpPass is missing. Welcome email cannot be sent.");
+      return { success: false, error: 'SMTP credentials missing or incomplete' };
+    }
+
+    console.log(`[EMAIL] ⚙️ Initializing Nodemailer SMTP transporter (${emailCfg.smtpHost}:${emailCfg.smtpPort})...`);
     const transporter = nodemailer.createTransport({
-      host: "smtp.gmail.com",
-      port: 587,
-      secure: false,
-      family: 4,
-      auth: {
-        user: emailCfg.smtpUser,
-        pass: emailCfg.smtpPass
-      },
-      tls: {
-        rejectUnauthorized: false
-      },
-      connectionTimeout: 10000,
-      greetingTimeout: 10000,
-      socketTimeout: 10000
+      host: emailCfg.smtpHost,
+      port: emailCfg.smtpPort,
+      secure: emailCfg.smtpPort === 465,
+      auth: { user: emailCfg.smtpUser, pass: emailCfg.smtpPass },
+      tls: { rejectUnauthorized: false },
+      connectionTimeout: 10000
     });
-    await transporter.verify();
-    console.log("✅ SMTP Connected Successfully");
+
+    // Check if nodemailer transporter is working
+    console.log(`[EMAIL] 🔌 Verifying Nodemailer transporter connection to SMTP server...`);
+    try {
+      await transporter.verify();
+      console.log(`[EMAIL] ✅ Nodemailer transporter verified successfully! Server is ready to take messages.`);
+    } catch (verifyError) {
+      console.error(`[EMAIL] ❌ Nodemailer Transporter Verification FAILED!`);
+      console.error(`[EMAIL] Complete Transporter Error:`, verifyError);
+      console.error(`[EMAIL] Error Code:`, verifyError.code);
+      console.error(`[EMAIL] Error Message:`, verifyError.message);
+      if (verifyError.response) console.error(`[EMAIL] Server Response:`, verifyError.response);
+      return { success: false, error: `Transporter verification failed: ${verifyError.message}`, details: verifyError };
+    }
 
 
     // Resolve login URL: Use PUBLIC_URL if specified, otherwise fall back to host headers

@@ -854,26 +854,54 @@ async function sendLeadEmail(lead) {
 async function sendWelcomeEmail(client, plainPassword, req) {
   const companyName = client.company_name;
   const email = client.email;
-  console.log(`[EMAIL] 🚀 Triggered sendWelcomeEmail() for client: ${companyName} (${email})`);
+  console.log(`==================================================`);
+  console.log(`[EMAIL] 🚀 BEFORE sendWelcomeEmail() - Triggered for client: "${companyName}" (${email})`);
 
   try {
     const config = loadConfig();
     const emailCfg = getEmailConfig();
-    console.log(`[EMAIL] Loaded config: enabled=${emailCfg.enabled}, host=${emailCfg.smtpHost}, port=${emailCfg.smtpPort}, user=${emailCfg.smtpUser}, sender=${emailCfg.senderEmail}, admin=${emailCfg.adminEmail}`);
+    console.log(`[EMAIL] 🔍 Checking SMTP Configuration:`);
+    console.log(`  - Enabled:      ${emailCfg.enabled}`);
+    console.log(`  - SMTP Host:    ${emailCfg.smtpHost}`);
+    console.log(`  - SMTP Port:    ${emailCfg.smtpPort}`);
+    console.log(`  - SMTP User:    ${emailCfg.smtpUser}`);
+    console.log(`  - Sender Email: ${emailCfg.senderEmail}`);
+    console.log(`  - Admin Email:  ${emailCfg.adminEmail}`);
+    console.log(`  - Pass Set:     ${emailCfg.smtpPass ? 'Yes (length: ' + emailCfg.smtpPass.length + ')' : 'NO (MISSING/EMPTY)'}`);
 
-    if (!emailCfg.enabled || !emailCfg.smtpUser) {
-      console.warn("⚠️ SMTP credentials not fully configured or email notifications disabled, skipping welcome email.");
-      return { success: false, error: 'Email notifications disabled or SMTP credentials not configured' };
+    if (!emailCfg.enabled) {
+      console.warn("⚠️ [EMAIL] Email notifications are disabled in configuration (EMAIL_ENABLED=false). Skipping welcome email.");
+      return { success: false, error: 'Email notifications disabled' };
     }
 
-    console.log(`[EMAIL] Initializing SMTP transporter...`);
+    if (!emailCfg.smtpUser || !emailCfg.smtpPass) {
+      console.error("❌ [EMAIL] SMTP credentials incomplete! smtpUser or smtpPass is missing. Welcome email cannot be sent.");
+      return { success: false, error: 'SMTP credentials missing or incomplete' };
+    }
+
+    console.log(`[EMAIL] ⚙️ Initializing Nodemailer SMTP transporter (${emailCfg.smtpHost}:${emailCfg.smtpPort})...`);
     const transporter = nodemailer.createTransport({
       host: emailCfg.smtpHost,
       port: emailCfg.smtpPort,
       secure: emailCfg.smtpPort === 465,
       auth: { user: emailCfg.smtpUser, pass: emailCfg.smtpPass },
-      tls: { rejectUnauthorized: false }
+      tls: { rejectUnauthorized: false },
+      connectionTimeout: 10000
     });
+
+    // Check if nodemailer transporter is working
+    console.log(`[EMAIL] 🔌 Verifying Nodemailer transporter connection to SMTP server...`);
+    try {
+      await transporter.verify();
+      console.log(`[EMAIL] ✅ Nodemailer transporter verified successfully! Server is ready to take messages.`);
+    } catch (verifyError) {
+      console.error(`[EMAIL] ❌ Nodemailer Transporter Verification FAILED!`);
+      console.error(`[EMAIL] Complete Transporter Error:`, verifyError);
+      console.error(`[EMAIL] Error Code:`, verifyError.code);
+      console.error(`[EMAIL] Error Message:`, verifyError.message);
+      if (verifyError.response) console.error(`[EMAIL] Server Response:`, verifyError.response);
+      return { success: false, error: `Transporter verification failed: ${verifyError.message}`, details: verifyError };
+    }
 
     // Resolve login URL: Use PUBLIC_URL if specified, otherwise fall back to host headers
     let loginUrl;
@@ -884,10 +912,8 @@ async function sendWelcomeEmail(client, plainPassword, req) {
       const host = req ? req.get('host') : 'localhost:4000';
       loginUrl = `${protocol}://${host}/admin/login.html`;
     }
-    console.log(`[EMAIL] Generated login URL: ${loginUrl}`);
+    console.log(`[EMAIL] 🔗 Generated login URL: ${loginUrl}`);
 
-    const companyName = client.company_name;
-    const email = client.email;
     const planName = client.plan_name || 'Basic';
     const status = client.status || 'COD_PENDING';
 
@@ -1065,18 +1091,25 @@ async function sendWelcomeEmail(client, plainPassword, req) {
 </html>
 `;
 
-    console.log(`[EMAIL] Attempting to send welcome email from "${emailCfg.senderEmail}" to "${email}"...`);
+    console.log(`[EMAIL] 📤 Attempting to send welcome email from "${emailCfg.senderEmail}" to "${email}"...`);
     const info = await transporter.sendMail({
       from: `"GAdigital Solution" <${emailCfg.senderEmail}>`,
       to: email,
       subject: `🚀 Welcome to GAdigital Solution - Your Account is Ready!`,
       html: mailHtml
     });
-    console.log(`[EMAIL] ✉️ Welcome email sent successfully to ${email} for client ${companyName}. MessageID: ${info.messageId}`);
-    return { success: true };
+    console.log(`[EMAIL] ✉️ Welcome email sent successfully to ${email} for client "${companyName}". MessageID: ${info.messageId}`);
+    console.log(`[EMAIL] 🏁 AFTER sendWelcomeEmail() - SUCCESS`);
+    console.log(`==================================================`);
+    return { success: true, messageId: info.messageId };
   } catch (err) {
-    console.error('[EMAIL] ❌ Failed to send welcome email:', err);
-    return { success: false, error: err.message };
+    console.error(`[EMAIL] ❌ COMPLETE ERROR in sendWelcomeEmail():`);
+    console.error(err);
+    console.error(`[EMAIL] Error message: ${err.message}`);
+    console.error(`[EMAIL] Error stack: ${err.stack}`);
+    console.log(`[EMAIL] 🏁 AFTER sendWelcomeEmail() - FAILED`);
+    console.log(`==================================================`);
+    return { success: false, error: err.message, stack: err.stack };
   }
 }
 
@@ -2653,7 +2686,9 @@ app.post('/api/payment/verify', async (req, res) => {
       }
 
       // Send welcome email with credentials
+      console.log(`[PAYMENT VERIFY] 📩 Payment verification successful for "${company_name}" (${email}). Calling sendWelcomeEmail()...`);
       const emailResult = await sendWelcomeEmail({ company_name, email, plan_name: planName, status: 'active' }, password, req);
+      console.log(`[PAYMENT VERIFY] ✉️ sendWelcomeEmail() completed. Success status: ${emailResult ? emailResult.success : false}`);
 
       res.json({
         success: true,
@@ -2678,7 +2713,9 @@ app.post('/api/payment/verify', async (req, res) => {
         created_at: new Date().toISOString()
       });
 
+      console.log(`[PAYMENT VERIFY (MEMORY)] 📩 Calling sendWelcomeEmail()...`);
       const emailResult = await sendWelcomeEmail({ company_name, email, plan_name: planName, status: 'active' }, password, req);
+      console.log(`[PAYMENT VERIFY (MEMORY)] ✉️ sendWelcomeEmail() completed. Success status: ${emailResult ? emailResult.success : false}`);
 
       res.json({
         success: true,
@@ -2748,7 +2785,9 @@ app.post('/api/payment/simulate-success', async (req, res) => {
       }
 
       // Send welcome email with credentials
+      console.log(`[SIMULATED PAYMENT] 📩 Calling sendWelcomeEmail() for simulated payment...`);
       const emailResult = await sendWelcomeEmail({ company_name, email, plan_name: planName, status: 'active' }, password, req);
+      console.log(`[SIMULATED PAYMENT] ✉️ sendWelcomeEmail() completed. Success status: ${emailResult ? emailResult.success : false}`);
 
       res.json({
         success: true,
@@ -2773,7 +2812,9 @@ app.post('/api/payment/simulate-success', async (req, res) => {
         created_at: new Date().toISOString()
       });
 
+      console.log(`[SIMULATED PAYMENT (MEMORY)] 📩 Calling sendWelcomeEmail()...`);
       const emailResult = await sendWelcomeEmail({ company_name, email, plan_name: planName, status: 'active' }, password, req);
+      console.log(`[SIMULATED PAYMENT (MEMORY)] ✉️ sendWelcomeEmail() completed. Success status: ${emailResult ? emailResult.success : false}`);
 
       res.json({
         success: true,
