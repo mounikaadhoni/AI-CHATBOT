@@ -310,9 +310,9 @@ function showSuccessModal(pendingData) {
   const planEl = document.getElementById('successPlanName');
   if (planEl) {
     let pName = 'Basic';
-    if (pendingData.plan_id == 2) pName = 'Pro';
+    if (pendingData.plan_id == 2) pName = pro;
     if (pendingData.plan_id == 3) pName = 'Premium';
-    planEl.textContent = pNahandlerme + ' Plan';
+    planEl.textContent = pName + ' Plan';
   }
 
   window._pendingPurchase = null;
