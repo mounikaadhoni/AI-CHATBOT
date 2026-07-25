@@ -2,6 +2,9 @@
 //  AI CHATBOT WIDGET — Backend Server
 //  Express + OpenAI + SQLite for chat history
 // ============================================================
+console.log("🚀 server.js started");
+require('dotenv').config();
+console.log("Environment loaded");
 const { Resend } = require("resend");
 const resend = new Resend(process.env.RESEND_API_KEY);
 require('dotenv').config({
