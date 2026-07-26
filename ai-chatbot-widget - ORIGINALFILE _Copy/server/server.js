@@ -789,12 +789,14 @@ async function sendLeadEmail(lead) {
 
     const transporter = nodemailer.createTransport({
       host: emailCfg.smtpHost,
-      port: Number(emailCfg.smtpPort),
-      secure: false,
+      port: 465,
+      secure: true,
       auth: {
         user: emailCfg.smtpUser,
         pass: emailCfg.smtpPass
+
       },
+      family: 4,
       tls: { rejectUnauthorized: false }
     });
     await transporter.verify();
@@ -860,23 +862,12 @@ async function sendWelcomeEmail(client, plainPassword, req) {
       port: emailCfg.smtpPort,
       secure: emailCfg.smtpPort === 465,
       auth: { user: emailCfg.smtpUser, pass: emailCfg.smtpPass },
+      family: 4, // CRITICAL: Force IPv4 for Railway container compatibility
       tls: { rejectUnauthorized: false },
-      connectionTimeout: 10000
+      connectionTimeout: 15000,
+      greetingTimeout: 15000,
+      socketTimeout: 15000
     });
-
-    // Check if nodemailer transporter is working
-    console.log(`[EMAIL] 🔌 Verifying Nodemailer transporter connection to SMTP server...`);
-    try {
-      await transporter.verify();
-      console.log(`[EMAIL] ✅ Nodemailer transporter verified successfully! Server is ready to take messages.`);
-    } catch (verifyError) {
-      console.error(`[EMAIL] ❌ Nodemailer Transporter Verification FAILED!`);
-      console.error(`[EMAIL] Complete Transporter Error:`, verifyError);
-      console.error(`[EMAIL] Error Code:`, verifyError.code);
-      console.error(`[EMAIL] Error Message:`, verifyError.message);
-      if (verifyError.response) console.error(`[EMAIL] Server Response:`, verifyError.response);
-      return { success: false, error: `Transporter verification failed: ${verifyError.message}`, details: verifyError };
-    }
 
 
     // Resolve login URL: Use PUBLIC_URL if specified, otherwise fall back to host headers

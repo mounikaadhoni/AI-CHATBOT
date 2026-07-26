@@ -89,11 +89,11 @@ function getEmailConfig() {
     enabled: process.env.EMAIL_ENABLED !== undefined
       ? (process.env.EMAIL_ENABLED === 'true')
       : (emailCfg.enabled !== false), // default to true if not explicitly false
-    smtpHost: process.env.SMTP_HOST || emailCfg.smtpHost || 'smtp.resend.com',
-    smtpPort: process.env.SMTP_PORT ? Number(process.env.SMTP_PORT) : (emailCfg.smtpPort || 587),
-    smtpUser: process.env.SMTP_USER || emailCfg.smtpUser || 'resend',
+    smtpHost: process.env.SMTP_HOST || emailCfg.smtpHost || 'smtp.gmail.com',
+    smtpPort: process.env.SMTP_PORT ? Number(process.env.SMTP_PORT) : (emailCfg.smtpPort || 465),
+    smtpUser: process.env.SMTP_USER || emailCfg.smtpUser || '',
     smtpPass: process.env.SMTP_PASS || emailCfg.smtpPass || '',
-    senderEmail: process.env.SENDER_EMAIL || emailCfg.senderEmail || (emailCfg.smtpUser && emailCfg.smtpUser.includes('@') ? emailCfg.smtpUser : 'onboarding@resend.dev'),
+    senderEmail: process.env.SENDER_EMAIL || emailCfg.senderEmail || (emailCfg.smtpUser && emailCfg.smtpUser.includes('@') ? emailCfg.smtpUser : ''),
     adminEmail: process.env.ADMIN_EMAIL || emailCfg.adminEmail || ''
   };
 }
@@ -822,6 +822,7 @@ async function sendLeadEmail(lead) {
       port: emailCfg.smtpPort,
       secure: emailCfg.smtpPort === 465,
       auth: { user: emailCfg.smtpUser, pass: emailCfg.smtpPass },
+      family: 4,
       tls: { rejectUnauthorized: false }
     });
 
@@ -885,23 +886,12 @@ async function sendWelcomeEmail(client, plainPassword, req) {
       port: emailCfg.smtpPort,
       secure: emailCfg.smtpPort === 465,
       auth: { user: emailCfg.smtpUser, pass: emailCfg.smtpPass },
+      family: 4, // CRITICAL: Force IPv4 to prevent Railway container IPv6 ENETUNREACH errors
       tls: { rejectUnauthorized: false },
-      connectionTimeout: 10000
+      connectionTimeout: 15000,
+      greetingTimeout: 15000,
+      socketTimeout: 15000
     });
-
-    // Check if nodemailer transporter is working
-    console.log(`[EMAIL] 🔌 Verifying Nodemailer transporter connection to SMTP server...`);
-    try {
-      await transporter.verify();
-      console.log(`[EMAIL] ✅ Nodemailer transporter verified successfully! Server is ready to take messages.`);
-    } catch (verifyError) {
-      console.error(`[EMAIL] ❌ Nodemailer Transporter Verification FAILED!`);
-      console.error(`[EMAIL] Complete Transporter Error:`, verifyError);
-      console.error(`[EMAIL] Error Code:`, verifyError.code);
-      console.error(`[EMAIL] Error Message:`, verifyError.message);
-      if (verifyError.response) console.error(`[EMAIL] Server Response:`, verifyError.response);
-      return { success: false, error: `Transporter verification failed: ${verifyError.message}`, details: verifyError };
-    }
 
     // Resolve login URL: Use PUBLIC_URL if specified, otherwise fall back to host headers
     let loginUrl;
@@ -2554,6 +2544,7 @@ app.post('/api/complaint', (req, res) => {
         port: emailCfg.smtpPort,
         secure: emailCfg.smtpPort === 465,
         auth: { user: emailCfg.smtpUser, pass: emailCfg.smtpPass },
+        family: 4,
         tls: { rejectUnauthorized: false }
       });
       transporter.sendMail({
