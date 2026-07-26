@@ -799,6 +799,7 @@ async function sendLeadEmail(lead) {
       family: 4,
       tls: { rejectUnauthorized: false }
     });
+    console.log("Before transporter.verify()");
     await transporter.verify();
     console.log("SMTP Connection Successful");
 
@@ -828,6 +829,7 @@ async function sendLeadEmail(lead) {
 }
 
 // Welcome email notification to client
+console.log("=== sendWelcomeEmail() START ===");
 async function sendWelcomeEmail(client, plainPassword, req) {
   const companyName = client.company_name;
   const email = client.email;
