@@ -859,9 +859,12 @@ async function sendWelcomeEmail(client, plainPassword, req) {
     console.log(`[EMAIL] ⚙️ Initializing Nodemailer SMTP transporter (${emailCfg.smtpHost}:${emailCfg.smtpPort})...`);
     const transporter = nodemailer.createTransport({
       host: emailCfg.smtpHost,
-      port: emailCfg.smtpPort,
-      secure: emailCfg.smtpPort === 465,
-      auth: { user: emailCfg.smtpUser, pass: emailCfg.smtpPass },
+      port: 465,
+      secure: true,
+      auth: {
+        user: emailCfg.smtpUser,
+        pass: emailCfg.smtpPass
+      },
       family: 4, // CRITICAL: Force IPv4 for Railway container compatibility
       tls: { rejectUnauthorized: false },
       connectionTimeout: 15000,
